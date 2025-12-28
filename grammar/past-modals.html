@@ -435,21 +435,50 @@
 
 <script>
     // --- UTILITIES ---
+    // متغیر برای ذخیره صداها
+    let voices = [];
+
+    // بارگذاری لیست صداها
+    function loadVoices() {
+        voices = window.speechSynthesis.getVoices();
+    }
+
+    // در کروم و برخی مرورگرها لیست صداها با تاخیر لود می‌شود
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
     function speak(text) {
         window.speechSynthesis.cancel();
         
-        // 1. Warm-up: پخش یک فاصله خالی با صدای صفر برای فعال‌سازی سخت‌افزار صدا
-        // این کار از بریده شدن حرف اول متن اصلی جلوگیری می‌کند
-        const empty = new SpeechSynthesisUtterance(" ");
-        empty.volume = 0; 
-        window.speechSynthesis.speak(empty);
+        // تلاش مجدد برای گرفتن صداها اگر لیست خالی بود
+        if (voices.length === 0) {
+            voices = window.speechSynthesis.getVoices();
+        }
 
-        // 2. Main Speech: پخش متن اصلی بلافاصله بعد از فعال شدن
         const msg = new SpeechSynthesisUtterance(text);
+        
+        // انتخاب هوشمند بهترین صدای موجود
+        // اولویت: گوگل > مایکروسافت > اپل
+        const preferredVoice = voices.find(voice => 
+            voice.name.includes("Google US English") || 
+            voice.name.includes("Microsoft Zira") || 
+            voice.name.includes("Samantha")
+        );
+
+        if (preferredVoice) {
+            msg.voice = preferredVoice;
+        }
+
         msg.lang = 'en-US';
-        msg.rate = 0.95;
+        msg.rate = 1; // سرعت کمی آهسته‌تر برای وضوح بیشتر
+        msg.pitch = 1;
+        
         window.speechSynthesis.speak(msg);
     }
+
+    // فراخوانی اولیه
+    loadVoices();
 
     function normalize(text) {
         if (!text) return "";
