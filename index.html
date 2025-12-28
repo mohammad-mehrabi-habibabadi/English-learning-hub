@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Mastery Hub</title>
+    <style>
+        /* --- کپی دقیق استایل‌های فایل شما برای حفظ تم --- */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #3b82f6;
+            --accent: #f59e0b;
+            --bg: #f3f4f6;
+            --surface: #ffffff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding-bottom: 80px;
+            line-height: 1.6;
+        }
+
+        /* --- Header (دقیقاً همان افکت چرخشی) --- */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 4rem 1rem 5rem 1rem;
+            text-align: center;
+            border-radius: 0 0 40px 40px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        
+        header::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotate 60s linear infinite;
+        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        h1 { margin: 0; font-size: 2.5rem; font-weight: 800; position: relative; }
+        .subtitle { opacity: 0.9; margin-top: 10px; font-size: 1.1rem; position: relative; }
+
+        /* --- Category Sections --- */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            margin-top: 40px;
+            color: var(--primary-dark);
+        }
+        
+        .section-header h2 { margin: 0; font-size: 1.5rem; }
+        .line { flex: 1; height: 2px; background: #e5e7eb; margin-left: 15px; border-radius: 2px; }
+
+        /* --- Cards Grid --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .topic-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* نوار رنگی سمت چپ کارت (مثل فایل اصلی) */
+        .topic-card.grammar { border-left: 6px solid var(--primary); }
+        .topic-card.vocab { border-left: 6px solid var(--accent); }
+
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .card-icon { font-size: 2rem; margin-bottom: 10px; }
+        .card-title { font-weight: 800; font-size: 1.2rem; margin-bottom: 8px; }
+        .card-desc { font-size: 0.95rem; color: var(--text-light); margin-bottom: 15px; }
+        
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            background: #e0e7ff;
+            color: var(--primary);
+            align-self: flex-start;
+        }
+
+        /* حالت غیرفعال برای درس‌های آینده */
+        .disabled { opacity: 0.6; pointer-events: none; filter: grayscale(1); }
+
+        /* --- Search Bar Styles --- */
+        .search-wrapper {
+            max-width: 500px;
+            margin: 25px auto 0 auto;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 15px 20px 15px 50px; /* فضای خالی سمت چپ برای آیکون */
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            outline: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .search-input:focus {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>English Course Hub</h1>
+    <div class="subtitle">Select a category to start learning</div>
+    
+    <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="searchBox" onkeyup="filterContent()" placeholder="Search topics (e.g., Modals, Business)...">
+    </div>
+</header>
+
+<div class="main-container">
+
+    <div class="section-header">
+        <h2>📘 Grammar Lab</h2>
+        <div class="line"></div>
+    </div>
+    
+    <div class="grid">
+        <a href="grammar/past-modals.html" class="topic-card grammar">
+            <div class="card-icon">🕵️‍♂️</div>
+            <div class="card-title">Past Modals</div>
+            <div class="card-desc">Deduction, Regrets & Speculation. 100+ Quiz questions inside.</div>
+            <div class="status-badge">Available</div>
+        </a>
+
+        <div class="topic-card grammar disabled">
+            <div class="card-icon">🔮</div>
+            <div class="card-title">Future Forms</div>
+            <div class="card-desc">Will, Going to, Future Perfect & Continuous.</div>
+            <div class="status-badge">Coming Soon</div>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <h2>🧠 Vocabulary & Collocations</h2>
+        <div class="line"></div>
+    </div>
+
+    <div class="grid">
+        <div class="topic-card vocab disabled">
+            <div class="card-icon">💼</div>
+            <div class="card-title">Business English</div>
+            <div class="card-desc">Essential collocations for meetings and emails.</div>
+            <div class="status-badge">Coming Soon</div>
+        </div>
+        
+        <div class="topic-card vocab disabled">
+            <div class="card-icon">✈️</div>
+            <div class="card-title">Travel Idioms</div>
+            <div class="card-desc">Real-world phrases for your next trip.</div>
+            <div class="status-badge">Coming Soon</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function filterContent() {
+        // متنی که کاربر تایپ کرده (با حروف کوچک)
+        const input = document.getElementById('searchBox').value.toLowerCase();
+        
+        // تمام کارت‌های درس
+        const cards = document.querySelectorAll('.topic-card');
+        
+        cards.forEach(card => {
+            const title = card.querySelector('.card-title').innerText.toLowerCase();
+            const desc = card.querySelector('.card-desc').innerText.toLowerCase();
+            
+            // اگر متن جستجو در عنوان یا توضیحات بود، نمایش بده، وگرنه مخفی کن
+            if (title.includes(input) || desc.includes(input)) {
+                card.style.display = "flex";
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        // مخفی کردن تیتر بخش‌ها اگر همه کارت‌هایش مخفی شده باشند
+        // (این بخش اختیاری است ولی ظاهر را تمیزتر می‌کند)
+        const grids = document.querySelectorAll('.grid');
+        grids.forEach(grid => {
+            // پیدا کردن کارت‌های قابل مشاهده در این بخش
+            const visibleCards = Array.from(grid.children).filter(c => c.style.display !== 'none');
+            // پیدا کردن هدر مربوط به این بخش (المنت قبلی گرید)
+            const header = grid.previousElementSibling; 
+            
+            if (header && header.classList.contains('section-header')) {
+                if (visibleCards.length === 0) {
+                    header.style.display = 'none';
+                } else {
+                    header.style.display = 'flex';
+                }
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

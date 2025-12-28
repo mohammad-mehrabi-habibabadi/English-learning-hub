@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mastering English Modals</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #3b82f6;
+            --accent: #f59e0b;
+            --bg: #f3f4f6;
+            --surface: #ffffff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --success: #10b981;
+            --error: #ef4444;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding-bottom: 80px;
+            line-height: 1.6;
+        }
+
+        /* --- Header --- */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 3rem 1rem 4rem 1rem;
+            text-align: center;
+            border-radius: 0 0 40px 40px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotate 60s linear infinite;
+        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        h1 { margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px; position: relative; }
+        .subtitle { opacity: 0.95; margin-top: 10px; font-weight: 400; font-size: 1.1rem; position: relative; }
+
+        /* --- Navigation --- */
+        .nav-container {
+            display: flex; justify-content: center; gap: 15px; padding: 0 20px;
+            margin-top: -35px; position: sticky; top: 15px; z-index: 100;
+        }
+
+        .nav-btn {
+            background: var(--surface); border: none; padding: 14px 28px;
+            border-radius: 50px; font-weight: 700; color: var(--text-light);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08); cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); flex: 1;
+            max-width: 160px; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+
+        .nav-btn.active {
+            background: var(--text); color: white; transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        /* --- Content Layout --- */
+        .container {
+            max-width: 1000px; margin: 30px auto; padding: 0 20px;
+            display: none; animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .container.active { display: block; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Educational Cards --- */
+        .card {
+            background: var(--surface); border-radius: var(--radius); padding: 30px;
+            margin-bottom: 30px; box-shadow: var(--shadow); position: relative; overflow: hidden;
+            /* تغییر: تعریف نوار رنگی به عنوان بردر سمت چپ */
+            border: 1px solid rgba(0,0,0,0.05);
+            border-left: 6px solid var(--primary); /* ضخامت نوار ۶ پیکسل */
+        }
+        /* کلاس card::after کاملاً حذف شد */
+
+        .card h2 { margin-top: 0; color: var(--primary-dark); font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        .tag { background: #e0e7ff; color: var(--primary); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; text-transform: uppercase; font-weight: bold; }
+
+        .explanation-text { color: #4b5563; margin-bottom: 20px; font-size: 1.05rem; }
+        
+        .formula {
+            font-family: 'Fira Code', monospace; background: #1f2937; color: #a5b4fc;
+            padding: 15px; border-radius: 8px; text-align: center; margin: 15px 0;
+            font-size: 1.1rem; border: 1px solid #374151; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .example-box {
+            background: #f8fafc; border-left: 4px solid var(--accent); padding: 15px 20px;
+            margin-top: 15px; border-radius: 0 8px 8px 0;
+        }
+        .example-sentence { font-weight: 600; color: var(--text); font-size: 1.1rem; margin-bottom: 5px; }
+        .example-context { font-size: 0.9rem; color: var(--text-light); font-style: italic; }
+
+        .pro-tip {
+            margin-top: 25px; background: #ecfdf5; border: 1px solid #a7f3d0;
+            border-radius: 8px; padding: 15px; color: #065f46; font-size: 0.95rem;
+        }
+        .pro-tip strong { display: block; margin-bottom: 5px; color: #047857; }
+
+        /* --- Audio Button --- */
+        .audio-btn {
+            background: white; border: 1px solid #e5e7eb; cursor: pointer;
+            width: 36px; height: 36px; border-radius: 50%; display: inline-flex;
+            align-items: center; justify-content: center; font-size: 1.1rem;
+            transition: all 0.2s; margin-left: 10px; color: var(--primary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); vertical-align: middle;
+        }
+        .audio-btn:hover { transform: scale(1.1); background: var(--primary); color: white; border-color: var(--primary); }
+
+        /* --- Quiz UI --- */
+        .quiz-header {
+            display: flex; justify-content: space-between; align-items: center;
+            background: white; padding: 20px; border-radius: var(--radius); margin-bottom: 20px; box-shadow: var(--shadow);
+        }
+        .progress-track { width: 100%; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; margin-bottom: 25px; }
+        .progress-bar { height: 100%; background: var(--success); width: 0%; transition: width 0.5s ease; }
+
+        .q-card {
+            background: white; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow);
+            margin-bottom: 20px; animation: fadeIn 0.3s;
+        }
+        .q-text { font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; line-height: 1.5; }
+        
+        .opt-btn {
+            display: block; width: 100%; text-align: left; padding: 15px 20px;
+            margin-bottom: 10px; border: 2px solid #e5e7eb; border-radius: 10px;
+            background: white; cursor: pointer; font-size: 1rem; transition: all 0.2s;
+        }
+        .opt-btn:hover { border-color: var(--primary); background: #eff6ff; }
+        .opt-btn.correct { border-color: var(--success); background: #ecfdf5; color: #065f46; }
+        .opt-btn.wrong { border-color: var(--error); background: #fef2f2; color: #991b1b; }
+
+        .input-wrapper { position: relative; margin-top: 15px; }
+        .text-input {
+            width: 100%; padding: 15px; border: 2px solid #e5e7eb; border-radius: 10px;
+            font-size: 1.1rem; outline: none; transition: border-color 0.2s;
+        }
+        .text-input:focus { border-color: var(--primary); }
+
+        .feedback-box {
+            margin-top: 20px; padding: 20px; border-radius: 10px; display: none;
+            animation: slideDown 0.3s;
+        }
+        .feedback-box.success { background: #ecfdf5; border: 1px solid #a7f3d0; color: #064e3b; }
+        .feedback-box.error { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+        .feedback-box.warning { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+
+        /* --- Reading Section --- */
+        .instruction-box {
+            background: #fff; padding: 20px; border-radius: var(--radius); border-left: 5px solid var(--accent);
+            margin-bottom: 25px; box-shadow: var(--shadow);
+        }
+        
+        .reading-tabs { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
+        .r-tab {
+            padding: 8px 16px; background: white; border: 1px solid #e5e7eb; border-radius: 20px;
+            cursor: pointer; white-space: nowrap; font-size: 0.9rem; font-weight: 600; color: var(--text-light);
+        }
+        .r-tab.active { background: var(--text); color: white; border-color: var(--text); }
+
+        .reading-content {
+            background: white; padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow);
+            font-family: 'Georgia', serif; font-size: 1.15rem; line-height: 1.8; color: #374151;
+        }
+        
+        .gap-input {
+            display: inline-block; width: 140px; border: none; border-bottom: 2px solid #9ca3af;
+            background: transparent; text-align: center; font-family: 'Inter', sans-serif;
+            font-weight: 600; color: var(--primary); font-size: 1rem; padding: 0 5px;
+            transition: all 0.2s;
+        }
+        .gap-input:focus { outline: none; border-bottom-color: var(--primary); border-width: 3px; }
+        .gap-input.correct { border-bottom-color: var(--success); color: var(--success); }
+        .gap-input.wrong { border-bottom-color: var(--error); color: var(--error); text-decoration: line-through; }
+
+        .word-pool {
+            background: #f1f5f9; padding: 15px; border-radius: 10px; margin-bottom: 20px;
+            display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+        }
+        .pool-item { background: white; padding: 5px 12px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+        .correction-span { color: var(--success); font-weight: bold; margin-left: 5px; font-size: 0.9rem; font-family: sans-serif; }
+
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* --- Tricky Point / Traffic Light Feature --- */
+        .tricky-btn {
+            background: #fffbeb; border: 2px solid #f59e0b; color: #92400e;
+            padding: 12px 15px; border-radius: 8px; width: 100%; text-align: left;
+            cursor: pointer; margin-top: 15px; font-weight: 600; display: flex;
+            justify-content: space-between; align-items: center; transition: all 0.2s;
+        }
+        .tricky-btn:hover { background: #fef3c7; }
+        .tricky-content {
+            display: none; background: #fff; border: 1px solid #e5e7eb;
+            border-top: none; padding: 15px; border-radius: 0 0 8px 8px;
+            margin-bottom: 10px; font-size: 0.95rem; color: #374151;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            animation: slideDown 0.3s;
+        }
+        .tricky-content strong { color: #b91c1c; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .nav-btn { padding: 10px; font-size: 0.85rem; }
+            .reading-content { padding: 20px; font-size: 1rem; }
+            .gap-input { width: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Past Modals Masterclass</h1>
+    <div class="subtitle">Comprehensive Guide • 100+ Mixed Questions • 5 Graded Readings</div>
+</header>
+
+<div class="nav-container">
+    <a href="../index.html" class="nav-btn" style="text-decoration:none; color:inherit;"><span>🏠</span> Home</a>
+    
+    <button class="nav-btn active" onclick="switchTab('learn')"><span>📖</span> Learn</button>
+    <button class="nav-btn" onclick="switchTab('practice')"><span>🎯</span> Quiz</button>
+    <button class="nav-btn" onclick="switchTab('reading')"><span>📚</span> Reading</button>
+</div>
+
+<!-- ======================= 1. LEARN TAB ======================= -->
+<div id="learn" class="container active">
+    
+    <div class="card" style="border-left-color: #10b981;">
+        <h2 style="color:#065f46"><span class="tag" style="background:#d1fae5; color:#065f46">Certainty</span> Logical Deduction</h2>
+        <p class="explanation-text">Act like a detective. Use evidence to conclude what happened (95% sure) or didn't happen (0% chance).</p>
+
+        <h3>1. It definitely happened (95-100%)</h3>
+        <div class="formula">MUST + HAVE + Past Participle</div>
+        <div class="example-box">
+            <div class="example-sentence">"The grass is wet. It <strong>must have rained</strong>." <button class="audio-btn" onclick="speak('It must have rained.')">🔊</button></div>
+            <div class="example-context">Evidence: Wet grass. Conclusion: Rain.</div>
+        </div>
+
+        <h3>2. It definitely did NOT happen (Impossible)</h3>
+        <div class="formula">CAN'T / COULDN'T + HAVE + Past Participle</div>
+        <div class="example-box">
+            <div class="example-sentence">"He <strong>can't have stolen</strong> it. He was with me!" <button class="audio-btn" onclick="speak('He can\'t have stolen it.')">🔊</button></div>
+            <div class="example-context">Evidence: He was with me. Conclusion: Theft is impossible.</div>
+        </div>
+
+        <button class="tricky-btn" onclick="toggleTricky('trick1')">
+            <span>🚦 Warning: "Mustn't have" vs "Can't have"</span>
+            <span style="font-size:0.8rem; opacity:0.7">(Click to reveal)</span>
+        </button>
+        <div id="trick1" class="tricky-content">
+            <p><strong>Never use "Mustn't have" for deduction!</strong></p>
+            <ul>
+                <li>❌ "He mustn't have seen me." (Incorrect meaning)</li>
+                <li>✅ "He <strong>can't have</strong> seen me." (Correct: It's impossible he saw me).</li>
+            </ul>
+            <p><em>Mustn't</em> usually means prohibition (Don't do it!). In the past, we use "Can't have" to say something was impossible.</p>
+        </div>
+    </div>
+
+    <div class="card" style="border-left-color: #3b82f6;">
+        <h2 style="color:#1e40af"><span class="tag" style="background:#dbeafe; color:#1e40af">Possibility</span> Speculation</h2>
+        <p class="explanation-text">We are guessing. We don't know the answer. (40-60% chance).</p>
+
+        <div class="formula">MIGHT / MAY / COULD + HAVE + Past Participle</div>
+        
+        <div class="example-box">
+            <div class="example-sentence">"She's late. She <strong>might have missed</strong> the bus." <button class="audio-btn" onclick="speak('She might have missed the bus.')">🔊</button></div>
+            <div class="example-sentence" style="margin-top:10px">"Or she <strong>could have overslept</strong>." <button class="audio-btn" onclick="speak('She could have overslept.')">🔊</button></div>
+        </div>
+
+        <h3 style="margin-top:20px; border-top:1px dashed #cbd5e1; padding-top:15px">Negative Possibility (Maybe not)</h3>
+        <div class="formula">MIGHT NOT / MAY NOT + HAVE + Past Participle</div>
+        
+        <div class="example-box">
+            <div class="example-sentence">"He didn't wave. He <strong>might not have seen</strong> me." <button class="audio-btn" onclick="speak('He might not have seen me.')">🔊</button></div>
+            <div class="example-context">Meaning: It is possible he didn't see me.</div>
+            
+            <div style="margin-top:10px; font-size:0.9rem; color:#b91c1c; background:#fef2f2; padding:8px; border-radius:6px; border-left:3px solid #ef4444;">
+                <strong>⚠️ Important:</strong> Don't use "Couldn't have" here!<br>
+                "He <em>couldn't have</em> seen me" = It was <strong>IMPOSSIBLE</strong>.<br>
+                "He <em>might not have</em> seen me" = Maybe he didn't.
+            </div>
+        </div>
+        <button class="tricky-btn" onclick="toggleTricky('trick2')">
+            <span>🚦 Warning: "Could have" vs "Might have"</span>
+            <span style="font-size:0.8rem; opacity:0.7">(Click to reveal)</span>
+        </button>
+        <div id="trick2" class="tricky-content">
+            <p>Sometimes <strong>Could have</strong> is different from Might have:</p>
+            <p><strong>Could have</strong> often means: <em>"It was possible, but it didn't happen."</em></p>
+            <ul>
+                <li>"You <strong>could have died</strong> driving so fast!" (But you didn't).</li>
+                <li>"I <strong>could have won</strong>, but I gave up." (I had the ability, but didn't use it).</li>
+            </ul>
+            <p><em>Might have</em> is purely guessing regarding the past.</p>
+        </div>
+    </div>
+
+    <div class="card" style="border-left-color: #ef4444;">
+        <h2 style="color:#991b1b"><span class="tag" style="background:#fee2e2; color:#991b1b">Judgment</span> Regret & Criticism</h2>
+        <p class="explanation-text">Talking about past mistakes or missed opportunities.</p>
+
+        <h3>1. You didn't do it (but it was a good idea)</h3>
+        <div class="formula">SHOULD + HAVE + Past Participle</div>
+
+        <div class="example-box">
+            <div class="example-sentence">"I <strong>should have studied</strong>." <button class="audio-btn" onclick="speak('I should have studied.')">🔊</button></div>
+            <div class="example-context">Reality: I didn't study (Regret).</div>
+        </div>
+        
+        <h3 style="margin-top:20px; border-top:1px dashed #cbd5e1; padding-top:15px">2. You did it (but it was a bad idea)</h3>
+        <div class="formula">SHOULD NOT / SHOULDN'T + HAVE + Past Participle</div>
+
+        <div class="example-box">
+            <div class="example-sentence">"You <strong>shouldn't have lied</strong>." <button class="audio-btn" onclick="speak('You shouldn\'t have lied.')">🔊</button></div>
+            <div class="example-context">Reality: You lied (Criticism).</div>
+        </div>
+
+        <button class="tricky-btn" onclick="toggleTricky('trick3')">
+            <span>🚦 Warning: "Must have" vs "Should have"</span>
+            <span style="font-size:0.8rem; opacity:0.7">(Click to reveal)</span>
+        </button>
+        <div id="trick3" class="tricky-content">
+            <p>Don't confuse <strong>Conclusion</strong> with <strong>Regret</strong>.</p>
+            <ul>
+                <li>"He <strong>must have</strong> gone home." <br>➡ I am guessing he is home (Deduction).</li>
+                <li>"He <strong>should have</strong> gone home." <br>➡ He didn't go home, but it was a good idea (Regret).</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card" style="border-left-color: #8b5cf6;">
+        <h2 style="color:#5b21b6"><span class="tag" style="background:#ede9fe; color:#5b21b6">Advanced</span> Necessity Traps</h2>
+        <p class="explanation-text">Did you do it? Did you need to do it? This is where students lose points!</p>
+
+        <button class="tricky-btn" onclick="toggleTricky('trick4')">
+            <span>🚦 Warning: "Needn't have" vs "Didn't need to"</span>
+            <span style="font-size:0.8rem; opacity:0.7">(Click to reveal)</span>
+        </button>
+        <div id="trick4" class="tricky-content">
+            <p>Both mean "It wasn't necessary," but the outcome is different:</p>
+            
+            <p><strong>1. Didn't need to do:</strong> (I knew it wasn't necessary, so I probably didn't do it).</p>
+            <div class="example-box" style="background: white; border:1px solid #ddd; margin:5px 0">
+                "It was sunny, so I <strong>didn't need to bring</strong> an umbrella." (So I left it at home).
+            </div>
+
+            <p style="margin-top:15px"><strong>2. Needn't have done:</strong> (I did it, but later realized it was a waste of time).</p>
+            <div class="example-box" style="background: white; border:1px solid #ddd; margin:5px 0">
+                "I bought bread, but mom had already bought some. I <strong>needn't have bought</strong> it." (Wasted effort).
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ======================= 2. QUIZ TAB ======================= -->
+<div id="practice" class="container">
+    <div class="quiz-header">
+        <div>
+            <h2 style="margin:0; font-size:1.5rem">Challenge Mode</h2>
+            <div style="color:var(--text-light); margin-top:5px" id="q-counter">Question 1 of 100</div>
+        </div>
+        <div style="text-align:right">
+            <div style="font-size:0.9rem; text-transform:uppercase; color:var(--text-light)">Current Score</div>
+            <div style="font-size:2rem; font-weight:800; color:var(--primary)" id="score">0</div>
+        </div>
+    </div>
+    
+    <div class="progress-track"><div class="progress-bar" id="p-bar"></div></div>
+    
+    <div id="quiz-area">
+        <!-- Questions injected here -->
+    </div>
+
+    <div style="display:flex; justify-content:space-between; margin-top:20px">
+        <button class="nav-btn" onclick="prevQ()" id="btn-prev" disabled>Previous</button>
+        <button class="nav-btn active" onclick="nextQ()" id="btn-next">Next</button>
+    </div>
+</div>
+
+<!-- ======================= 3. READING TAB ======================= -->
+<div id="reading" class="container">
+    <div class="instruction-box">
+        <h3 style="margin-top:0">📝 Instructions (IELTS Style)</h3>
+        <p><strong>Context is King!</strong> Please note that the gaps can be in <strong>any tense</strong> (Present, Past, Future), but <strong>70%</strong> of them require <strong>Past Modals</strong> (e.g., <em>must have gone, should have seen</em>).</p>
+        <ul>
+            <li><strong>Past Modal:</strong> When guessing, regretting, or deducting about the past.</li>
+            <li><strong>Simple Past:</strong> When stating a known fact or specific event.</li>
+            <li><strong>Present/Future:</strong> When the text shifts to the current situation.</li>
+        </ul>
+        <p><strong>Audio Support:</strong> Audio buttons will appear <em>after</em> you check your answers to explain the reasoning.</p>
+    </div>
+
+    <div class="reading-tabs" id="r-tabs">
+        <!-- Generated JS -->
+    </div>
+
+    <div class="word-pool" id="word-pool">
+        <!-- Words go here -->
+    </div>
+
+    <div class="reading-content" id="reading-text">
+        <!-- Text goes here -->
+    </div>
+
+    <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center">
+        <div id="r-feedback" style="font-weight:bold"></div>
+        <div style="display:flex; gap:10px">
+            <button class="nav-btn" id="audio-read-btn" style="display:none" onclick="playReading()">🔊 Listen</button>
+            <button class="nav-btn active" onclick="checkReading()">Check Answers</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- UTILITIES ---
+    function speak(text) {
+        window.speechSynthesis.cancel();
+        
+        // 1. Warm-up: پخش یک فاصله خالی با صدای صفر برای فعال‌سازی سخت‌افزار صدا
+        // این کار از بریده شدن حرف اول متن اصلی جلوگیری می‌کند
+        const empty = new SpeechSynthesisUtterance(" ");
+        empty.volume = 0; 
+        window.speechSynthesis.speak(empty);
+
+        // 2. Main Speech: پخش متن اصلی بلافاصله بعد از فعال شدن
+        const msg = new SpeechSynthesisUtterance(text);
+        msg.lang = 'en-US';
+        msg.rate = 0.95;
+        window.speechSynthesis.speak(msg);
+    }
+
+    function normalize(text) {
+        if (!text) return "";
+        // نرمال‌سازی پیشرفته: حذف فاصله‌های اضافی، تبدیل حروف بزرگ به کوچک
+        let clean = text.trim().toLowerCase().replace(/\s+/g, ' ');
+        
+        // تبدیل فرم‌های مخفف به کامل برای مقایسه دقیق
+        clean = clean
+            // اول استثناها را مدیریت می‌کنیم تا مشکل ca not یا wo not پیش نیاید
+            .replace(/won't/g, 'will not')
+            .replace(/can't/g, 'can not')
+            .replace(/cannot/g, 'can not')
+            // حالا قانون کلی برای بقیه موارد مثل shouldn't
+            .replace(/n't/g, ' not')
+            .replace(/'ve/g, ' have')
+            .replace(/'re/g, ' are')
+            .replace(/'ll/g, ' will')
+            .replace(/'d/g, ' had') // در مودال‌ها معمولا had است (مثل 'd better یا had done)
+            .replace(/cannot/g, 'can not')
+            // حذف تمام علائم نگارشی برای مقایسه محتوایی
+            .replace(/[.,!?;:]/g, '');
+            
+        return clean.trim();
+    }
+        
+
+    function switchTab(id) {
+        document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelector(`button[onclick="switchTab('${id}')"]`).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function toggleTricky(id) {
+        const el = document.getElementById(id);
+        if (el.style.display === "block") {
+            el.style.display = "none";
+        } else {
+            el.style.display = "block";
+        }
+    }
+
+    // ================= DATA GENERATION (100 High Quality Mixed Questions) =================
+    const quizData = [];
+
+    // Helper to add Qs
+    const addQ = (type, q, ans, opts, reason, start) => {
+        quizData.push({ type, q, ans, opts, reason, start });
+    };
+
+    function initQuizData() {
+        // لیست ۱۰۰ سوال اختصاصی Past Modals (ساده، سخت، نکته‌دار)
+        const allQuestions = [
+            // --- LEVEL 1: SIMPLE DEDUCTION (Must have / Can't have) ---
+            {t:'mcq', q:"The road is wet. It ____ rained last night.", a:"must have", o:["must have", "should have", "can't have"], r:"95% certainty based on evidence."},
+            {t:'mcq', q:"He was in London yesterday, so you ____ seen him in Tokyo.", a:"can't have", o:["mustn't have", "can't have", "shouldn't have"], r:"Logical impossibility (Distance)."},
+            {t:'mcq', q:"She got an A+ on the test. She ____ studied very hard.", a:"must have", o:["must have", "should have", "might have"], r:"Logical conclusion based on result."},
+            {t:'input', q:"My wallet is gone. Someone ________ (steal) it.", a:"must have stolen", r:"Strong deduction about the past."},
+            {t:'input', q:"He didn't eat his dinner. He ________ (be) hungry.", a:"can't have been", r:"Negative deduction (Impossible he was hungry)."},
+            {t:'rewrite', q:"I'm sure he didn't do it. (Use: can't)", a:"He can't have done it", start:"He", r:"Past impossibility."},
+            {t:'rewrite', q:"I'm sure they arrived yesterday. (Use: must)", a:"They must have arrived yesterday", start:"They", r:"Past certainty."},
+            
+            // --- LEVEL 2: REGRET & CRITICISM (Should have / Ought to have) ---
+            {t:'mcq', q:"I have a stomachache. I ____ eaten so much cake.", a:"shouldn't have", o:["mustn't have", "shouldn't have", "can't have"], r:"Regret about a past action."},
+            {t:'mcq', q:"You ____ called me when you arrived!", a:"should have", o:["must have", "should have", "might have"], r:"Criticism: You didn't do the right thing."},
+            {t:'mcq', q:"The party was great. You ____ come.", a:"should have", o:["must have", "should have", "had to"], r:"Missed opportunity."},
+            {t:'input', q:"It was a secret. You ________ (tell) anyone!", a:"shouldn't have told", r:"Criticism for revealing a secret."},
+            {t:'input', q:"I failed the exam. I ________ (study) more.", a:"should have studied", r:"Personal regret."},
+            {t:'rewrite', q:"It was a mistake to sell the car. (Use: shouldn't)", a:"I shouldn't have sold the car", start:"I", r:"Regret."},
+            {t:'rewrite', q:"You were wrong to yell at her. (Use: ought)", a:"You ought not to have yelled at her", start:"You", r:"'Ought not to have' is formal for 'shouldn't have'."},
+
+            // --- LEVEL 3: POSSIBILITY (Might / May / Could have) ---
+            {t:'mcq', q:"I don't know where my phone is. I ____ left it on the bus.", a:"might have", o:["must have", "might have", "should have"], r:"Uncertainty/Guessing."},
+            {t:'mcq', q:"Why was he late? He ____ overslept.", a:"could have", o:["must have", "should have", "could have"], r:"One possible reason among others."},
+            {t:'mcq', q:"She walked past me without saying hello. She ____ seen me.", a:"might not have", o:["can't have", "shouldn't have", "might not have"], r:"Possibility (Maybe she didn't see me)."},
+            {t:'input', q:"The letter hasn't arrived. They ________ (send) it to the wrong address.", a:"might have sent", r:"Speculation about the cause."},
+            {t:'input', q:"He isn't here. He ________ (forget) about the meeting.", a:"could have forgotten", r:"Possibility."},
+            {t:'rewrite', q:"Maybe he missed the train. (Use: may)", a:"He may have missed the train", start:"He", r:"Formal possibility."},
+            {t:'rewrite', q:"It's possible she didn't know. (Use: might)", a:"She might not have known", start:"She", r:"Negative possibility."},
+
+            // --- LEVEL 4: HARD / TRICKY (Needn't have vs Didn't need to) ---
+            {t:'mcq', q:"I cooked dinner, but everyone had already eaten. I ____ cooked.", a:"needn't have", o:["didn't need to", "needn't have", "shouldn't have"], r:"I did it, but it was a waste of time."},
+            {t:'mcq', q:"We had plenty of fuel, so we ____ stop at the gas station.", a:"didn't need to", o:["needn't have", "didn't need to", "mustn't have"], r:"We didn't do it because we knew it wasn't necessary."},
+            {t:'input', q:"You bought milk but we have lots! You ________ (buy) it.", a:"needn't have bought", r:"Unnecessary action that was completed."},
+            {t:'input', q:"It was a holiday, so I ________ (wake) up early.", a:"didn't need to wake", r:"I slept in because I knew it wasn't necessary."},
+            {t:'rewrite', q:"You cleaned the room but the maid was coming. (Use: needn't)", a:"You needn't have cleaned the room", start:"You", r:"Wasted effort."},
+            {t:'mcq', q:"I brought my umbrella, but it didn't rain. I ____ brought it.", a:"needn't have", o:["didn't need to", "needn't have", "can't have"], r:"Wasted effort implies 'needn't have'."},
+
+            // --- LEVEL 5: VERY HARD (Continuous & Passive Forms) ---
+            {t:'mcq', q:"The window is broken. It ____ by the wind.", a:"must have been broken", o:["must have broken", "must have been broken", "should have been broken"], r:"Passive Deduction (Past)."},
+            {t:'mcq', q:"He looked very tired. He ____ working all night.", a:"must have been", o:["must have been", "can't have been", "should have been"], r:"Continuous Deduction (Past)."},
+            {t:'input', q:"The car is gone. It ________ (steal) last night.", a:"must have been stolen", r:"Passive Deduction."},
+            {t:'input', q:"Her eyes were red. She ________ (cry).", a:"must have been crying", r:"Deduction from evidence (Continuous action)."},
+            {t:'rewrite', q:"I'm sure he was waiting for us. (Use: must)", a:"He must have been waiting for us", start:"He", r:"Continuous Past Deduction."},
+            {t:'mcq', q:"The money is missing. It ____ taken by the accountant.", a:"could have been", o:["must have", "could have been", "should be"], r:"Passive Possibility."},
+
+            // --- LEVEL 6: TRICKY DISTINCTIONS (Could vs Was able to / Would have) ---
+            {t:'mcq', q:"The fire was spreading fast, but everyone ____ escape.", a:"was able to", o:["could", "was able to", "could have"], r:"Specific difficult achievement in the past = was able to."},
+            {t:'mcq', q:"I didn't study. I ____ passed if I had studied.", a:"would have", o:["must have", "would have", "should have"], r:"Conditional Type 3 (Hypothetical Past)."},
+            {t:'mcq', q:"You ____ killed yourself driving that fast!", a:"could have", o:["can have", "could have", "should have"], r:"A possibility that didn't happen (Near miss)."},
+            {t:'input', q:"I lost my key, but I ________ (open) the window.", a:"was able to open", r:"Managed to do it (one time event)."},
+            {t:'rewrite', q:"I had the ability to go to college, but I didn't. (Use: could)", a:"I could have gone to college", start:"I", r:"Unused past ability."},
+
+            // --- FILLER: MIXED PAST MODALS (To reach 100) ---
+            {t:'mcq', q:"She didn't know the answer. She ____ read the book.", a:"can't have", o:["mustn't have", "can't have", "shouldn't have"], r:"Negative Deduction."},
+            {t:'mcq', q:"You ____ told me the truth!", a:"should have", o:["must have", "should have", "might have"], r:"Criticism."},
+            {t:'input', q:"The road was icy. You ________ (drive) so fast.", a:"shouldn't have driven", r:"Criticism of dangerous action."},
+            {t:'input', q:"Where is the letter? I ________ (throw) it away by accident.", a:"might have thrown", r:"Speculation."},
+            {t:'rewrite', q:"It was possible for them to win. (Use: could)", a:"They could have won", start:"They", r:"Possibility."},
+            {t:'mcq', q:"He ____ heard the phone. The music was too loud.", a:"can't have", o:["mustn't have", "can't have", "shouldn't have"], r:"Impossibility."},
+            {t:'mcq', q:"I ____ helped you, but you didn't ask.", a:"could have", o:["must have", "should have", "could have"], r:"Willingness/Ability in past."},
+            {t:'input', q:"They didn't come. They ________ (get) lost.", a:"must have got", r:"Strong deduction (or 'gotten')."},
+            {t:'input', q:"I ________ (wear) a suit. Everyone else was casual.", a:"needn't have worn", r:"Wasted effort."},
+            {t:'rewrite', q:"I advise you to have seen a doctor. (Use: should)", a:"You should have seen a doctor", start:"You", r:"Past advice/regret."},
+            
+            // ... More variations to ensure 100 unique items ...
+            {t:'mcq', q:"The plants are dead. You ____ watered them.", a:"should have", o:["must have", "should have", "could have"], r:"Criticism (Neglected duty)."},
+            {t:'mcq', q:"I saw him in town. He ____ gone to France.", a:"can't have", o:["must not have", "can't have", "shouldn't have"], r:"Logical proof he didn't go."},
+            {t:'input', q:"The alarm didn't go off. I ________ (set) it wrong.", a:"must have set", r:"Deduction of cause."},
+            {t:'input', q:"It was raining. You ________ (bring) your umbrella.", a:"should have brought", r:"Criticism."},
+            {t:'rewrite', q:"Maybe she didn't see the sign. (Use: might)", a:"She might not have seen the sign", start:"She", r:"Negative possibility."},
+            {t:'mcq', q:"You ____ paid for me. I had money.", a:"needn't have", o:["didn't need to", "needn't have", "mustn't have"], r:"You paid, but it wasn't necessary."},
+            {t:'mcq', q:"He ____ been ill. He looked pale.", a:"must have", o:["should have", "must have", "can't have"], r:"Deduction based on appearance."},
+            // Fix: Accept multiple correct answers (could/might/may)
+            {t:'input', q:"I ________ (leave) my phone in the taxi.", a:["could have left", "might have left", "may have left"], r:"Possibility of location."},
+            {t:'input', q:"You ________ (speak) to her like that. It was rude.", a:"shouldn't have spoken", r:"Criticism of behavior."},
+            {t:'rewrite', q:"I'm certain he stole the money. (Use: must)", a:"He must have stolen the money", start:"He", r:"Deduction."},
+
+            {t:'mcq', q:"I ____ done it without your help. Thanks!", a:"couldn't have", o:["mustn't have", "couldn't have", "shouldn't have"], r:"Past inability (Hypothetical)."},
+            {t:'mcq', q:"They ____ arrived by now. The flight was short.", a:"should have", o:["must have", "should have", "can't have"], r:"Expectation (Past)."},
+            {t:'input', q:"The door was open. Someone ________ (break) in.", a:"must have broken", r:"Deduction."},
+            {t:'input', q:"I ________ (go) to bed so late. I'm tired.", a:"shouldn't have gone", r:"Regret."},
+            {t:'rewrite', q:"It was a mistake to trust him. (Use: shouldn't)", a:"I shouldn't have trusted him", start:"I", r:"Regret."},
+            {t:'mcq', q:"She ____ seen the message. She never replies.", a:"might not have", o:["can't have", "must not have", "might not have"], r:"Uncertainty."},
+            {t:'mcq', q:"We ____ brought food. There was a buffet.", a:"needn't have", o:["didn't need to", "needn't have", "shouldn't have"], r:"Wasted effort."},
+            {t:'input', q:"He ________ (be) happy with the news.", a:"must have been", r:"Past Deduction about state."},
+            {t:'input', q:"You ________ (drive) drunk.", a:"shouldn't have driven", r:"Strong criticism."},
+            {t:'rewrite', q:"Perhaps they went home. (Use: could)", a:"They could have gone home", start:"They", r:"Possibility."},
+
+            {t:'mcq', q:"I ____ known it was a trick.", a:"should have", o:["must have", "should have", "might have"], r:"Self-criticism."},
+            {t:'mcq', q:"He ____ finished the marathon. He was injured.", a:"can't have", o:["mustn't have", "can't have", "shouldn't have"], r:"Impossibility."},
+            {t:'input', q:"The lights were on. They ________ (be) at home.", a:"must have been", r:"Deduction about past state."},
+            {t:'input', q:"I ________ (save) more money.", a:"should have saved", r:"Regret."},
+            {t:'rewrite', q:"I didn't need to taxi, but I did. (Use: needn't)", a:"I needn't have taken a taxi", start:"I", r:"Wasted money."},
+            {t:'mcq', q:"You ____ seen a ghost. They don't exist.", a:"can't have", o:["mustn't have", "can't have", "shouldn't have"], r:"Impossibility."},
+            {t:'mcq', q:"I ____ stayed up all night.", a:"shouldn't have", o:["mustn't have", "shouldn't have", "can't have"], r:"Regret."},
+            {t:'input', q:"She ________ (miss) the call.", a:"must have missed", r:"Deduction."},
+            {t:'input', q:"You ________ (laugh) at him.", a:"shouldn't have laughed", r:"Criticism."},
+            {t:'rewrite', q:"Maybe it was true. (Use: might)", a:"It might have been true", start:"It", r:"Speculation."},
+
+            {t:'mcq', q:"We ____ reserved a table. The place was empty.", a:"needn't have", o:["didn't need to", "needn't have", "mustn't have"], r:"Wasted effort."},
+            {t:'mcq', q:"He ____ been driving. He doesn't have a license.", a:"can't have", o:["mustn't have", "can't have", "shouldn't have"], r:"Impossibility."},
+            {t:'input', q:"The cake was delicious. You ________ (buy) it from a bakery.", a:"must have bought", r:"Deduction."},
+            {t:'input', q:"I ________ (worry) so much.", a:"needn't have worried", r:"Wasted emotion."},
+            {t:'rewrite', q:"It was wrong of you to lie. (Use: should)", a:"You should not have lied", start:"You", r:"Criticism."},
+            {t:'mcq', q:"She ____ finished the test. It was too long.", a:"can't have", o:["mustn't have", "can't have", "shouldn't have"], r:"Impossibility."},
+            {t:'mcq', q:"I ____ taken the job.", a:"should have", o:["must have", "should have", "can't have"], r:"Regret."},
+            {t:'input', q:"He ________ (forget).", a:"might have forgotten", r:"Possibility."},
+            {t:'input', q:"You ________ (be) careful.", a:"should have been", r:"Criticism."},
+            {t:'rewrite', q:"I'm sure he didn't say that. (Use: couldn't)", a:"He couldn't have said that", start:"He", r:"Impossibility."},
+            
+            {t:'mcq', q:"The car is damaged. You ____ hit something.", a:"must have", o:["should have", "must have", "can't have"], r:"Deduction."},
+            {t:'mcq', q:"I ____ asked for help.", a:"should have", o:["must have", "should have", "needn't have"], r:"Regret."},
+            {t:'input', q:"They ________ (leave) already.", a:"must have left", r:"Deduction."},
+            {t:'input', q:"I ________ (eat) that.", a:"shouldn't have eaten", r:"Regret."},
+            {t:'rewrite', q:"Possible he lost it. (Use: may)", a:"He may have lost it", start:"He", r:"Possibility."},
+            {t:'mcq', q:"You ____ told me!", a:"could have", o:["must have", "could have", "should"], r:"Annoyance/Possibility."},
+            {t:'mcq', q:"He ____ been sleeping.", a:"must have", o:["should have", "must have", "can't"], r:"Deduction."},
+            {t:'input', q:"It ________ (be) a mistake.", a:"must have been", r:"Deduction."},
+            {t:'input', q:"You ________ (do) that.", a:"shouldn't have done", r:"Criticism."},
+            {t:'rewrite', q:"Maybe she was tired. (Use: might)", a:"She might have been tired", start:"She", r:"Possibility (State)."}
+        ];
+
+        // اضافه کردن همه سوالات به سیستم
+        allQuestions.forEach(q => addQ(q.t, q.q, q.a, q.o, q.r, q.start));
+
+        // شافل کردن سوالات برای نمایش تصادفی
+        quizData.sort(() => Math.random() - 0.5);
+    }
+    initQuizData();
+
+    // ================= QUIZ ENGINE =================
+    let qIndex = 0;
+    let score = 0;
+    
+    function loadQuiz() {
+        const q = quizData[qIndex];
+        const area = document.getElementById('quiz-area');
+        area.innerHTML = ''; // Clear
+
+        const card = document.createElement('div');
+        card.className = 'q-card';
+        
+        let html = `<div class="q-text">${qIndex + 1}. ${q.q}</div>`;
+        
+        if (q.type === 'mcq') {
+            html += `<div class="options-grid">`;
+            q.opts.forEach(opt => {
+                html += `<button class="opt-btn" onclick="checkMCQ('${opt.replace(/'/g,"\\'")}')">${opt}</button>`;
+            });
+            html += `</div>`;
+        } else {
+            let ph = q.type === 'rewrite' ? `Start with "${q.start}"...` : 'Type verb phrase...';
+            html += `<div class="input-wrapper">
+                        <input type="text" class="text-input" id="inp-ans" placeholder="${ph}">
+                        <button class="nav-btn active" style="margin-top:10px; width:100%" onclick="checkInput()">Check</button>
+                     </div>`;
+        }
+        
+        html += `<div id="feedback" class="feedback-box"></div>`;
+        card.innerHTML = html;
+        area.appendChild(card);
+
+        // --- قابلیت زدن دکمه اینتر (Enter) ---
+        const inp = document.getElementById('inp-ans');
+        if (inp) {
+            // فوکوس خودکار روی اینپوت تا کاربر سریع تایپ کند
+            inp.focus(); 
+            inp.addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault(); // جلوگیری از رفرش ناخواسته
+                    checkInput();
+                }
+            });
+        }
+
+        // Update UI
+        document.getElementById('q-counter').innerText = `Question ${qIndex+1} of ${quizData.length}`;
+        document.getElementById('p-bar').style.width = `${((qIndex)/quizData.length)*100}%`;
+        document.getElementById('btn-prev').disabled = qIndex === 0;
+        document.getElementById('btn-next').innerText = qIndex === quizData.length-1 ? "Finish" : "Next";
+    }
+
+    function showFeed(isCorrect, userAns, correctAns, reason) {
+        const box = document.getElementById('feedback');
+        const card = document.querySelector('.q-card');
+        const q = quizData[qIndex];
+        
+        // 1. تعیین جواب اصلی برای نمایش (اگر چند تا جواب داشتیم، اولی را انتخاب کن)
+        const mainAnswer = Array.isArray(correctAns) ? correctAns[0] : correctAns;
+        
+        // 2. تنظیم متن برای خواندن صوتی (حذف پرانتز راهنما و جایگذاری جواب اصلی)
+        let audioText = q.type === 'rewrite' ? mainAnswer : q.q.replace(/_+/g, mainAnswer).replace(/\s*\([^)]+\)/, "");
+
+        // 3. منطق نمایش نکته آموزشی (Style Tip)
+        let styleTip = '';
+        // شرط: اگر جواب درست است وَ کاربر از مخفف منفی (n't) استفاده کرده است
+        if (isCorrect && /n't/.test(userAns)) {
+            styleTip = `
+                <div style="margin-top:10px; font-size:0.85rem; color:#1e40af; background:#eff6ff; padding:10px; border-radius:8px; border:1px solid #bfdbfe;">
+                    💡 <strong>Style Tip:</strong> You used a contracted form. In formal writing, full forms (e.g., <em>cannot, should not</em>) are preferred. 
+                    In speaking, your answer is perfectly natural.
+                </div>`;
+        }
+
+        if (isCorrect) {
+            box.className = 'feedback-box success';
+            box.style.display = 'block';
+            // نمایش پیام موفقیت به همراه دکمه صدا و نکته آموزشی
+            box.innerHTML = `
+                ✅ <strong>Correct!</strong> <button class="audio-btn" onclick="speak('${audioText.replace(/'/g,"\\'")}')">🔊</button>
+                <br>${reason}
+                ${styleTip}`;
+            score += 10;
+        } else {
+            // نمایش پیام خطا به همراه جواب اصلی (mainAnswer)
+            box.className = 'feedback-box error';
+            box.style.display = 'block';
+            box.innerHTML = `❌ <strong>Incorrect.</strong><br>Answer: <strong>${mainAnswer}</strong> <button class="audio-btn" onclick="speak('${audioText.replace(/'/g,"\\'")}')">🔊</button><br><em>${reason}</em>`;
+        }
+        
+        // غیرفعال کردن ورودی‌ها
+        const btns = document.querySelectorAll('.opt-btn');
+        btns.forEach(b => {
+            b.disabled = true;
+            if(b.innerText === correctAns) b.classList.add('correct');
+            else if(b.innerText === userAns) b.classList.add('wrong');
+        });
+        const inp = document.getElementById('inp-ans');
+        if(inp) inp.disabled = true;
+
+        document.getElementById('score').innerText = score;
+    }
+
+    window.checkMCQ = (val) => {
+        const q = quizData[qIndex];
+        showFeed(val === q.ans, val, q.ans, q.reason);
+    }
+
+    window.checkInput = () => {
+        const q = quizData[qIndex];
+        const inp = document.getElementById('inp-ans');
+        const rawInput = inp.value.trim();
+        
+        // Normalize compares content ignoring punctuation and case
+        const user = normalize(rawInput);
+        
+        // Fix: Check against Array OR String
+        let isRight = false;
+        if (Array.isArray(q.ans)) {
+            // اگر جواب لیست باشد، چک کن آیا ورودی کاربر با یکی از آنها یکی است؟
+            isRight = q.ans.some(ans => normalize(ans) === user);
+            
+            // چک کردن حالت got/gotten برای آرایه‌ها
+            if (!isRight) {
+                isRight = q.ans.some(ans => normalize(ans).includes('got') && user.replace('gotten','got') === normalize(ans));
+            }
+        } else {
+            // حالت قدیمی (فقط یک استرینگ)
+            const correct = normalize(q.ans);
+            isRight = user === correct;
+            if (!isRight && correct.includes('got')) isRight = user.replace('gotten','got') === correct;
+        }
+
+        if (isRight) {
+            // Content is correct, now check Punctuation & Capitalization
+            // Fix: Only enforce strict punctuation for "Rewrite" questions, NOT for simple "Input" (fill in blank)
+            const isSentence = q.type === 'rewrite'; 
+            const startsCap = /^[A-Z]/.test(rawInput);
+            const endsPunct = /[.!?]$/.test(rawInput);
+
+            if (isSentence && (!startsCap || !endsPunct)) {
+                 // ⚠️ حالت تذکر: جواب درست است اما نگارش مشکل دارد
+                 const box = document.getElementById('feedback');
+                 box.className = 'feedback-box warning'; // استایل زرد
+                 box.style.display = 'block';
+                 
+                 // متن برای پخش صدا
+                 const audioText = q.type === 'rewrite' ? q.ans : q.q.replace(/_+/g, q.ans).replace(/\(.*\)/, q.ans);
+                 
+                 box.innerHTML = `
+                    <div style="display:flex; align-items:start; gap:15px">
+                        <span style="font-size:2rem">⚠️</span>
+                        <div style="flex:1">
+                            <strong style="color:#b45309">Almost Perfect!</strong>
+                            <p style="margin:5px 0; font-size:0.95rem">
+                                Your answer is correct in meaning, but try to use proper punctuation next time:<br>
+                                1. Start with a <strong>Capital Letter</strong>.<br>
+                                2. End with a <strong>Full Stop (.)</strong>.
+                            </p>
+                            <div style="background:white; padding:8px; border-radius:6px; margin:10px 0; border:1px dashed #d97706">
+                                <span style="color:#ef4444; text-decoration:line-through">${rawInput}</span> <br>
+                                <span style="color:#059669; font-weight:bold">⬇ ${q.ans}</span>
+                            </div>
+                            <button class="nav-btn" onclick="speak('${audioText.replace(/'/g,"\\'")}')" style="padding:8px 15px; font-size:0.9rem; margin-top:5px">
+                                🔊 Listen to Correct Answer
+                            </button>
+                        </div>
+                    </div>`;
+                 
+                 // امتیاز کامل داده می‌شود
+                 score += 10; 
+                 document.getElementById('score').innerText = score;
+                 
+                 // غیرفعال کردن ورودی
+                 inp.disabled = true;
+                 return;
+            }
+        }
+        
+        // Normal success/failure path
+        showFeed(isRight, inp.value, q.ans, q.reason);
+    }
+
+    window.nextQ = () => {
+        if (qIndex < quizData.length - 1) {
+            qIndex++;
+            loadQuiz();
+        }
+    }
+    
+    window.prevQ = () => {
+        if (qIndex > 0) {
+            qIndex--;
+            loadQuiz();
+        }
+    }
+
+    // ================= READING ENGINE (Long Texts, Mixed Tenses) =================
+    const readings = [
+        {
+            // READING 1: >100 Words (Topic: Everyday Mistake)
+            title: "Level 1: The Airport Panic",
+            words: ["leave", "be", "drop", "check", "worry"],
+            content: [
+                "I arrived at the busy international airport feeling excited about my holiday, but when I finally reached the check-in desk, I froze in terror. My passport was gone. I searched my backpack frantically, throwing clothes everywhere. I {{0}} (leave) it on the kitchen table because I distinctly remember seeing it there next to my coffee mug this morning. It was a terrible, careless mistake.",
+                "I immediately called my brother, but he said the table {{1}} (be) empty. This confused me deeply. If it wasn't on the table, I {{2}} (drop) it in the taxi on the way here. That was the only other explanation. I felt sick. I {{3}} (check) my bag one last time before leaving the house, but I was in such a rush that I didn't. Now, I simply {{4}} (worry) about missing my flight, waiting for a miracle."
+            ],
+            answers: ["must have left", "was", "must have dropped", "should have checked", "am worrying"],
+            explanations: [
+                "<strong>Past Modal (Deduction):</strong> I remember seeing it there, so I am 95% sure.",
+                "<strong>Past Simple (Fact):</strong> My brother reported a fact: the table WAS empty.",
+                "<strong>Past Modal (Deduction):</strong> It's the only logical possibility remaining.",
+                "<strong>Past Modal (Regret):</strong> It was the right thing to do, but I didn't do it.",
+                "<strong>Present Continuous:</strong> Describes my current state right now."
+            ]
+        },
+        {
+            // READING 2: >300 Words (Topic: Business Failure)
+            title: "Level 2: The Project Failure ",
+            words: ["crash", "review", "supervise", "be", "realize", "prevent", "cause", "submit"],
+            content: [
+                "The deadline for the new banking app was Monday morning. We worked all weekend, surviving on cold pizza and coffee, to finish the software update. When we launched it at 9:00 AM, everything seemed fine. However, two hours later, the entire system {{0}} (crash). It was a total disaster. Thousands of customers were locked out of their accounts, and the CEO was furious, demanding answers immediately.",
+                "We gathered in the conference room to look at the code logs. It turns out that a junior developer had uploaded a corrupted file without testing it on the staging server first. He {{1}} (review) the code more carefully before uploading, but he skipped that step to save time. It was a careless error with huge consequences. However, the senior manager is also to blame. He {{2}} (supervise) the process more closely. Instead, he was in his office making personal calls when he {{3}} (should/be) helping us navigate the launch.",
+                "Now that I look back at the weekend, the signs were there. The system was unusually slow on Sunday night. We {{4}} (realize) that something was wrong, but we ignored it because we were too tired. We just wanted to finish and go home. If we had tested it then, we {{5}} (prevent) this mess. It is possible that the server overload {{6}} (cause) the initial glitch, but the main issue was definitely the bad code.",
+                "Today, the office atmosphere is toxic. Everyone is blaming each other. It {{7}} (be) a calm week of celebration, but now it is chaos. We have lost three major clients. Next time, we definitely {{8}} (submit) the project without a full, independent audit. That is a promise."
+            ],
+            answers: ["crashed", "should have reviewed", "should have supervised", "should have been", "should have realized", "could have prevented", "might have caused", "should have been", "won't submit"],
+            explanations: [
+                "<strong>Past Simple:</strong> The system actually crashed at a specific time.",
+                "<strong>Past Modal (Criticism):</strong> It was necessary/advisable to review, but he didn't.",
+                "<strong>Past Modal (Criticism):</strong> He had a duty to supervise.",
+                "<strong>Past Modal (Continuous):</strong> He should have been doing this action at that time.",
+                "<strong>Past Modal (Regret):</strong> We missed the opportunity to understand the problem.",
+                "<strong>Past Modal (Hypothetical):</strong> We had the ability to stop it.",
+                "<strong>Past Modal (Possibility):</strong> We are guessing a secondary cause.",
+                "<strong>Past Modal (Expectation):</strong> I expected it to be calm, but it isn't.",
+                "<strong>Future Simple:</strong> A promise regarding future actions."
+            ]
+        },
+        {
+            // READING 3: >500 Words (Topic: Historical Mystery - Mary Celeste)
+            title: "Level 3: The Ghost Ship ",
+            words: ["discover", "abandon", "strike", "evacuate", "attack", "kill", "threaten", "agree", "solve", "remain"],
+            content: [
+                "On December 5, 1872, a British ship named the Dei Gratia spotted another vessel drifting aimlessly in the Atlantic Ocean. It was the Mary Celeste. The ship looked strange; its sails were torn, and it was moving in an odd pattern. When the crew of the Dei Gratia boarded the ship, they {{0}} (discover) one of the greatest mysteries of all time. The ship was completely empty. The captain, his wife, their two-year-old daughter, and the crew of seven were all gone.",
+                "What makes this story so chilling is the condition of the ship. It was not damaged. There was plenty of food and water on board—enough for six months. The crew's personal belongings were still in their cabins. If they had planned to leave, they {{1}} (take) their clothes and money. But everything was left behind. The lifeboat, however, was missing. This suggests that they {{2}} (abandon) the ship in a sudden panic. But why? What could terrify an experienced captain enough to jump into a small boat in the middle of the ocean?",
+                "Historians and scientists have proposed many theories. Some early newspapers suggested that pirates {{3}} (attack) the ship. However, this theory makes no sense. The valuable cargo of alcohol was untouched. Pirates {{4}} (steal) the cargo and the personal items. Therefore, a pirate attack {{5}} (happen). It is logically impossible.",
+                "Another theory is a 'seaquake' or a giant wave. A sudden violent wave {{6}} (strike) the ship, knocking people overboard or terrifying them. But the ship was dry inside, and fragile items on the tables were still standing upright. If a wave had hit, the furniture {{7}} (destroy).",
+                "The most scientific theory involves the cargo: 1,700 barrels of raw alcohol. Alcohol fumes can be dangerous. It is possible that some barrels leaked, filling the hold with explosive gas. The captain {{8}} (smell) the fumes and feared an explosion was imminent. He {{9}} (order) everyone into the lifeboat to wait safely behind the ship until the fumes cleared. The tow line connecting the lifeboat to the ship might have snapped. If this happened, the crew {{10}} (watch) helplessly as the Mary Celeste sailed away without them, leaving them to die in the open sea.",
+                "Some darker theories suggest mutiny. The crew {{11}} (kill) the captain and fled. But the captain was well-respected, and there were no signs of a fight—no blood, no broken weapons. It seems unlikely that a mutiny {{12}} (occur) without leaving a trace.",
+                "To this day, we don't know the truth. The ocean keeps its secrets. We can only guess what happened in those final desperate hours. They {{13}} (feel) absolute terror as they drifted away from their safe, solid ship. The mystery of the Mary Celeste {{14}} (remain) unsolved forever, haunting sailors for generations to come."
+            ],
+            answers: ["discovered", "would have taken", "must have abandoned", "might have attacked", "would have stolen", "can't have happened", "could have struck", "would have been destroyed", "must have smelled", "must have ordered", "would have watched", "might have killed", "could have occurred", "must have felt", "will remain"],
+            explanations: [
+                "<strong>Past Simple:</strong> A specific event in the past.",
+                "<strong>Past Modal (Hypothetical):</strong> Logic: If they planned it, they would have done this.",
+                "<strong>Past Modal (Deduction):</strong> Strong conclusion based on the missing lifeboat.",
+                "<strong>Past Modal (Possibility):</strong> A guess about the cause.",
+                "<strong>Past Modal (Hypothetical):</strong> Pirates definitely do this, but they didn't.",
+                "<strong>Past Modal (Impossibility):</strong> The evidence contradicts this theory completely.",
+                "<strong>Past Modal (Possibility):</strong> Guessing a natural disaster.",
+                "<strong>Past Modal (Hypothetical):</strong> If A happened, B would be the result.",
+                "<strong>Past Modal (Deduction):</strong> Explaining the motive for leaving.",
+                "<strong>Past Modal (Deduction):</strong> The logical action of the captain.",
+                "<strong>Past Modal (Hypothetical):</strong> The tragic result of the line snapping.",
+                "<strong>Past Modal (Possibility):</strong> A darker guess.",
+                "<strong>Past Modal (Possibility):</strong> It's possible but unlikely.",
+                "<strong>Past Modal (Deduction):</strong> We deduce their emotional state.",
+                "<strong>Future Simple:</strong> A prediction about the future status of the mystery."
+            ]
+        },
+        {
+            // READING 4: >700 Words (Topic: Evolution of Cooking/Fire)
+            title: "Level 4: The Spark of Humanity ",
+            words: ["change", "begin", "discover", "be", "happen", "start", "eat", "allow", "spend", "survive", "evolve"],
+            content: [
+                "When we look at the history of our species, there is one moment that stands out above all others. It isn't the invention of the wheel, or the writing of the first book. It is something much simpler: the control of fire and the invention of cooking. Biologists argue that this single innovation made us human. Without it, our large brains {{0}} (evolve). We would still be like our primate cousins, spending all day chewing raw leaves.",
+                "The exact date is unknown, but evidence suggests that our ancestors, Homo erectus, {{1}} (begin) using fire around 1.8 million years ago. How did they figure it out? They certainly didn't have matches. It {{2}} (be) an accident. Perhaps lightning struck a tree, and a brave early human approached the flames instead of running away. They {{3}} (discover) that animals killed in the fire tasted better and were easier to chew than raw meat. This accidental discovery {{4}} (change) everything.",
+                "Before cooking, early humans {{5}} (spend) at least six hours a day chewing. Raw meat is tough, and raw roots are hard to digest. Digestion takes a massive amount of energy. By cooking food, we essentially 'pre-digested' it outside our bodies. This meant our bodies {{6}} (use) less energy for digestion and more energy for powering the brain. This energy surplus is what {{7}} (allow) our brains to triple in size over the next million years. If we had stuck to a raw diet, we {{8}} (develop) complex language, art, or science. We simply wouldn't have had the calories to support such an expensive organ as the modern human brain.",
+                "But fire did more than just change our diet; it changed our society. Fire provided warmth and protection. In the dark, dangerous wilderness, early humans {{9}} (sleep) in trees to avoid predators like saber-toothed cats. Once they had fire, they {{10}} (sleep) on the ground. The fire kept the beasts away. This new safety allowed for deeper sleep, which is crucial for memory and cognitive function.",
+                "Furthermore, the campfire created a social focus. People gathered around the light. They {{11}} (share) food and stories. This nightly gathering {{12}} (strengthen) social bonds and cooperation. Some anthropologists believe that storytelling and mythology {{13}} (start) around these ancient fires. It was the first 'school' where elders passed knowledge to the young.",
+                "Of course, there were downsides. Smoke is bad for the lungs. Early humans {{14}} (suffer) from respiratory diseases caused by inhaling smoke in caves. We have found ancient skeletons with damage that suggests this. Also, relying on fire meant that if the fire went out, the group was in trouble. They {{15}} (carry) embers with them whenever they moved to a new location, guarding the flame with their lives.",
+                "Looking back, it is terrifying to think how close we came to never existing. If that first brave ancestor hadn't picked up a burning branch, or if they hadn't decided to taste the cooked meat, civilization {{16}} (happen). We {{17}} (remain) simple apes. Cooking is not just a chore we do in the kitchen; it is the fundamental technology that built mankind. Next time you eat a hot meal, remember: you are partaking in the ancient ritual that made you smart."
+            ],
+            answers: ["couldn't have evolved", "must have begun", "must have been", "must have discovered", "changed", "had to spend", "could use", "allowed", "couldn't have developed", "had to sleep", "could sleep", "would share", "must have strengthened", "must have started", "must have suffered", "had to carry", "would never have happened", "would have remained"],
+            explanations: [
+                "<strong>Past Modal (Impossibility):</strong> Without X, Y was impossible.",
+                "<strong>Past Modal (Deduction):</strong> Strong logical conclusion about the timeline.",
+                "<strong>Past Modal (Deduction):</strong> There is no other logical explanation.",
+                "<strong>Past Modal (Deduction):</strong> They found it out by trying it.",
+                "<strong>Past Simple:</strong> A definitive past event.",
+                "<strong>Past Obligation:</strong> It was necessary for them to do this.",
+                "<strong>Past Ability:</strong> We were able to use energy differently.",
+                "<strong>Past Simple:</strong> Cause and effect fact.",
+                "<strong>Past Modal (Hypothetical):</strong> Condition Type 3 (Impossible past).",
+                "<strong>Past Obligation:</strong> It was necessary for survival.",
+                "<strong>Past Ability:</strong> They gained the ability/permission to do so.",
+                "<strong>Past Habit (Would):</strong> Repeated action in the past.",
+                "<strong>Past Modal (Deduction):</strong> Logic suggests this result.",
+                "<strong>Past Modal (Deduction):</strong> The most likely origin point.",
+                "<strong>Past Modal (Deduction):</strong> Based on skeletal evidence.",
+                "<strong>Past Obligation:</strong> It was necessary to keep the fire alive.",
+                "<strong>Past Modal (Hypothetical):</strong> Without the cause, the effect wouldn't exist.",
+                "<strong>Past Modal (Hypothetical):</strong> The alternative reality."
+            ]
+        },
+        {
+            // READING 5: >900 Words (Topic: Geo-Engineering & Climate Future)
+            title: "Level 5: The Sky Shield",
+            words: ["ignore", "listen", "fail", "implement", "cool", "mitigate", "alter", "starve", "destroy", "start", "stop", "jump", "survive", "lock", "invest", "look", "act"],
+            content: [
+                "The year is 2085. Looking back at the history of the 21st century, it is clear that the 'Great Heat' of the 2030s was the turning point. For decades, scientists had warned that we {{0}} (reduce) carbon emissions sooner. We {{1}} (listen). Because we didn't, we faced a crisis that threatened to wipe out civilization. Since political solutions and treaties {{2}} (fail) repeatedly, the United Nations finally authorized the most controversial project in human history: 'Project Shield'.",
+                "Project Shield was a form of Geo-engineering. The idea was simple but terrifying: hack the planet's atmosphere to cool it down. Specifically, we used Solar Radiation Management (SRM). This involved fleets of drones spraying millions of tons of sulfur dioxide into the stratosphere to reflect sunlight back into space. We knew the physics worked because volcanoes do this naturally. The eruption of Mount Pinatubo in 1991 {{3}} (cool) the earth by 0.5°C for a year. The scientists argued that if we had started this technology ten years earlier, we {{4}} (mitigate) the catastrophic droughts of 2028. But we waited until we were desperate.",
+                "The project began in 2040. Within six months, global temperatures dropped. The ice caps stopped melting. For a moment, it felt like a miracle. However, the critics were right about the side effects. Injecting chemicals into the sky {{5}} (alter) global weather patterns in unpredictable ways. In 2042, the monsoon rains in South Asia failed completely. We suspect the sulfur cloud {{6}} (shift) the jet stream. As a result, millions of people {{7}} (starve) if not for massive international food aid. It was a diplomatic nightmare.",
+                "Tensions rose. A coalition of nations threatened to shoot down the sulfur drones. They argued that while the Northern Hemisphere was cooling, their lands were drying up. A war {{8}} (start) over the weather. It sounds ridiculous now, but we came very close to nuclear conflict over who controlled the thermostat of the Earth. A wealthy nation might decide to save itself, but in doing so, it {{9}} (destroy) the agriculture of a poorer neighbor. We {{10}} (consider) the geopolitical consequences more deeply before launching the drones, but panic drove our decisions.",
+                "Then came the 'Termination Shock' scare of 2050. A cyber-attack disabled the drone fleet for three weeks. The sulfur settled, and the sun broke through. The problem with Geo-engineering is that it is just a mask; it doesn't remove the carbon. Once the mask slips, the heat returns with a vengeance. Scientists calculated that if the drones remained grounded, the temperature {{11}} (jump) by 4 degrees in a single decade. Ecosystems {{12}} (survive) such a rapid thermal shock. We {{13}} (lock) ourselves into a trap. We were like a junkie addicted to a drug; we couldn't stop taking the sulfur, or the withdrawal would kill us.",
+                "Thankfully, we managed to restart the fleet. But it was a wake-up call. We realized that we {{14}} (ignore) the root cause: carbon dioxide. Geo-engineering was just a painkiller, not a cure. In the 2050s and 60s, humanity finally woke up. We launched the massive Carbon Capture initiative. We {{15}} (invest) those trillions in renewable energy and carbon removal decades earlier, instead of relying on crazy science fiction projects to save us at the last minute.",
+                "Now, in 2085, the air is cleaner. We are slowly reducing the sulfur injections. The sky is turning from a hazy white back to blue. Future generations {{16}} (look) back at us with a mixture of anger and pity. They will ask: 'Why did you play God with the sky?' They will say we {{17}} (act) with more humility and wisdom. And they will be right. We gambled with the only home we have. We won the bet, barely, but we {{18}} (lost) everything. Let this be a lesson for the next millennium: technology can buy time, but it cannot replace responsibility."
+            ],
+            answers: ["should have reduced", "should have listened", "had failed", "cooled", "could have mitigated", "altered", "must have shifted", "would have starved", "could have started", "might destroy", "should have considered", "would jump", "couldn't survive", "had locked", "shouldn't have ignored", "should have invested", "will look", "should have acted", "could have lost"],
+            explanations: [
+                "<strong>Past Modal (Regret):</strong> We didn't reduce them, but we should have.",
+                "<strong>Past Modal (Regret):</strong> We didn't listen to the warnings.",
+                "<strong>Past Perfect:</strong> Something that happened before another past event.",
+                "<strong>Past Simple:</strong> A specific historical fact.",
+                "<strong>Past Modal (Hypothetical):</strong> We had the ability to reduce the damage.",
+                "<strong>Past Simple:</strong> It actually did change the patterns.",
+                "<strong>Past Modal (Deduction):</strong> The only logical explanation for the failure.",
+                "<strong>Past Modal (Hypothetical):</strong> Without aid, this would have been the result.",
+                "<strong>Past Modal (Possibility):</strong> It was a very real possibility.",
+                "<strong>Past Modal (Hypothetical):</strong> A potential result of the action.",
+                "<strong>Past Modal (Criticism):</strong> We failed to think about it enough.",
+                "<strong>Modal (Hypothetical):</strong> Prediction of a result.",
+                "<strong>Modal (Impossibility):</strong> Survival would be impossible.",
+                "<strong>Past Perfect:</strong> Describing the state we had put ourselves in.",
+                "<strong>Past Modal (Criticism):</strong> It was wrong to ignore it.",
+                "<strong>Past Modal (Criticism):</strong> Better use of money in the past.",
+                "<strong>Future Simple:</strong> A prediction about the future.",
+                "<strong>Past Modal (Criticism):</strong> We needed to be humble.",
+                "<strong>Past Modal (Possibility):</strong> It was possible to lose everything."
+            ]
+        }
+    ];
+
+    let rIndex = 0;
+
+    function initReading() {
+        const tabs = document.getElementById('r-tabs');
+        readings.forEach((r, i) => {
+            const btn = document.createElement('button');
+            btn.className = `r-tab ${i===0?'active':''}`;
+            btn.innerText = `Text ${i+1}`;
+            btn.onclick = () => loadReading(i);
+            tabs.appendChild(btn);
+        });
+        loadReading(0);
+    }
+
+    function loadReading(idx) {
+        rIndex = idx;
+        const r = readings[idx];
+        
+        // Update Tabs
+        document.querySelectorAll('.r-tab').forEach((t, i) => t.classList.toggle('active', i===idx));
+
+        // Word Pool
+        document.getElementById('word-pool').innerHTML = r.words.map(w => `<div class="pool-item">${w}</div>`).join('');
+
+        // Content Generation (Paragraphs + Audio)
+        let html = `<h3>${r.title}</h3>`;
+        
+        r.content.forEach((para, pIndex) => {
+            // جایگذاری ورودی‌ها
+            let pText = para.replace(/{{(\d+)}}/g, (m, id) => {
+                return `<input type="text" class="gap-input" data-id="${id}" placeholder="?">`;
+            });
+            
+            // ساخت پاراگراف با دکمه صدا
+            // برای صدا: متن کامل جواب‌ها را جایگزین می‌کنیم تا خواندن صحیح باشد
+            let audioText = para.replace(/{{(\d+)}}/g, (m, id) => r.answers[id]);
+            // حذف پرانتز راهنما مثل (oversleep) از متن صوتی
+            audioText = audioText.replace(/\s*\([a-zA-Z]+\)/g, "");
+
+            // --- (بخش تکراری حذف شد) ---
+
+            // نکته: دکمه صدا دارای کلاس 'paragraph-audio' است و display:none دارد
+            html += `
+                <div style="margin-bottom: 25px; position: relative; line-height:1.8;">
+                    <button class="audio-btn paragraph-audio" data-text="${audioText.replace(/'/g,"\\'")}"
+                            onclick="speak(this.dataset.text)" 
+                            style="display:none; position:absolute; right:-45px; top:0; font-size:1.1rem; width:35px; height:35px; background:var(--primary); color:white; border:none; z-index:10;">
+                        🔊
+                    </button>
+                    <p style="margin:0; text-align:justify;">${pText}</p>
+                </div>
+            `;
+        });
+
+        document.getElementById('reading-text').innerHTML = html;
+        document.getElementById('r-feedback').innerText = '';
+        // دکمه صدای کلی دیگر نیاز نیست چون پاراگراف‌ها جداگانه صدا دارند، اما می‌توان نگه داشت یا مخفی کرد.
+        document.getElementById('audio-read-btn').style.display = 'none';
+    }
+
+    // ================= CHECK READING FUNCTION =================
+    window.checkReading = () => {
+        const r = readings[rIndex];
+        const inputs = document.querySelectorAll('.gap-input');
+        let correctCount = 0;
+        
+        // شروع ساخت HTML توضیحات
+        let explanationHTML = '<div style="margin-top:30px; background:#f8fafc; padding:20px; border-radius:12px; border:1px solid #e2e8f0;"><h4>📝 Detailed Explanations & Audio</h4><p style="font-size:0.9rem; color:#64748b; margin-bottom:15px;">Click the 🔊 icons next to the text to hear the correct flow.</p><ul style="list-style:none; padding:0;">';
+
+        inputs.forEach(inp => {
+            const id = inp.dataset.id;
+            const user = normalize(inp.value);
+            const ans = normalize(r.answers[id]);
+            
+            const isRight = user === ans;
+            const icon = isRight ? "✅" : "❌";
+            const color = isRight ? "#166534" : "#991b1b"; // Green vs Red
+            const bg = isRight ? "#dcfce7" : "#fee2e2";     // Light Green vs Light Red
+            
+            // افزودن آیتم به لیست توضیحات
+            explanationHTML += `
+                <li style="margin-bottom:12px; background:${bg}; padding:12px; border-radius:8px; border-left:4px solid ${color};">
+                    <div style="font-weight:bold; color:${color}; margin-bottom:4px;">
+                        ${icon} Gap ${parseInt(id)+1}: <span style="text-decoration:underline">${r.answers[id]}</span>
+                    </div>
+                    <div style="font-size:0.95rem; color:#334155; line-height:1.4;">${r.explanations[id]}</div>
+                </li>`;
+
+            // تغییر استایل اینپوت‌ها
+            if (isRight) {
+                inp.classList.add('correct');
+                inp.classList.remove('wrong');
+                correctCount++;
+            } else {
+                inp.classList.add('wrong');
+                inp.classList.remove('correct');
+                // نمایش جواب صحیح کنار کادر (اگر قبلا اضافه نشده باشد)
+                if (!inp.nextElementSibling || !inp.nextElementSibling.classList.contains('correction-span')) {
+                     const span = document.createElement('span');
+                     span.className = 'correction-span';
+                     span.innerText = r.answers[id];
+                     inp.after(span);
+                }
+            }
+        });
+
+        explanationHTML += '</ul></div>';
+
+        // نمایش نتیجه کلی
+        const feed = document.getElementById('r-feedback');
+        let resultMsg = "";
+        
+        if (correctCount === r.answers.length) {
+            resultMsg = `<div style="font-size:1.4rem; color:var(--success); font-weight:800; margin-bottom:15px; text-align:center;">🌟 Perfect Score! (${correctCount}/${r.answers.length}) 🌟</div>`;
+        } else {
+            resultMsg = `<div style="font-size:1.2rem; color:var(--text); font-weight:bold; margin-bottom:15px;">You scored ${correctCount}/${r.answers.length}. Review the logic below. 👇</div>`;
+        }
+        
+        feed.innerHTML = resultMsg + explanationHTML;
+        
+        // نمایش دکمه‌های صدا پس از بررسی جواب
+        document.querySelectorAll('.paragraph-audio').forEach(btn => {
+            btn.style.display = 'inline-flex';
+            btn.animate([
+                { transform: 'scale(0)' },
+                { transform: 'scale(1.1)' },
+                { transform: 'scale(1)' }
+            ], { duration: 300, easing: 'ease-out' });
+        });
+    }
+
+    // Initialize
+    loadQuiz();
+    initReading();
+
+</script>
+</body>
+</html>
