@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Modules</title>
+    <style>
+        :root { --primary: #7c3aed; --bg: #f3e8ff; --text: #1f2937; --white: #ffffff; }
+        body { font-family: sans-serif; background: #faf5ff; color: var(--text); margin: 0; }
+        
+        .mini-header {
+            background: linear-gradient(135deg, #6d28d9, #7c3aed); 
+            color: white; padding: 25px;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(124, 58, 237, 0.2);
+        }
+        .home-btn { text-decoration: none; color: white; font-weight: bold; background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 20px; transition: background 0.2s;}
+        .home-btn:hover { background: rgba(255,255,255,0.3); }
+        h1 { margin: 0; font-size: 1.4rem; }
+
+        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        
+        .lesson-card {
+            background: var(--white); border-radius: 12px; padding: 20px;
+            margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;
+            text-decoration: none; color: var(--text);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.2s; border-left: 6px solid var(--primary);
+        }
+        .lesson-card:hover { transform: translateX(5px); box-shadow: 0 5px 15px rgba(124, 58, 237, 0.15); }
+        
+        .content { display: flex; align-items: center; }
+        .lesson-icon { font-size: 1.5rem; margin-right: 15px; color: var(--primary); background: #f3e8ff; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .lesson-info h3 { margin: 0 0 5px 0; font-size: 1.1rem; }
+        .lesson-info p { margin: 0; color: #6b7280; font-size: 0.9rem; }
+        .arrow { color: #d1d5db; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <div class="mini-header">
+        <a href="index.html" class="home-btn">🏠 Home</a>
+        <h1>Grammar Laboratory</h1>
+        <div style="width: 80px;"></div> 
+    </div>
+
+    <div class="container">
+        
+        <a href="grammar/past-modals.html" class="lesson-card">
+            <div class="content">
+                <div class="lesson-icon">🕵️‍♂️</div>
+                <div class="lesson-info">
+                    <h3>Past Modals Masterclass</h3>
+                    <p>Deduction, Regrets (Should have), and Speculation.</p>
+                </div>
+            </div>
+            <span class="arrow">→</span>
+        </a>
+
+        <div class="lesson-card" style="opacity: 0.6; cursor: default; border-left-color: #cbd5e1;">
+            <div class="content">
+                <div class="lesson-icon" style="background:#f1f5f9; color:#94a3b8">🔮</div>
+                <div class="lesson-info">
+                    <h3>Future Tenses (Advanced)</h3>
+                    <p>Coming Soon...</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

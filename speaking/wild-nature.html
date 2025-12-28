@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wild & Nature Masterclass</title>
+    <style>
+        /* --- General Styles --- */
+        :root {
+            --primary: #059669; 
+            --primary-dark: #064e3b;
+            --secondary: #34d399;
+            --accent: #d97706;
+            --bg: #f0fdf4;
+            --surface: #ffffff;
+            --text: #1f2937;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding-bottom: 80px;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 3rem 1rem 4rem 1rem;
+            text-align: center;
+            border-radius: 0 0 40px 40px;
+            box-shadow: var(--shadow);
+        }
+
+        h1 { margin: 0; font-size: 2.2rem; }
+        .subtitle { opacity: 0.9; margin-top: 10px; }
+
+        /* --- Navigation --- */
+        .nav-container {
+            display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+            margin-top: -30px; position: sticky; top: 10px; z-index: 100; padding: 0 10px;
+        }
+
+        .nav-btn {
+            background: var(--surface); border: none; padding: 12px 20px;
+            border-radius: 50px; font-weight: 700; color: #4b5563;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); cursor: pointer;
+            text-decoration: none; display: flex; align-items: center; gap: 8px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .nav-btn:hover { transform: translateY(-3px); }
+        .nav-btn.active { background: var(--text); color: white; }
+
+        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; display: none; }
+        .container.active { display: block; animation: fadeIn 0.4s; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Cards & Vocabulary --- */
+        .card {
+            background: var(--surface); border-radius: var(--radius);
+            padding: 25px; margin-bottom: 25px; box-shadow: var(--shadow);
+            border-left: 6px solid var(--primary);
+        }
+
+        h2 { margin-top: 0; color: var(--primary-dark); display: flex; align-items: center; gap: 10px; }
+
+        .vocab-item {
+            border-bottom: 1px solid #f3f4f6; padding: 15px 0;
+        }
+        .vocab-item:last-child { border-bottom: none; }
+
+        .word-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .word { font-weight: 800; font-size: 1.15rem; color: var(--text); }
+        .pos { font-size: 0.8rem; background: #e5e7eb; padding: 2px 6px; border-radius: 4px; color: #6b7280; font-weight: normal; margin-left: 8px; vertical-align: middle; }
+        
+        .meaning { color: #4b5563; font-size: 0.95rem; margin-bottom: 8px; }
+        
+        .example-box {
+            background: #f0fdf4; border-radius: 8px; padding: 10px; margin-top: 8px;
+            font-size: 0.9rem; border-left: 3px solid #34d399;
+        }
+        .ex-text { font-style: italic; color: #065f46; display: block; margin-bottom: 4px; }
+
+        /* --- Audio Button --- */
+        .audio-btn {
+            background: #ecfdf5; color: var(--primary); border: none;
+            width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+            font-size: 1rem; display: inline-flex; align-items: center; justify-content: center;
+            transition: all 0.2s; margin-left: 8px; flex-shrink: 0;
+        }
+        .audio-btn:hover { background: var(--primary); color: white; }
+        .audio-btn.small { width: 24px; height: 24px; font-size: 0.8rem; background: transparent; border: 1px solid #d1fae5; }
+        .audio-btn.small:hover { background: var(--primary); border-color: var(--primary); }
+
+        /* --- Speaking Section Styles --- */
+        .speaking-q { font-weight: bold; color: #be185d; margin-bottom: 10px; font-size: 1.05rem; }
+        .speaking-a { background: #fff1f2; padding: 15px; border-radius: 8px; color: #881337; line-height: 1.7; position: relative; }
+        .speaking-part { margin-bottom: 40px; }
+        .part-badge { display: inline-block; background: #be185d; color: white; padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 15px; }
+
+        /* --- Grammar Box --- */
+        .grammar-box { background: #fffbeb; border: 2px dashed #f59e0b; padding: 20px; border-radius: 12px; }
+        .rule { font-family: monospace; background: white; padding: 5px; border: 1px solid #fcd34d; border-radius: 4px; display: inline-block; color: #b45309; }
+
+        /* --- Quiz Styles --- */
+        .q-card { background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px; box-shadow: var(--shadow); }
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
+        @media (min-width: 600px) { .options-grid { grid-template-columns: 1fr 1fr; } }
+        .opt-btn { padding: 12px; border: 1px solid #e5e7eb; background: white; border-radius: 8px; cursor: pointer; text-align: left; transition: 0.2s; }
+        .opt-btn:hover { background: #f0fdf4; border-color: var(--primary); }
+        .opt-btn.correct { background: #dcfce7; border-color: #166534; color: #166534; font-weight: bold; }
+        .opt-btn.wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+        .feedback { margin-top: 10px; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Wild & Nature</h1>
+    <div class="subtitle">Vocabulary, Grammar & Speaking (Band 6.0 - 7.5+)</div>
+</header>
+
+<div class="nav-container">
+    <a href="../index.html" class="nav-btn" style="text-decoration:none; color:#4b5563;"><span>🏠</span> Home</a>
+    <button class="nav-btn active" onclick="switchTab('learn')"><span>📖</span> Vocabulary</button>
+    <button class="nav-btn" onclick="switchTab('speaking')"><span>🗣️</span> Speaking</button>
+    <button class="nav-btn" onclick="switchTab('practice')"><span>🎯</span> Quiz</button>
+</div>
+
+<div id="learn" class="container active">
+
+    <div class="card">
+        <h2>🦁 Animals & Behavior</h2>
+        
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Predator</span> <span class="pos">(n.)</span></div>
+                <button class="audio-btn" onclick="speak('Predator')">🔊</button>
+            </div>
+            <div class="meaning">An animal that hunts other animals for food.</div>
+            <div class="example-box">
+                <span class="ex-text">"Lions are top <strong>predators</strong> in the wild."</span>
+                <button class="audio-btn small" onclick="speak('Lions are top predators in the wild.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Prey</span> <span class="pos">(n.)</span></div>
+                <button class="audio-btn" onclick="speak('Prey')">🔊</button>
+            </div>
+            <div class="meaning">An animal that is hunted and eaten by another.</div>
+            <div class="example-box">
+                <span class="ex-text">"Small birds often become <strong>prey</strong> for cats."</span>
+                <button class="audio-btn small" onclick="speak('Small birds often become prey for cats.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Mosquitos</span> <span class="pos">(n.)</span></div>
+                <button class="audio-btn" onclick="speak('Mosquitos')">🔊</button>
+            </div>
+            <div class="meaning">Small flying insects that bite and feed on blood.</div>
+            <div class="example-box">
+                <span class="ex-text">"<strong>Mosquitos</strong> are very annoying in the summer."</span>
+                <button class="audio-btn small" onclick="speak('Mosquitos are very annoying in the summer.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Breed</span> <span class="pos">(v.)</span></div>
+                <button class="audio-btn" onclick="speak('Breed')">🔊</button>
+            </div>
+            <div class="meaning">To produce young animals (babies).</div>
+            <div class="example-box">
+                <span class="ex-text">"Many birds return to this island to <strong>breed</strong> every year."</span>
+                <button class="audio-btn small" onclick="speak('Many birds return to this island to breed every year.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Migrate</span> <span class="pos">(v.)</span></div>
+                <button class="audio-btn" onclick="speak('Migrate')">🔊</button>
+            </div>
+            <div class="meaning">To move from one region to another according to the seasons.</div>
+            <div class="example-box">
+                <span class="ex-text">"Whales <strong>migrate</strong> thousands of miles to find warmer water."</span>
+                <button class="audio-btn small" onclick="speak('Whales migrate thousands of miles to find warmer water.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Fearless</span> <span class="pos">(adj.)</span></div>
+                <button class="audio-btn" onclick="speak('Fearless')">🔊</button>
+            </div>
+            <div class="meaning">Not afraid of anything.</div>
+            <div class="example-box">
+                <span class="ex-text">"The honey badger is a <strong>fearless</strong> animal."</span>
+                <button class="audio-btn small" onclick="speak('The honey badger is a fearless animal.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Vicious</span> <span class="pos">(adj.)</span></div>
+                <button class="audio-btn" onclick="speak('Vicious')">🔊</button>
+            </div>
+            <div class="meaning">Violent, cruel, and dangerous.</div>
+            <div class="example-box">
+                <span class="ex-text">"Wild dogs can be quite <strong>vicious</strong> when they hunt."</span>
+                <button class="audio-btn small" onclick="speak('Wild dogs can be quite vicious when they hunt.')">🔊</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="border-left-color: #d97706;">
+        <h2 style="color:#b45309">🌍 Ecology & Conservation</h2>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Ecological balance</span> <span class="pos">(n.)</span></div>
+                <button class="audio-btn" onclick="speak('Ecological balance')">🔊</button>
+            </div>
+            <div class="meaning">A stable state of nature where everything is healthy.</div>
+            <div class="example-box">
+                <span class="ex-text">"We need to <strong>maintain the ecological balance</strong>."</span>
+                <button class="audio-btn small" onclick="speak('We need to maintain the ecological balance.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Conservation efforts</span> <span class="pos">(n.)</span></div>
+                <button class="audio-btn" onclick="speak('Conservation efforts')">🔊</button>
+            </div>
+            <div class="meaning">Work done to protect nature and animals.</div>
+            <div class="example-box">
+                <span class="ex-text">"Without money, <strong>conservation efforts</strong> will be futile."</span>
+                <button class="audio-btn small" onclick="speak('Without money, conservation efforts will be futile.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Play an irreplaceable role</span> <span class="pos">(phrase)</span></div>
+                <button class="audio-btn" onclick="speak('Play an irreplaceable role')">🔊</button>
+            </div>
+            <div class="meaning">To have a very important function that nothing else can do.</div>
+            <div class="example-box">
+                <span class="ex-text">"Bees <strong>play an irreplaceable role in</strong> our ecosystem."</span>
+                <button class="audio-btn small" onclick="speak('Bees play an irreplaceable role in our ecosystem.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Essential resources</span> <span class="pos">(n.)</span></div>
+                <button class="audio-btn" onclick="speak('Essential resources')">🔊</button>
+            </div>
+            <div class="meaning">Basic things we need to live (water, air, food).</div>
+            <div class="example-box">
+                <span class="ex-text">"Nature provides us with <strong>essential resources</strong>."</span>
+                <button class="audio-btn small" onclick="speak('Nature provides us with essential resources.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Interdependent</span> <span class="pos">(adj.)</span></div>
+                <button class="audio-btn" onclick="speak('Interdependent')">🔊</button>
+            </div>
+            <div class="meaning">Depending on each other.</div>
+            <div class="example-box">
+                <span class="ex-text">"In the wild, plants and animals are <strong>interdependent</strong>."</span>
+                <button class="audio-btn small" onclick="speak('In the wild, plants and animals are interdependent.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Preserve diversity</span> <span class="pos">(v.)</span></div>
+                <button class="audio-btn" onclick="speak('Preserve diversity')">🔊</button>
+            </div>
+            <div class="meaning">To protect the variety of life (plants/animals).</div>
+            <div class="example-box">
+                <span class="ex-text">"We must act now to <strong>preserve diversity</strong> in the rainforest."</span>
+                <button class="audio-btn small" onclick="speak('We must act now to preserve diversity in the rainforest.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">A domino effect</span> <span class="pos">(n.)</span></div>
+                <button class="audio-btn" onclick="speak('A domino effect')">🔊</button>
+            </div>
+            <div class="meaning">When one event causes a chain of other events.</div>
+            <div class="example-box">
+                <span class="ex-text">"Loss of habitat can trigger a <strong>domino effect</strong>."</span>
+                <button class="audio-btn small" onclick="speak('Loss of habitat can trigger a domino effect.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Futile</span> <span class="pos">(adj.)</span></div>
+                <button class="audio-btn" onclick="speak('Futile')">🔊</button>
+            </div>
+            <div class="meaning">Useless; having no result.</div>
+            <div class="example-box">
+                <span class="ex-text">"Arguments are <strong>futile</strong> when no one listens."</span>
+                <button class="audio-btn small" onclick="speak('Arguments are futile when no one listens.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Environmental degradation</span> <span class="pos">(n.)</span></div>
+                <button class="audio-btn" onclick="speak('Environmental degradation')">🔊</button>
+            </div>
+            <div class="meaning">Damage to the environment (pollution, destruction).</div>
+            <div class="example-box">
+                <span class="ex-text">"Air pollution is a major cause of <strong>environmental degradation</strong>."</span>
+                <button class="audio-btn small" onclick="speak('Air pollution is a major cause of environmental degradation.')">🔊</button>
+            </div>
+        </div>
+        
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">For the entire globe</span> <span class="pos">(phrase)</span></div>
+                <button class="audio-btn" onclick="speak('For the entire globe')">🔊</button>
+            </div>
+            <div class="meaning">For the whole planet/world.</div>
+            <div class="example-box">
+                <span class="ex-text">"Climate change is a problem <strong>for the entire globe</strong>."</span>
+                <button class="audio-btn small" onclick="speak('Climate change is a problem for the entire globe.')">🔊</button>
+            </div>
+        </div>
+        
+        <div class="vocab-item">
+             <div class="word-row">
+                <div><span class="word">Foundation of our survival</span> <span class="pos">(phrase)</span></div>
+                <button class="audio-btn" onclick="speak('Foundation of our survival')">🔊</button>
+            </div>
+            <div class="meaning">The basis of our existence.</div>
+            <div class="example-box">
+                <span class="ex-text">"The environment is the <strong>foundation of our survival</strong>."</span>
+                <button class="audio-btn small" onclick="speak('The environment is the foundation of our survival.')">🔊</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="border-left-color: #8b5cf6;">
+        <h2 style="color:#6d28d9">💡 Grammar & Useful Phrases</h2>
+        
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Simultaneously</span> <span class="pos">(adv.)</span></div>
+                <button class="audio-btn" onclick="speak('Simultaneously')">🔊</button>
+            </div>
+            <div class="meaning">Happening at the same time.</div>
+            <div class="example-box">
+                <span class="ex-text">"The lightning and thunder happened almost <strong>simultaneously</strong>."</span>
+                <button class="audio-btn small" onclick="speak('The lightning and thunder happened almost simultaneously.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="grammar-box">
+            <p><strong>1. Provide (Preposition)</strong></p>
+            <div class="rule">Provide somebody WITH something</div>
+            <p>✅ "Nature <strong>provides us with</strong> food."</p>
+            <button class="audio-btn small" style="margin-bottom:10px" onclick="speak('Nature provides us with food.')">🔊</button>
+
+            <p><strong>2. Emphasis with "Such" vs "So"</strong></p>
+            <div class="rule">Such + (Adjective) + NOUN</div>
+            <p>✅ "They are <strong>such beautiful animals</strong>."</p>
+            <button class="audio-btn small" style="margin-bottom:10px" onclick="speak('They are such beautiful animals.')">🔊</button>
+            
+            <div class="rule">So + ADJECTIVE</div>
+            <p>✅ "They are <strong>so beautiful</strong>."</p>
+            <button class="audio-btn small" onclick="speak('They are so beautiful.')">🔊</button>
+        </div>
+    </div>
+    
+    <div class="card" style="border-left-color: #ec4899;">
+        <h2 style="color:#be185d">🗣️ Speaking Strategies</h2>
+        <p style="color:#666; font-size:0.9rem; margin-bottom:15px">Use these phrases to sound more fluent and natural.</p>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">From my perspective</span></div>
+                <button class="audio-btn" onclick="speak('From my perspective')">🔊</button>
+            </div>
+            <div class="meaning">In my opinion / The way I see it.</div>
+             <div class="example-box">
+                <span class="ex-text">"<strong>From my perspective</strong>, zoos are necessary."</span>
+                <button class="audio-btn small" onclick="speak('From my perspective, zoos are necessary.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">In my view</span></div>
+                <button class="audio-btn" onclick="speak('In my view')">🔊</button>
+            </div>
+            <div class="meaning">I think / I believe.</div>
+             <div class="example-box">
+                <span class="ex-text">"<strong>In my view</strong>, we should do more to help."</span>
+                <button class="audio-btn small" onclick="speak('In my view, we should do more to help.')">🔊</button>
+            </div>
+        </div>
+
+        <div class="vocab-item">
+            <div class="word-row">
+                <div><span class="word">Buying Time Phrase</span></div>
+                <button class="audio-btn" onclick="speak('That is a challenging question to answer.')">🔊</button>
+            </div>
+            <div class="meaning">Use this when you need a moment to think:</div>
+            <div class="example-box">
+                <span class="ex-text">"<strong>That is a challenging question to answer. Personally, I believe it is crucial that</strong> we protect animals."</span>
+                <button class="audio-btn small" onclick="speak('That is a challenging question to answer. Personally, I believe it is crucial that we protect animals.')">🔊</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="speaking" class="container">
+    <div class="speaking-part">
+        <span class="part-badge">Part 1: Introduction (4-5 Minutes)</span>
+        
+        <div class="card" style="border-left-color:#be185d;">
+            <div class="speaking-q">Q: Do you like watching wildlife documentaries?</div>
+            <div class="speaking-a">
+                "Yes, definitely. I find them really educational. <strong>From my perspective</strong>, they help us understand how animals behave in their <strong>natural habitats</strong>. I usually watch them on weekends to relax."
+                <button class="audio-btn" style="position:absolute; top:10px; right:10px;" onclick="speak('Yes, definitely. I find them really educational. From my perspective, they help us understand how animals behave in their natural habitats. I usually watch them on weekends to relax.')">🔊</button>
+            </div>
+            
+            <br>
+            
+            <div class="speaking-q">Q: Have you ever been to a zoo or a safari park?</div>
+            <div class="speaking-a">
+                "Yes, I have visited the city zoo a few times. It's a good place to see animals like lions and elephants close up. However, <strong>in my view</strong>, safari parks are better because animals have more space to move around and aren't kept in small cages."
+                <button class="audio-btn" style="position:absolute; top:10px; right:10px;" onclick="speak('Yes, I have visited the city zoo a few times. It is a good place to see animals like lions and elephants close up. However, in my view, safari parks are better because animals have more space to move around and are not kept in small cages.')">🔊</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="speaking-part">
+        <span class="part-badge">Part 2: Long Turn (1-2 Minutes)</span>
+        <div class="card" style="border-left-color:#be185d;">
+            <div class="speaking-q">Describe a wild animal you are interested in.</div>
+            <ul style="font-size:0.9rem; color:#666; margin-bottom:15px; padding-left:20px;">
+                <li>What it looks like</li>
+                <li>Where it lives</li>
+                <li>What it eats</li>
+                <li>And explain why you like it</li>
+            </ul>
+            
+            <div class="speaking-a">
+                "I’d like to talk about the Tiger, which is one of the most <strong>magnificent</strong> animals on the planet. It is a large cat with orange fur and distinct black stripes. No two tigers have the same stripes, which I think is amazing.
+                <br><br>
+                Tigers mostly live in dense forests and grasslands in Asia, specifically in countries like India. They need a large territory to hunt and live. Unfortunately, their <strong>natural habitat</strong> is shrinking because of humans cutting down trees.
+                <br><br>
+                As for their diet, they are <strong>predators</strong> and carnivores. They hunt other animals like deer and wild pigs. They are very stealthy and usually hunt alone at night.
+                <br><br>
+                I am fascinated by them because they are <strong>fearless</strong> and powerful. <strong>At first glance</strong>, they look beautiful, but they can be <strong>vicious</strong> if threatened. Sadly, they are an <strong>endangered species</strong> now due to <strong>environmental degradation</strong> and illegal hunting. <strong>Personally, I believe it is crucial that</strong> we <strong>safeguard</strong> them for future generations."
+                
+                <button class="audio-btn" style="position:absolute; top:10px; right:10px;" onclick="speak('I’d like to talk about the Tiger, which is one of the most magnificent animals on the planet. It is a large cat with orange fur and distinct black stripes. No two tigers have the same stripes, which I think is amazing. Tigers mostly live in dense forests and grasslands in Asia, specifically in countries like India. They need a large territory to hunt and live. Unfortunately, their natural habitat is shrinking because of humans cutting down trees. As for their diet, they are predators and carnivores. They hunt other animals like deer and wild pigs. They are very stealthy and usually hunt alone at night. I am fascinated by them because they are fearless and powerful. At first glance, they look beautiful, but they can be vicious if threatened. Sadly, they are an endangered species now due to environmental degradation and illegal hunting. Personally, I believe it is crucial that we safeguard them for future generations.')">🔊</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="speaking-part">
+        <span class="part-badge">Part 3: Discussion (4-5 Minutes)</span>
+        <div class="card" style="border-left-color:#be185d;">
+            <div class="speaking-q">Q: Why do we need to protect wild animals?</div>
+            <div class="speaking-a">
+                "<strong>That is a challenging question to answer</strong>, but <strong>in my view</strong>, it is absolutely essential. The main reason is that all species are <strong>interdependent</strong>. If we lose one animal, it can trigger a <strong>domino effect</strong> that hurts the whole ecosystem. For example, without bees, we wouldn't have enough food. So, <strong>conservation efforts</strong> are basically about <strong>safeguarding</strong> the <strong>foundation of our survival</strong>."
+                <button class="audio-btn" style="position:absolute; top:10px; right:10px;" onclick="speak('That is a challenging question to answer, but in my view, it is absolutely essential. The main reason is that all species are interdependent. If we lose one animal, it can trigger a domino effect that hurts the whole ecosystem. For example, without bees, we would not have enough food. So, conservation efforts are basically about safeguarding the foundation of our survival.')">🔊</button>
+            </div>
+            
+            <br><hr style="border:0; border-top:1px dashed #f9a8d4; margin:20px 0"><br>
+
+            <div class="speaking-q">Q: What are the main problems causing species extinction?</div>
+            <div class="speaking-a">
+                "There are several factors working <strong>simultaneously</strong>. The biggest problem is definitely <strong>environmental degradation</strong> caused by humans. We are destroying forests to build cities, which leaves animals with nowhere to live. Another issue is climate change, which is a problem <strong>for the entire globe</strong>. It changes the weather so fast that animals cannot adapt or <strong>breed</strong> properly."
+                <button class="audio-btn" style="position:absolute; top:10px; right:10px;" onclick="speak('There are several factors working simultaneously. The biggest problem is definitely environmental degradation caused by humans. We are destroying forests to build cities, which leaves animals with nowhere to live. Another issue is climate change, which is a problem for the entire globe. It changes the weather so fast that animals cannot adapt or breed properly.')">🔊</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="practice" class="container">
+    <div style="text-align:center; margin-bottom:20px; color:#6b7280;">Test your knowledge!</div>
+    <div id="quiz-area"></div>
+</div>
+
+<script>
+    // --- 1. Audio System (Smart Version) ---
+    let voices = [];
+
+    function loadVoices() {
+        voices = window.speechSynthesis.getVoices();
+    }
+
+    // بارگذاری لیست صداها (در کروم گاهی با تاخیر انجام می‌شود)
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    function speak(text) {
+        // قطع کردن صدای قبلی
+        window.speechSynthesis.cancel();
+
+        // تلاش مجدد برای گرفتن صداها اگر لیست خالی بود
+        if (voices.length === 0) {
+            voices = window.speechSynthesis.getVoices();
+        }
+
+        const msg = new SpeechSynthesisUtterance(text);
+
+        // انتخاب هوشمند بهترین صدای طبیعی (اولویت با گوگل و مایکروسافت)
+        const preferredVoice = voices.find(voice => 
+            voice.name.includes("Google US English") || 
+            voice.name.includes("Microsoft Zira") || 
+            voice.name.includes("Samantha")
+        );
+
+        if (preferredVoice) {
+            msg.voice = preferredVoice;
+        }
+
+        msg.lang = 'en-US';
+        msg.rate = 0.9; // سرعت کمی آهسته برای آموزشی
+        msg.pitch = 1;
+
+        window.speechSynthesis.speak(msg);
+    }
+    
+    // فراخوانی اولیه
+    loadVoices();
+
+    // --- 2. Tab Switching ---
+    function switchTab(id) {
+        document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        
+        document.getElementById(id).classList.add('active');
+        // Find button that calls this id
+        const btns = document.querySelectorAll('.nav-btn');
+        btns.forEach(btn => {
+            if(btn.getAttribute('onclick').includes(id)) {
+                btn.classList.add('active');
+            }
+        });
+        window.scrollTo(0,0);
+    }
+
+    // --- 3. Quiz Data ---
+    const quizData = [
+        {
+            q: "We need to ____ the ecological balance.",
+            a: "maintain",
+            opts: ["maintain", "breed", "migrate"],
+            audio: "We need to maintain the ecological balance." // اضافه شده
+        },
+        {
+            q: "Bees play an ____ role in the ecosystem.",
+            a: "irreplaceable",
+            opts: ["irreplaceable", "futile", "vicious"],
+            audio: "Bees play an irreplaceable role in the ecosystem." // اضافه شده
+        },
+        {
+            q: "Nature ____ us with food and water.",
+            a: "provides",
+            opts: ["gives", "provides", "offers"],
+            audio: "Nature provides us with food and water."
+        },
+        {
+            q: "Select the correct phrase:",
+            a: "From my perspective",
+            opts: ["From my perspective", "From my view", "In my perspective"],
+            audio: "From my perspective, this is the best solution."
+        },
+        {
+            q: "Mosquitos can carry diseases ____.",
+            a: "simultaneously",
+            opts: ["simultaneously", "viciously", "fearlessly"],
+            audio: "Mosquitos can carry diseases simultaneously."
+        },
+        {
+            q: "Conservation efforts are necessary for the ____ globe.",
+            a: "entire",
+            opts: ["whole", "entire", "complete"],
+            audio: "Conservation efforts are necessary for the entire globe."
+        },
+        {
+            q: "Lions are ____; they hunt other animals.",
+            a: "predators",
+            opts: ["prey", "predators", "biodiversity"],
+            audio: "Lions are predators; they hunt other animals."
+        },
+        {
+            q: "Which sentence uses 'Such' correctly?",
+            a: "It is such a beautiful place.",
+            opts: ["It is such beautiful.", "It is such a beautiful place.", "It is so a beautiful place."],
+            audio: "It is such a beautiful place."
+        }
+    ];
+
+    // --- 4. Render Quiz ---
+    const quizArea = document.getElementById('quiz-area');
+    quizData.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'q-card';
+        // اضافه کردن پارامتر audio به تابع check
+        // دقت کنید: ما item.audio را هم پاس میدهیم
+        div.innerHTML = `
+            <div style="font-weight:bold; margin-bottom:10px;">${index + 1}. ${item.q}</div>
+            <div class="options-grid">
+                ${item.opts.map(opt => `<button class="opt-btn" onclick="check(this, '${item.a.replace(/'/g, "\\'")}', '${item.audio.replace(/'/g, "\\'")}')">${opt}</button>`).join('')}
+            </div>
+            <div class="feedback" style="display:none"></div>
+        `;
+        quizArea.appendChild(div);
+    });
+
+    // تابع جدید با پارامتر fullAudio
+    function check(btn, ans, fullAudio) {
+        const parent = btn.parentElement;
+        const feedback = parent.nextElementSibling;
+        const allBtns = parent.querySelectorAll('.opt-btn');
+        
+        // غیرفعال کردن دکمه‌ها
+        allBtns.forEach(b => {
+            b.disabled = true;
+            b.style.cursor = 'default';
+        });
+
+        // دکمه صدای جدید برای خواندن جمله کامل
+        // از \" برای دابل کوتیشن داخل رشته استفاده می‌کنیم
+        const audioBtn = `<button class="audio-btn small" onclick="speak('${fullAudio.replace(/'/g, "\\'")}')" style="vertical-align:middle; margin-left:10px;">🔊 Listen</button>`;
+
+        if (btn.innerText === ans) {
+            btn.classList.add('correct');
+            feedback.style.color = '#166534';
+            feedback.style.display = 'block';
+            // فقط متن نمایش داده می‌شود + دکمه صدا
+            feedback.innerHTML = `✅ Correct! ${audioBtn}`;
+            // نکته: دیگر speak("Correct") را صدا نمی‌زنیم
+        } else {
+            btn.classList.add('wrong');
+            allBtns.forEach(b => {
+                if(b.innerText === ans) b.classList.add('correct');
+            });
+            feedback.style.color = '#991b1b';
+            feedback.style.display = 'block';
+            // نمایش متن خطا + دکمه صدا برای شنیدن جمله صحیح
+            feedback.innerHTML = `❌ Incorrect. ${audioBtn}`;
+            // نکته: دیگر speak("Incorrect") را صدا نمی‌زنیم
+        }
+    }
+</script>
+
+</body>
+</html>
