@@ -700,8 +700,14 @@
             inp.focus(); 
             inp.addEventListener("keypress", function(event) {
                 if (event.key === "Enter") {
-                    event.preventDefault(); // جلوگیری از رفرش ناخواسته
-                    checkInput();
+                    event.preventDefault(); 
+                    // اگر فیدبک نمایش داده شده، برو سوال بعدی
+                    if (document.getElementById('feedback').style.display === 'block') {
+                        nextQ();
+                    } else {
+                        // در غیر این صورت جواب را چک کن
+                        checkInput();
+                    }
                 }
             });
         }
@@ -759,7 +765,8 @@
             else if(b.innerText === userAns) b.classList.add('wrong');
         });
         const inp = document.getElementById('inp-ans');
-        if(inp) inp.disabled = true;
+        // تغییر: به جای disabled از readOnly استفاده می‌کنیم تا فوکوس بماند
+        if(inp) { inp.readOnly = true; inp.focus(); }
 
         document.getElementById('score').innerText = score;
     }
@@ -834,8 +841,9 @@
                  score += 10; 
                  document.getElementById('score').innerText = score;
                  
-                 // غیرفعال کردن ورودی
-                 inp.disabled = true;
+                 // تغییر: فقط-خواندنی برای زدن اینتر بعدی
+                 inp.readOnly = true;
+                 inp.focus();
                  return;
             }
         }

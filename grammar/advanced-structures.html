@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Advanced English Structures Masterclass</title>
+    <style>
+        :root {
+            /* Theme Colors: Indigo & Violet for Advanced Grammar */
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --secondary: #818cf8;
+            --accent: #f59e0b; /* Amber for highlights */
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --success: #10b981;
+            --error: #ef4444;
+            --radius: 16px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding-bottom: 100px;
+            line-height: 1.6;
+        }
+
+        /* --- Header --- */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 3rem 1.5rem 4.5rem 1.5rem;
+            text-align: center;
+            border-radius: 0 0 50px 50px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotate 60s linear infinite;
+        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        h1 { margin: 0; font-size: 2.4rem; font-weight: 800; letter-spacing: -1px; position: relative; }
+        .subtitle { opacity: 0.9; margin-top: 12px; font-weight: 500; font-size: 1.1rem; position: relative; }
+
+        /* --- Navigation --- */
+        .nav-container {
+            display: flex; justify-content: center; gap: 12px; padding: 0 20px;
+            margin-top: -35px; position: sticky; top: 15px; z-index: 100;
+        }
+
+        .nav-btn {
+            background: var(--surface); border: none; padding: 14px 24px;
+            border-radius: 50px; font-weight: 700; color: var(--text-light);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06); cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); flex: 1;
+            max-width: 150px; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+
+        .nav-btn.active {
+            background: var(--text); color: white; transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        /* --- Content Layout --- */
+        .container {
+            max-width: 900px; margin: 30px auto; padding: 0 20px;
+            display: none; animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .container.active { display: block; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Educational Cards --- */
+        .card {
+            background: var(--surface); border-radius: var(--radius); padding: 30px;
+            margin-bottom: 30px; box-shadow: var(--shadow); position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-left: 6px solid var(--primary);
+        }
+
+        .card h2 { margin-top: 0; color: var(--primary-dark); font-size: 1.6rem; display: flex; align-items: center; gap: 12px; }
+        .tag { background: #e0e7ff; color: var(--primary); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; }
+
+        .explanation-text { color: #334155; margin-bottom: 20px; font-size: 1.05rem; }
+        
+        .formula {
+            font-family: 'Menlo', 'Monaco', monospace; background: #1e293b; color: #a5b4fc;
+            padding: 16px; border-radius: 10px; text-align: center; margin: 20px 0;
+            font-size: 1.05rem; border: 1px solid #334155; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .example-box {
+            background: #f1f5f9; border-left: 4px solid var(--accent); padding: 16px 20px;
+            margin-top: 15px; border-radius: 0 10px 10px 0;
+        }
+        .example-sentence { font-weight: 600; color: var(--text); font-size: 1.1rem; margin-bottom: 6px; }
+        .example-context { font-size: 0.9rem; color: var(--text-light); font-style: italic; }
+
+        /* --- Audio Button --- */
+        .audio-btn {
+            background: white; border: 1px solid #e2e8f0; cursor: pointer;
+            width: 32px; height: 32px; border-radius: 50%; display: inline-flex;
+            align-items: center; justify-content: center; font-size: 1rem;
+            transition: all 0.2s; margin-left: 10px; color: var(--primary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); vertical-align: middle;
+        }
+        .audio-btn:hover { transform: scale(1.1); background: var(--primary); color: white; border-color: var(--primary); }
+
+        /* --- Tricky Point / Warning --- */
+        .tricky-btn {
+            background: #fffbeb; border: 2px solid #f59e0b; color: #92400e;
+            padding: 14px 18px; border-radius: 10px; width: 100%; text-align: left;
+            cursor: pointer; margin-top: 20px; font-weight: 700; display: flex;
+            justify-content: space-between; align-items: center; transition: all 0.2s;
+        }
+        .tricky-btn:hover { background: #fef3c7; transform: translateY(-1px); }
+        .tricky-content {
+            display: none; background: #fff; border: 1px solid #e2e8f0;
+            border-top: none; padding: 20px; border-radius: 0 0 10px 10px;
+            margin-bottom: 10px; font-size: 0.95rem; color: #334155;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+            animation: slideDown 0.3s;
+        }
+        .tricky-content strong { color: #b91c1c; }
+
+        /* --- Quiz UI --- */
+        .quiz-header {
+            display: flex; justify-content: space-between; align-items: center;
+            background: white; padding: 25px; border-radius: var(--radius); margin-bottom: 25px; box-shadow: var(--shadow);
+        }
+        .progress-track { width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-bottom: 25px; }
+        .progress-bar { height: 100%; background: var(--success); width: 0%; transition: width 0.5s ease; }
+
+        .q-card {
+            background: white; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow);
+            margin-bottom: 20px; animation: fadeIn 0.3s;
+        }
+        .q-text { font-size: 1.25rem; font-weight: 700; margin-bottom: 25px; line-height: 1.5; color: var(--text); }
+        
+        .opt-btn {
+            display: block; width: 100%; text-align: left; padding: 16px 20px;
+            margin-bottom: 12px; border: 2px solid #e2e8f0; border-radius: 12px;
+            background: white; cursor: pointer; font-size: 1rem; transition: all 0.2s;
+            font-weight: 500; color: #475569;
+        }
+        .opt-btn:hover { border-color: var(--primary); background: #eef2ff; color: var(--primary); }
+        .opt-btn.correct { border-color: var(--success); background: #ecfdf5; color: #065f46; }
+        .opt-btn.wrong { border-color: var(--error); background: #fef2f2; color: #991b1b; }
+
+        .input-wrapper { position: relative; margin-top: 15px; }
+        .text-input {
+            width: 100%; padding: 16px; border: 2px solid #e2e8f0; border-radius: 12px;
+            font-size: 1.1rem; outline: none; transition: border-color 0.2s;
+            font-family: inherit;
+        }
+        .text-input:focus { border-color: var(--primary); }
+
+        .feedback-box {
+            margin-top: 25px; padding: 20px; border-radius: 12px; display: none;
+            animation: slideDown 0.3s;
+        }
+        .feedback-box.success { background: #ecfdf5; border: 1px solid #a7f3d0; color: #064e3b; }
+        .feedback-box.error { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+
+        /* --- Reading Section --- */
+        .instruction-box {
+            background: #fff; padding: 25px; border-radius: var(--radius); border-left: 5px solid var(--accent);
+            margin-bottom: 30px; box-shadow: var(--shadow);
+        }
+        
+        .reading-tabs { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
+        .r-tab {
+            padding: 10px 20px; background: white; border: 1px solid #e2e8f0; border-radius: 30px;
+            cursor: pointer; white-space: nowrap; font-size: 0.95rem; font-weight: 600; color: var(--text-light);
+            transition: all 0.2s;
+        }
+        .r-tab:hover { background: #f1f5f9; }
+        .r-tab.active { background: var(--text); color: white; border-color: var(--text); transform: scale(1.05); }
+
+        .reading-content {
+            background: white; padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow);
+            font-family: 'Georgia', serif; font-size: 1.2rem; line-height: 1.9; color: #334155;
+        }
+        
+        .gap-input {
+            display: inline-block; width: 140px; border: none; border-bottom: 2px solid #94a3b8;
+            background: transparent; text-align: center; font-family: 'Inter', sans-serif;
+            font-weight: 600; color: var(--primary); font-size: 1.05rem; padding: 0 5px;
+            transition: all 0.2s;
+        }
+        .gap-input:focus { outline: none; border-bottom-color: var(--primary); border-width: 3px; }
+        .gap-input.correct { border-bottom-color: var(--success); color: var(--success); }
+        .gap-input.wrong { border-bottom-color: var(--error); color: var(--error); text-decoration: line-through; }
+
+        .word-pool {
+            background: #eef2ff; padding: 20px; border-radius: 12px; margin-bottom: 25px;
+            display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+            border: 1px dashed var(--secondary);
+        }
+        .pool-item { background: white; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); color: var(--primary-dark); }
+
+        .correction-span { color: var(--success); font-weight: bold; margin-left: 8px; font-size: 0.9rem; font-family: sans-serif; background: #ecfdf5; padding: 2px 6px; border-radius: 4px; }
+
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .nav-btn { padding: 12px; font-size: 0.85rem; }
+            .reading-content { padding: 25px; font-size: 1.05rem; }
+            .gap-input { width: 110px; }
+            .q-text { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Advanced Structures Masterclass</h1>
+    <div class="subtitle">Sentential Relatives • Participle Clauses • Appositives</div>
+</header>
+
+<div class="nav-container">
+    <!-- دکمه خانه طبق فایل مرجع اضافه شد -->
+    <a href="../index.html" class="nav-btn" style="text-decoration:none; color:inherit;"><span>🏠</span> Home</a>
+    <button class="nav-btn active" onclick="switchTab('learn')"><span>📖</span> Learn</button>
+    <button class="nav-btn" onclick="switchTab('practice')"><span>🎯</span> Quiz</button>
+    <button class="nav-btn" onclick="switchTab('reading')"><span>📚</span> Reading</button>
+</div>
+
+<!-- ======================= 1. LEARN TAB ======================= -->
+<div id="learn" class="container active">
+    
+    <!-- Topic 1: V-ing Clauses -->
+    <div class="card" style="border-left-color: #4f46e5;">
+        <h2 style="color:#3730a3"><span class="tag" style="background:#e0e7ff; color:#3730a3">Structure 1</span> Active Participle (V-ing)</h2>
+        <p class="explanation-text">Join two sentences when the <strong>subject is the same</strong>. This makes your writing concise and sophisticated.</p>
+
+        <h3>Type A: Simultaneous Action</h3>
+        <div class="formula">Main Clause + , + V-ing Clause</div>
+        <div class="example-box">
+            <div class="example-sentence">"He walked out of the room, <strong>slamming</strong> the door." <button class="audio-btn" onclick="speak('He walked out of the room, slamming the door.')">🔊</button></div>
+            <div class="example-context">Meaning: He walked out AND he slammed the door (at the same time).</div>
+        </div>
+
+        <h3>Type B: Result (Cause & Effect) <span style="font-size:0.7rem; color:#ef4444; border:1px solid red; padding:2px 4px; border-radius:4px">IELTS Essential</span></h3>
+        <div class="example-box">
+            <div class="example-sentence">"Prices rose by 10%, <strong>causing</strong> inflation to spike." <button class="audio-btn" onclick="speak('Prices rose by 10%, causing inflation to spike.')">🔊</button></div>
+            <div class="example-context">Result: The rise in prices CAUSED inflation to spike.</div>
+        </div>
+
+        <button class="tricky-btn" onclick="toggleTricky('trick1')">
+            <span>🚦 Warning: The "Dangling Modifier" Trap</span>
+            <span style="font-size:0.8rem; opacity:0.7">(Click to reveal)</span>
+        </button>
+        <div id="trick1" class="tricky-content">
+            <p><strong>The subject of the V-ing must be the subject of the main sentence!</strong></p>
+            <ul>
+                <li>❌ "<strong>Walking</strong> down the street, the trees looked beautiful." (Incorrect: The trees were not walking!)</li>
+                <li>✅ "<strong>Walking</strong> down the street, <strong>I</strong> saw beautiful trees." (Correct: I was walking).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Topic 2: P.P. Clauses -->
+    <div class="card" style="border-left-color: #0891b2;">
+        <h2 style="color:#155e75"><span class="tag" style="background:#cffafe; color:#155e75">Structure 2</span> Passive Participle (P.P.)</h2>
+        <p class="explanation-text">Use this when the meaning is <strong>Passive</strong> (Action done to the subject). It is a reduced relative clause.</p>
+
+        <div class="formula">Main Clause + , + P.P. Phrase</div>
+        
+        <div class="example-box">
+            <div class="example-sentence">"The artifact, <strong>found</strong> in Egypt, is over 3,000 years old." <button class="audio-btn" onclick="speak('The artifact, found in Egypt, is over 3,000 years old.')">🔊</button></div>
+            <div class="example-context">Full form: The artifact, <em>which was</em> found in Egypt...</div>
+        </div>
+
+        <div class="example-box">
+            <div class="example-sentence">"<strong>Convicted</strong> of fraud, the CEO resigned." <button class="audio-btn" onclick="speak('Convicted of fraud, the CEO resigned.')">🔊</button></div>
+            <div class="example-context">Meaning: Because he was convicted...</div>
+        </div>
+    </div>
+
+    <!-- Topic 3: Which Clauses -->
+    <div class="card" style="border-left-color: #d97706;">
+        <h2 style="color:#b45309"><span class="tag" style="background:#fef3c7; color:#b45309">Structure 3</span> Sentential Relative (Which)</h2>
+        <p class="explanation-text">Use "which" to comment on the <strong>whole previous sentence</strong>, not just the word before it.</p>
+
+        <div class="formula">Complete Sentence + , + WHICH + Verb (usually singular)</div>
+
+        <div class="example-box">
+            <div class="example-sentence">"He didn't study for the exam, <strong>which</strong> was a huge mistake." <button class="audio-btn" onclick="speak('He didn\'t study for the exam, which was a huge mistake.')">🔊</button></div>
+            <div class="example-context">What was a mistake? The fact that he didn't study.</div>
+        </div>
+
+        <button class="tricky-btn" onclick="toggleTricky('trick3')">
+            <span>🚦 Warning: "That" vs "Which"</span>
+            <span style="font-size:0.8rem; opacity:0.7">(Click to reveal)</span>
+        </button>
+        <div id="trick3" class="tricky-content">
+            <p><strong>Never use "That" with a comma!</strong></p>
+            <ul>
+                <li>❌ "He lied, <strong>that</strong> made me angry."</li>
+                <li>✅ "He lied, <strong>which</strong> made me angry."</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Topic 4: With Phrases -->
+    <div class="card" style="border-left-color: #db2777;">
+        <h2 style="color:#be185d"><span class="tag" style="background:#fce7f3; color:#be185d">Structure 4</span> The "With" Absolute</h2>
+        <p class="explanation-text">Adds descriptive detail or reasons. Very literary and sophisticated.</p>
+
+        <div class="formula">WITH + Noun + Participle / Adjective / Preposition</div>
+
+        <div class="example-box">
+            <div class="example-sentence">"He stood there, <strong>with his hands shaking</strong>." <button class="audio-btn" onclick="speak('He stood there, with his hands shaking.')">🔊</button></div>
+            <div class="example-context">Description of state.</div>
+        </div>
+        
+        <div class="example-box">
+            <div class="example-sentence">"<strong>With technology advancing</strong> so fast, laws cannot keep up." <button class="audio-btn" onclick="speak('With technology advancing so fast, laws cannot keep up.')">🔊</button></div>
+            <div class="example-context">Reason: Because technology is advancing...</div>
+        </div>
+    </div>
+
+    <!-- Topic 5: Appositives -->
+    <div class="card" style="border-left-color: #059669;">
+        <h2 style="color:#047857"><span class="tag" style="background:#d1fae5; color:#047857">Structure 5</span> Appositives (Renaming)</h2>
+        <p class="explanation-text">Place a noun phrase next to another noun to rename or define it.</p>
+
+        <div class="example-box">
+            <div class="example-sentence">"Mr. Smith, <strong>a wealthy banker</strong>, bought the hotel." <button class="audio-btn" onclick="speak('Mr. Smith, a wealthy banker, bought the hotel.')">🔊</button></div>
+            <div class="example-context">Instead of: Mr. Smith is a wealthy banker. He bought...</div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ======================= 2. QUIZ TAB ======================= -->
+<div id="practice" class="container">
+    <div class="quiz-header">
+        <div>
+            <h2 style="margin:0; font-size:1.4rem; color:var(--primary-dark)">Grammar Challenge</h2>
+            <div style="color:var(--text-light); margin-top:5px; font-weight:500" id="q-counter">Question 1</div>
+        </div>
+        <div style="text-align:right">
+            <div style="font-size:0.85rem; text-transform:uppercase; color:var(--text-light); font-weight:bold">Score</div>
+            <div style="font-size:1.8rem; font-weight:800; color:var(--primary)" id="score">0</div>
+        </div>
+    </div>
+    
+    <div class="progress-track"><div class="progress-bar" id="p-bar"></div></div>
+    
+    <div id="quiz-area">
+        <!-- Questions injected here via JS -->
+    </div>
+
+    <div style="display:flex; justify-content:space-between; margin-top:25px">
+        <button class="nav-btn" onclick="prevQ()" id="btn-prev" disabled>Previous</button>
+        <button class="nav-btn active" onclick="nextQ()" id="btn-next">Next</button>
+    </div>
+</div>
+
+<!-- ======================= 3. READING TAB ======================= -->
+<div id="reading" class="container">
+    <div class="instruction-box">
+        <h3 style="margin-top:0; color:var(--primary-dark)">📝 Advanced Reading Lab</h3>
+        <p><strong>Context Clues:</strong> Read the full sentence before deciding. You must identify if the clause is Active (V-ing), Passive (P.P.), or a Relative Comment (Which).</p>
+        <ul style="font-size:0.95rem; color:#475569">
+            <li><strong>V-ing:</strong> Active meaning / Result.</li>
+            <li><strong>P.P (ed/en):</strong> Passive meaning.</li>
+            <li><strong>With:</strong> "With" + Noun + ...</li>
+            <li><strong>Which:</strong> Referring to the whole previous idea.</li>
+        </ul>
+    </div>
+
+    <div class="reading-tabs" id="r-tabs">
+        <!-- Generated JS -->
+    </div>
+
+    <div class="word-pool" id="word-pool">
+        <!-- Words go here -->
+    </div>
+
+    <div class="reading-content" id="reading-text">
+        <!-- Text goes here -->
+    </div>
+
+    <div style="margin-top:25px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px">
+        <div id="r-feedback" style="font-weight:bold; flex:1"></div>
+        <button class="nav-btn active" onclick="checkReading()">Check Answers</button>
+    </div>
+</div>
+
+<script>
+    // --- UTILITIES ---
+    let voices = [];
+    function loadVoices() { voices = window.speechSynthesis.getVoices(); }
+    if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = loadVoices;
+    loadVoices();
+
+    function speak(text) {
+        window.speechSynthesis.cancel();
+        if (voices.length === 0) voices = window.speechSynthesis.getVoices();
+        const msg = new SpeechSynthesisUtterance(text);
+        const preferredVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Samantha"));
+        if (preferredVoice) msg.voice = preferredVoice;
+        msg.rate = 0.9; 
+        window.speechSynthesis.speak(msg);
+    }
+
+    function switchTab(id) {
+        document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        // Find the button that calls this function with this id
+        const btns = document.querySelectorAll('.nav-btn');
+        btns.forEach(btn => {
+            if(btn.getAttribute('onclick').includes(id)) btn.classList.add('active');
+        });
+        window.scrollTo(0,0);
+    }
+
+    function toggleTricky(id) {
+        const el = document.getElementById(id);
+        el.style.display = (el.style.display === "block") ? "none" : "block";
+    }
+
+    // ================= QUIZ DATA (100+ Mixed Questions) =================
+    const quizData = [
+        // --- 1. V-ing Clauses (Active) ---
+        {t:'mcq', q:"____ (grab) his bag, he walked out.", a:"Grabbing", o:["Grabbed", "Grabbing", "To grab"], r:"Simultaneous active action."},
+        {t:'mcq', q:"The bomb exploded, ____ (destroy) two buildings.", a:"destroying", o:["destroyed", "destroying", "which destroying"], r:"Result clause (Comma + V-ing)."},
+        {t:'mcq', q:"____ (feel) tired, I went to bed early.", a:"Feeling", o:["Felt", "Feeling", "To feel"], r:"Reason (Because I felt tired)."},
+        {t:'input', q:"________ (hear) the news, she fainted.", a:"Hearing", r:"Action happening immediately upon hearing."},
+        {t:'input', q:"He sat on the floor, ________ (read) a book.", a:"reading", r:"Simultaneous action."},
+        {t:'rewrite', q:"He opened the drawer and took out a gun. (Use: Opening...)", a:"Opening the drawer, he took out a gun", start:"Opening", r:"Sequence of actions."},
+        {t:'mcq', q:"____ (not / know) what to do, he stood still.", a:"Not knowing", o:["Not knowing", "Not known", "Didn't know"], r:"Negative participle clause."},
+        {t:'mcq', q:"The man ____ (stand) over there is my boss.", a:"standing", o:["standing", "stood", "stands"], r:"Reduced Relative (Who is standing)."},
+        {t:'input', q:"Prices rose, ________ (cause) a crisis.", a:"causing", r:"Result clause."},
+        {t:'input', q:"________ (be) a doctor, he knew what to do.", a:"Being", r:"Reason (Because he is a doctor)."},
+        {t:'rewrite', q:"She walked down the street. She was singing. (Use: singing)", a:"She walked down the street singing", start:"She", r:"Simultaneous."},
+        {t:'mcq', q:"____ (arrive) late, he missed the start.", a:"Arriving", o:["Arrived", "Arriving", "To arrive"], r:"Reason/Time."},
+        {t:'mcq', q:"Do you know the woman ____ (talk) to Tom?", a:"talking", o:["talking", "talked", "talks"], r:"Reduced Relative."},
+        {t:'input', q:"________ (look) at the map, he found the way.", a:"Looking", r:"Active action."},
+        {t:'input', q:"He injured his leg, ________ (make) it hard to walk.", a:"making", r:"Result."},
+        {t:'rewrite', q:"He fell. He hurt his knee. (Use: falling)", a:"Falling, he hurt his knee", start:"Falling", r:"Use comma if starting."},
+        {t:'mcq', q:"____ (smile), she opened the gift.", a:"Smiling", o:["Smiled", "Smiling", "Smile"], r:"Simultaneous."},
+        {t:'mcq', q:"The train left at 8, ____ (arrive) in Paris at 11.", a:"arriving", o:["arrived", "arriving", "arrives"], r:"Result/Sequence."},
+        {t:'input', q:"________ (waste) all his money, he is poor.", a:"Having wasted", r:"Perfect Participle (Before)."},
+        {t:'input', q:"The students ________ (prepare) for the exam are busy.", a:"preparing", r:"Reduced Relative."},
+
+        // --- 2. P.P. Clauses (Passive) ---
+        {t:'mcq', q:"The book, ____ (write) in 1990, is famous.", a:"written", o:["writing", "wrote", "written"], r:"Passive (Which was written)."},
+        {t:'mcq', q:"____ (shock) by the news, she cried.", a:"Shocked", o:["Shocking", "Shocked", "Shock"], r:"Passive (She WAS shocked)."},
+        {t:'mcq', q:"The car ____ (make) in Germany is fast.", a:"made", o:["making", "made", "makes"], r:"Reduced Relative (Which is made)."},
+        {t:'input', q:"________ (convince) he was right, he argued.", a:"Convinced", r:"Passive state."},
+        {t:'input', q:"The money ________ (steal) from the bank was found.", a:"stolen", r:"Reduced Relative."},
+        {t:'rewrite', q:"The city was destroyed by the war. It is now rebuilt. (Use: Destroyed...)", a:"Destroyed by the war, the city is now rebuilt", start:"Destroyed", r:"Passive Start."},
+        {t:'mcq', q:"____ (dress) in black, he looked scary.", a:"Dressed", o:["Dressing", "Dressed", "Dress"], r:"State/Passive."},
+        {t:'mcq', q:"The decision, ____ (make) yesterday, is final.", a:"made", o:["making", "made", "make"], r:"Passive."},
+        {t:'input', q:"________ (confuse) by the map, we got lost.", a:"Confused", r:"Passive reason."},
+        {t:'input', q:"The letter, ________ (send) last week, arrived today.", a:"sent", r:"Passive description."},
+        {t:'rewrite', q:"He was born in London. He loves the city. (Use: Born...)", a:"Born in London, he loves the city", start:"Born", r:"Passive background."},
+        {t:'mcq', q:"Any student ____ (catch) cheating will fail.", a:"caught", o:["catching", "caught", "catches"], r:"Passive condition."},
+        {t:'mcq', q:"____ (locate) on a hill, the hotel has views.", a:"Located", o:["Locating", "Located", "Location"], r:"Passive state."},
+        {t:'input', q:"________ (exhaust) from work, he slept.", a:"Exhausted", r:"Passive state."},
+        {t:'input', q:"A tree ________ (blow) down by the wind blocked the road.", a:"blown", r:"Passive reduced."},
+        {t:'rewrite', q:"The painting was stolen. It was worth millions. (Use: Stolen...)", a:"Stolen, the painting was worth millions", start:"Stolen", r:"Short passive."},
+        {t:'mcq', q:"____ (know) as a genius, he is respected.", a:"Known", o:["Knowing", "Known", "Knew"], r:"Passive (He IS known)."},
+        {t:'mcq', q:"Products ____ (sell) online are cheaper.", a:"sold", o:["selling", "sold", "sells"], r:"Passive reduced."},
+        {t:'input', q:"________ (frighten) by the dog, the cat ran.", a:"Frightened", r:"Passive cause."},
+        {t:'input', q:"The rules ________ (apply) to this game are simple.", a:"applied", r:"Passive reduced."},
+
+        // --- 3. With Phrases ---
+        {t:'mcq', q:"He sat there with his eyes ____ (close).", a:"closed", o:["close", "closed", "closing"], r:"With + Noun + P.P."},
+        {t:'mcq', q:"With prices ____ (rise), we can't buy it.", a:"rising", o:["rise", "rose", "rising"], r:"With + Noun + V-ing."},
+        {t:'mcq', q:"She stood with her back ____ (to) the door.", a:"to", o:["at", "to", "on"], r:"With + Noun + Preposition."},
+        {t:'input', q:"He sleeps with the window ________ (open).", a:"open", r:"With + Noun + Adjective."},
+        {t:'input', q:"With the rain ________ (fall), we stayed in.", a:"falling", r:"Active action in With phrase."},
+        {t:'rewrite', q:"Because the weather was nice, we went out. (Use: With...)", a:"With the weather being nice, we went out", start:"With", r:"Reason 'With' phrase."},
+        {t:'mcq', q:"With the project ____ (finish), we relaxed.", a:"finished", o:["finishing", "finished", "finish"], r:"Passive meaning (It was finished)."},
+        {t:'mcq', q:"He spoke with his hands ____ (shake).", a:"shaking", o:["shook", "shaking", "shaken"], r:"Active body language."},
+        {t:'input', q:"With technology ________ (advance), life changes.", a:"advancing", r:"Active reason."},
+        {t:'input', q:"She listened with her mouth ________ (open).", a:"open", r:"Adjective."},
+        {t:'rewrite', q:"There was no money left. We went home. (Use: With...)", a:"With no money left, we went home", start:"With", r:"Reason."},
+        {t:'mcq', q:"With time ____ (run) out, we hurried.", a:"running", o:["ran", "running", "run"], r:"Active action."},
+        {t:'mcq', q:"He entered with a gun ____ (in) his hand.", a:"in", o:["at", "in", "on"], r:"Prepositional phrase."},
+        {t:'input', q:"With the decision ________ (make), we left.", a:"made", r:"Passive state."},
+        {t:'input', q:"Don't speak with your mouth ________ (full).", a:"full", r:"Adjective."},
+
+        // --- 4. Which Clauses (Sentential) ---
+        {t:'mcq', q:"He failed, ____ (be) a surprise.", a:"which was", o:["that was", "it was", "which was"], r:"Comments on whole fact."},
+        {t:'mcq', q:"The train was late, ____ meant we missed it.", a:"which", o:["that", "what", "which"], r:"Refers to previous clause."},
+        {t:'mcq', q:"She lied, ____ made me angry.", a:"which", o:["that", "it", "which"], r:"Comma + Which."},
+        {t:'input', q:"It rained, ________ (ruin) the picnic.", a:"which ruined", r:"Which + Verb."},
+        {t:'input', q:"He helped me, ________ (be) nice of him.", a:"which was", r:"Comment."},
+        {t:'rewrite', q:"He lost his job. This is sad. (Use: which)", a:"He lost his job, which is sad", start:"He", r:"Join with comma + which."},
+        {t:'mcq', q:"The team won, ____ pleased the fans.", a:"which", o:["that", "which", "what"], r:"Refers to winning."},
+        {t:'mcq', q:"He didn't call, ____ was rude.", a:"which", o:["that", "it", "which"], r:"Refers to not calling."},
+        {t:'input', q:"Prices are up, ________ (mean) we spend more.", a:"which means", r:"Result/Comment."},
+        {t:'input', q:"She forgot my birthday, ________ (hurt) my feelings.", a:"which hurt", r:"Comment."},
+        {t:'rewrite', q:"They ignored him. That was a mistake. (Use: which)", a:"They ignored him, which was a mistake", start:"They", r:"Relative connection."},
+        {t:'mcq', q:"He can speak 5 languages, ____ is impressive.", a:"which", o:["that", "it", "which"], r:"Comment."},
+        {t:'mcq', q:"The flight is cancelled, ____ is annoying.", a:"which", o:["what", "that", "which"], r:"Comment."},
+        {t:'input', q:"He resigned, ________ (shock) everyone.", a:"which shocked", r:"Action + Comment."},
+        {t:'input', q:"It snowed, ________ (make) driving hard.", a:"which made", r:"Result."},
+
+        // --- 5. Appositives ---
+        {t:'mcq', q:"Tokyo, ____ (capital) of Japan, is big.", a:"the capital", o:["is the capital", "the capital", "which capital"], r:"Noun phrase renaming Tokyo."},
+        {t:'mcq', q:"My brother, ____ (doctor), lives here.", a:"a doctor", o:["is a doctor", "a doctor", "who a doctor"], r:"Renaming noun."},
+        // اصلاح راهنما: اضافه کردن 'famous' به داخل پرانتز تا با جواب همخوانی داشته باشد
+        {t:'mcq', q:"The Titanic, ____ (famous ship), sank in 1912.", a:"a famous ship", o:["was a famous ship", "a famous ship", "that a ship"], r:"Noun phrase."},
+        {t:'input', q:"Mr. Smith, a wealthy ________ (bank), bought it.", a:"banker", r:"Noun."},
+        {t:'input', q:"Paris, the ________ (city) of lights, is beautiful.", a:"city", r:"Appositive."},
+        {t:'rewrite', q:"Einstein was a scientist. He was a genius. (Use Appositive)", a:"Einstein, a scientist, was a genius", start:"Einstein", r:"Remove 'was' and use commas."},
+        {t:'mcq', q:"Sarah, ____ (friend) of mine, is coming.", a:"a friend", o:["is a friend", "a friend", "friend"], r:"Noun phrase."},
+        {t:'mcq', q:"The eagle, ____ (bird) of prey, flies high.", a:"a bird", o:["is a bird", "a bird", "which bird"], r:"Definition."},
+        {t:'input', q:"Google, a tech ________ (giant), is powerful.", a:"giant", r:"Noun."},
+        {t:'input', q:"Mars, the red ________ (planet), is cold.", a:"planet", r:"Noun."},
+        {t:'rewrite', q:"My car is a Ford. It is old. (Use: My car...)", a:"My car, a Ford, is old", start:"My car", r:"Appositive insert."},
+        {t:'mcq', q:"Bill Gates, ____ (founder) of Microsoft, is rich.", a:"the founder", o:["is founder", "the founder", "founded"], r:"Title/Role."},
+        {t:'mcq', q:"Badminton, ____ (sport), is fast.", a:"a sport", o:["sport", "a sport", "is a sport"], r:"Category."},
+        {t:'input', q:"Her cat, a fluffy ________ (Persian), is cute.", a:"Persian", r:"Noun."},
+        {t:'input', q:"Java, a computer ________ (language), is useful.", a:"language", r:"Noun."},
+
+        // --- 6. Perfect Participles & Mixed ---
+        {t:'mcq', q:"____ (finish) work, he went home.", a:"Having finished", o:["Finished", "Having finished", "Finishing"], r:"Sequence (Action 1 completed before Action 2)."},
+        {t:'mcq', q:"____ (eat) dinner, we watched TV.", a:"Having eaten", o:["Ate", "Having eaten", "Eating"], r:"After we had eaten."},
+        {t:'input', q:"________ (lose) his key, he couldn't enter.", a:"Having lost", r:"Cause (Because he had lost it)."},
+        {t:'input', q:"________ (be) to Paris twice, he knows it well.", a:"Having been", r:"Experience (Because he has been)."},
+        {t:'rewrite', q:"As I had seen the movie, I didn't go. (Use: Having...)", a:"Having seen the movie, I didn't go", start:"Having", r:"Reason + Perfect Aspect."},
+        {t:'mcq', q:"____ (fail) twice, he gave up.", a:"Having failed", o:["Failing", "Having failed", "Failed"], r:"Sequence/Experience."},
+        {t:'mcq', q:"____ (tire), the game ended.", a:"None of these", o:["Feeling", "Felt", "None of these"], r:"Dangling Modifier! Game cannot feel."},
+        {t:'mcq', q:"There are 10 students, all of ____ (who) passed.", a:"whom", o:["them", "whom", "which"], r:"Quantifier + of + whom (people)."},
+        {t:'mcq', q:"He has 3 cars, two of ____ (which) are new.", a:"which", o:["them", "which", "whom"], r:"Quantifier + of + which (things)."},
+        {t:'input', q:"The problem ________ (discuss) now is hard.", a:"being discussed", r:"Passive Continuous (Which is being...)."},
+        {t:'input', q:"________ (not / want) to wake him, I whispered.", a:"Not wanting", r:"Negative reason."},
+        {t:'rewrite', q:"He is rich, but he is unhappy. (Use: Despite being...)", a:"Despite being rich, he is unhappy", start:"Despite", r:"Preposition + V-ing."},
+        {t:'mcq', q:"The bridge ____ (build) right now is huge.", a:"being built", o:["building", "built", "being built"], r:"Passive Continuous."},
+        {t:'mcq', q:"____ (judge) from his face, he is angry.", a:"Judging", o:["Judged", "Judging", "Judge"], r:"Fixed phrase."},
+        {t:'input', q:"________ (take) everything into account, it's good.", a:"Taking", r:"Fixed phrase."},
+    
+
+        // --- V-ing (Simultaneous & Result) ---
+        {t:'rewrite', q:"He drank coffee. He read the newspaper. (Use: Reading...)", a:"He drank coffee, reading the newspaper", start:"He drank coffee", r:"Simultaneous action (Comma + V-ing)."},
+        {t:'rewrite', q:"She walked out of the room. She slammed the door. (Use: Slamming...)", a:"She walked out of the room, slamming the door", start:"She walked out", r:"Simultaneous action."},
+        {t:'rewrite', q:"The bomb exploded. It destroyed the building. (Use: Destroying...)", a:"The bomb exploded, destroying the building", start:"The bomb exploded", r:"Result clause."},
+        {t:'rewrite', q:"Prices rose by 10%. This caused inflation. (Use: Causing...)", a:"Prices rose by 10%, causing inflation", start:"Prices rose", r:"Result clause."},
+        {t:'rewrite', q:"He felt tired. He went to bed early. (Use: Feeling...)", a:"Feeling tired, he went to bed early", start:"Feeling", r:"Reason (Active Participle)."},
+        {t:'rewrite', q:"She opened the drawer. She took out a gun. (Use: Opening...)", a:"Opening the drawer, she took out a gun", start:"Opening", r:"Sequence of actions."},
+        {t:'rewrite', q:"I didn't know what to do. I called the police. (Use: Not knowing...)", a:"Not knowing what to do, I called the police", start:"Not knowing", r:"Negative active participle."},
+        {t:'rewrite', q:"He stood there. He was smiling. (Use: Smiling...)", a:"He stood there smiling", start:"He stood there", r:"Simultaneous (No comma needed if closely connected)."},
+        {t:'rewrite', q:"The storm hit the city. It forced people to leave. (Use: Forcing...)", a:"The storm hit the city, forcing people to leave", start:"The storm", r:"Result clause."},
+        {t:'rewrite', q:"He lay on the bed. He looked at the ceiling. (Use: Looking...)", a:"He lay on the bed looking at the ceiling", start:"He lay", r:"Simultaneous."},
+
+        // --- P.P. (Passive & State) ---
+        {t:'rewrite', q:"The car was made in Japan. It is reliable. (Use: Made...)", a:"Made in Japan, the car is reliable", start:"Made", r:"Passive Participle."},
+        {t:'rewrite', q:"The boy was injured in the accident. He was taken to hospital. (Use: Injured...)", a:"Injured in the accident, the boy was taken to hospital", start:"Injured", r:"Passive Participle."},
+        {t:'rewrite', q:"She was shocked by the news. She fainted. (Use: Shocked...)", a:"Shocked by the news, she fainted", start:"Shocked", r:"Passive Participle (Cause)."},
+        {t:'rewrite', q:"The book was written in 1990. It is a classic. (Use: Written...)", a:"Written in 1990, the book is a classic", start:"Written", r:"Passive Participle."},
+        {t:'rewrite', q:"He was dressed in black. He looked invisible. (Use: Dressed...)", a:"Dressed in black, he looked invisible", start:"Dressed", r:"Passive State."},
+        {t:'rewrite', q:"The city is located on a hill. It has a great view. (Use: Located...)", a:"Located on a hill, the city has a great view", start:"Located", r:"Passive State."},
+        {t:'rewrite', q:"She is known as a genius. She is respected. (Use: Known...)", a:"Known as a genius, she is respected", start:"Known", r:"Passive Participle."},
+        {t:'rewrite', q:"The product is sold online. It is cheaper. (Use: Sold...)", a:"Sold online, the product is cheaper", start:"Sold", r:"Passive Participle."},
+        {t:'rewrite', q:"I was convinced he was right. I agreed. (Use: Convinced...)", a:"Convinced he was right, I agreed", start:"Convinced", r:"Passive State."},
+        {t:'rewrite', q:"The letter was sent yesterday. It arrived today. (Use: Sent...)", a:"Sent yesterday, the letter arrived today", start:"Sent", r:"Passive Participle."},
+
+        // --- Which (Sentential Relative) ---
+        {t:'rewrite', q:"He lied to me. This made me angry. (Use: ..., which...)", a:"He lied to me, which made me angry", start:"He lied", r:"Sentential Relative."},
+        {t:'rewrite', q:"It rained all day. This ruined the picnic. (Use: ..., which...)", a:"It rained all day, which ruined the picnic", start:"It rained", r:"Sentential Relative."},
+        {t:'rewrite', q:"She failed the test. This was a surprise. (Use: ..., which...)", a:"She failed the test, which was a surprise", start:"She failed", r:"Sentential Relative."},
+        {t:'rewrite', q:"He didn't call. This was rude. (Use: ..., which...)", a:"He didn't call, which was rude", start:"He didn't call", r:"Sentential Relative."},
+        {t:'rewrite', q:"They ignored him. This was a mistake. (Use: ..., which...)", a:"They ignored him, which was a mistake", start:"They ignored", r:"Sentential Relative."},
+        {t:'rewrite', q:"The train was late. This meant we missed the flight. (Use: ..., which...)", a:"The train was late, which meant we missed the flight", start:"The train", r:"Sentential Relative."},
+        {t:'rewrite', q:"He speaks five languages. This is impressive. (Use: ..., which...)", a:"He speaks five languages, which is impressive", start:"He speaks", r:"Sentential Relative."},
+        {t:'rewrite', q:"The flight is cancelled. This is annoying. (Use: ..., which...)", a:"The flight is cancelled, which is annoying", start:"The flight", r:"Sentential Relative."},
+        {t:'rewrite', q:"He resigned. This shocked everyone. (Use: ..., which...)", a:"He resigned, which shocked everyone", start:"He resigned", r:"Sentential Relative."},
+        {t:'rewrite', q:"Prices are rising. This is bad for the economy. (Use: ..., which...)", a:"Prices are rising, which is bad for the economy", start:"Prices", r:"Sentential Relative."},
+
+        // --- With Phrases ---
+        {t:'rewrite', q:"He sat there. His eyes were closed. (Use: ...with his eyes...)", a:"He sat there with his eyes closed", start:"He sat there", r:"With + Noun + P.P."},
+        {t:'rewrite', q:"She stood there. Her hands were shaking. (Use: ...with her hands...)", a:"She stood there with her hands shaking", start:"She stood there", r:"With + Noun + V-ing."},
+        {t:'rewrite', q:"The weather was nice. We went out. (Use: With the weather...)", a:"With the weather being nice, we went out", start:"With", r:"Reason using 'With'."},
+        {t:'rewrite', q:"Technology is advancing. Life is changing. (Use: With technology...)", a:"With technology advancing, life is changing", start:"With", r:"Reason using 'With'."},
+        {t:'rewrite', q:"There was no money left. We went home. (Use: With no money...)", a:"With no money left, we went home", start:"With", r:"Reason."},
+        {t:'rewrite', q:"He listened. His mouth was open. (Use: ...with his mouth...)", a:"He listened with his mouth open", start:"He listened", r:"With + Noun + Adj."},
+        {t:'rewrite', q:"The sun was setting. We returned. (Use: With the sun...)", a:"With the sun setting, we returned", start:"With", r:"Time/Reason."},
+        {t:'rewrite', q:"The decision was made. We left. (Use: With the decision...)", a:"With the decision made, we left", start:"With", r:"Time/Reason (Passive)."},
+        {t:'rewrite', q:"He slept. The window was open. (Use: ...with the window...)", a:"He slept with the window open", start:"He slept", r:"With + Noun + Adj."},
+        {t:'rewrite', q:"Time is running out. We must hurry. (Use: With time...)", a:"With time running out, we must hurry", start:"With", r:"Reason."},
+
+        // --- Appositives & Perfect Participles ---
+        {t:'rewrite', q:"Tokyo is the capital of Japan. It is huge. (Use Appositive)", a:"Tokyo, the capital of Japan, is huge", start:"Tokyo", r:"Appositive."},
+        {t:'rewrite', q:"Elon Musk is the CEO of Tesla. He is rich. (Use Appositive)", a:"Elon Musk, the CEO of Tesla, is rich", start:"Elon Musk", r:"Appositive."},
+        {t:'rewrite', q:"My car is a Ford. It is old. (Use Appositive)", a:"My car, a Ford, is old", start:"My car", r:"Appositive."},
+        {t:'rewrite', q:"Bill Gates is the founder of Microsoft. He is famous. (Use Appositive)", a:"Bill Gates, the founder of Microsoft, is famous", start:"Bill Gates", r:"Appositive."},
+        {t:'rewrite', q:"Paris is the city of lights. It is beautiful. (Use Appositive)", a:"Paris, the city of lights, is beautiful", start:"Paris", r:"Appositive."},
+        {t:'rewrite', q:"He had finished his work. He went home. (Use: Having...)", a:"Having finished his work, he went home", start:"Having", r:"Perfect Participle."},
+        {t:'rewrite', q:"She had lost her key. She couldn't enter. (Use: Having...)", a:"Having lost her key, she couldn't enter", start:"Having", r:"Perfect Participle."},
+        {t:'rewrite', q:"I had seen the movie. I didn't go. (Use: Having...)", a:"Having seen the movie, I didn't go", start:"Having", r:"Perfect Participle."},
+        {t:'rewrite', q:"He had failed twice. He gave up. (Use: Having...)", a:"Having failed twice, he gave up", start:"Having", r:"Perfect Participle."},
+        {t:'rewrite', q:"He is rich. He is unhappy. (Use: Despite being...)", a:"Despite being rich, he is unhappy", start:"Despite", r:"Preposition + V-ing."},
+
+        // ---------------------------------------------------------
+        // PART 2: MULTIPLE CHOICE (25 Questions)
+        // ---------------------------------------------------------
+        {t:'mcq', q:"____ (grab) his bag, he walked out.", a:"Grabbing", o:["Grabbed", "Grabbing", "To grab"], r:"Active action."},
+        {t:'mcq', q:"The book, ____ (write) in 1990, is famous.", a:"written", o:["writing", "wrote", "written"], r:"Passive relative clause."},
+        {t:'mcq', q:"____ (shock) by the news, she cried.", a:"Shocked", o:["Shocking", "Shocked", "To shock"], r:"Passive cause."},
+        {t:'mcq', q:"He sat there with his eyes ____ (close).", a:"closed", o:["close", "closed", "closing"], r:"With + Noun + P.P."},
+        {t:'mcq', q:"The train was late, ____ (mean) we missed the show.", a:"which meant", o:["that meant", "it meant", "which meant"], r:"Sentential relative."},
+        {t:'mcq', q:"Tokyo, ____ (capital) of Japan, is huge.", a:"the capital", o:["is capital", "the capital", "which capital"], r:"Appositive."},
+        {t:'mcq', q:"____ (finish) work, he went home.", a:"Having finished", o:["Finished", "Having finished", "Finishing"], r:"Perfect Participle (Sequence)."},
+        {t:'mcq', q:"The man ____ (stand) there is my boss.", a:"standing", o:["stood", "standing", "stands"], r:"Reduced relative (Active)."},
+        {t:'mcq', q:"Products ____ (sell) online are cheaper.", a:"sold", o:["selling", "sold", "sells"], r:"Reduced relative (Passive)."},
+        {t:'mcq', q:"____ (feel) tired, I slept.", a:"Feeling", o:["Felt", "Feeling", "To feel"], r:"Active participle."},
+        {t:'mcq', q:"With prices ____ (rise), we can't buy it.", a:"rising", o:["rise", "rose", "rising"], r:"With + Noun + V-ing."},
+        {t:'mcq', q:"He failed, ____ (be) a surprise.", a:"which was", o:["that was", "it was", "which was"], r:"Sentential relative."},
+        {t:'mcq', q:"The car, ____ (make) in Germany, is fast.", a:"made", o:["making", "made", "makes"], r:"Passive relative."},
+        {t:'mcq', q:"____ (dress) in black, he looked scary.", a:"Dressed", o:["Dressing", "Dressed", "Dress"], r:"Passive state."},
+        {t:'mcq', q:"With the project ____ (finish), we relaxed.", a:"finished", o:["finishing", "finished", "finish"], r:"Passive meaning."},
+        {t:'mcq', q:"Do you know the woman ____ (talk) to Tom?", a:"talking", o:["talked", "talking", "talks"], r:"Active relative."},
+        {t:'mcq', q:"Any student ____ (catch) cheating will fail.", a:"caught", o:["catching", "caught", "catches"], r:"Passive condition."},
+        {t:'mcq', q:"____ (arrive) late, he missed the start.", a:"Arriving", o:["Arrived", "Arriving", "To arrive"], r:"Active participle."},
+        {t:'mcq', q:"Sarah, ____ (friend) of mine, is coming.", a:"a friend", o:["is friend", "a friend", "friend"], r:"Appositive."},
+        {t:'mcq', q:"____ (lose) his key, he couldn't enter.", a:"Having lost", o:["Losing", "Lost", "Having lost"], r:"Cause (Perfect Participle)."},
+        {t:'mcq', q:"The bridge ____ (build) now is huge.", a:"being built", o:["building", "built", "being built"], r:"Passive continuous."},
+        {t:'mcq', q:"He spoke clearly, ____ (make) everyone understand.", a:"making", o:["made", "making", "makes"], r:"Result clause."},
+        {t:'mcq', q:"____ (judge) from his face, he is angry.", a:"Judging", o:["Judged", "Judging", "Judge"], r:"Fixed phrase."},
+        {t:'mcq', q:"He has two cars, both of ____ (which) are red.", a:"which", o:["them", "that", "which"], r:"Quantifier + of + which."},
+        {t:'mcq', q:"____ (not / know) the answer, he was silent.", a:"Not knowing", o:["Not known", "Not knowing", "Didn't know"], r:"Negative participle."},
+
+        // ---------------------------------------------------------
+        // PART 3: FILL IN THE BLANKS (25 Questions)
+        // ---------------------------------------------------------
+        {t:'input', q:"The boy ________ (sit) next to me is my brother.", a:"sitting", r:"Active reduced relative."},
+        {t:'input', q:"________ (hear) the noise, she woke up.", a:"Hearing", r:"Active participle (Time)."},
+        {t:'input', q:"The money ________ (steal) from the bank was found.", a:"stolen", r:"Passive reduced relative."},
+        {t:'input', q:"________ (convince) he was right, he argued.", a:"Convinced", r:"Passive state."},
+        {t:'input', q:"He slept with the window ________ (open).", a:"open", r:"With + Noun + Adjective."},
+        {t:'input', q:"It rained, ________ (ruin) the picnic.", a:"which ruined", r:"Sentential relative (Action + Comment)."},
+        {t:'input', q:"Mr. Smith, a wealthy ________ (bank), bought it.", a:"banker", r:"Appositive noun."},
+        {t:'input', q:"________ (finish) his work, he went out.", a:"Having finished", r:"Perfect participle."},
+        {t:'input', q:"The problem ________ (discuss) now is serious.", a:"being discussed", r:"Passive continuous."},
+        {t:'input', q:"________ (see) the police, the thief ran.", a:"Seeing", r:"Active participle."},
+        {t:'input', q:"The letter, ________ (send) last week, arrived.", a:"sent", r:"Passive reduced relative."},
+        {t:'input', q:"With the sun ________ (set), we went home.", a:"setting", r:"With + Noun + V-ing."},
+        {t:'input', q:"He resigned, ________ (shock) everyone.", a:"which shocked", r:"Sentential relative."},
+        {t:'input', q:"Paris, the ________ (city) of lights, is beautiful.", a:"city", r:"Appositive noun."},
+        {t:'input', q:"________ (be) a doctor, he helped.", a:"Being", r:"Active participle (Reason)."},
+        {t:'input', q:"Products ________ (sell) online are cheaper.", a:"sold", r:"Passive reduced relative."},
+        {t:'input', q:"________ (exhaust) from work, he slept.", a:"Exhausted", r:"Passive state."},
+        {t:'input', q:"He entered with a gun ________ (in) his hand.", a:"in", r:"With + Preposition."},
+        {t:'input', q:"He helped me, ________ (be) nice of him.", a:"which was", r:"Sentential relative."},
+        {t:'input', q:"________ (take) everything into account, it's good.", a:"Taking", r:"Fixed phrase."},
+        {t:'input', q:"The decision, ________ (make) yesterday, is final.", a:"made", r:"Passive reduced relative."},
+        {t:'input', q:"With technology ________ (advance), life changes.", a:"advancing", r:"With + Noun + V-ing."},
+        {t:'input', q:"________ (look) at the map, he found the way.", a:"Looking", r:"Active participle."},
+        {t:'input', q:"A tree ________ (blow) down by wind blocked the road.", a:"blown", r:"Passive reduced relative."},
+        {t:'input', q:"________ (waste) his money, he is poor.", a:"Having wasted", r:"Perfect participle."}
+    ];
+
+
+    // Sort random
+    quizData.sort(() => Math.random() - 0.5);
+
+    // ================= READING DATA (5 Levels - Expanded) =================
+    const readings = [
+        {
+            title: "Level 1: The Lost Tourist",
+            words: ["look", "confuse", "try", "approach", "realize", "smile", "help"],
+            content: [
+                "It was my first day in Tokyo. {{0}} (look) at the subway map, I felt completely lost. The station was huge, filled with thousands of people rushing to work. {{1}} (confuse) by the complex signs, I stood in the middle of the hallway, not knowing which way to go. I tried to ask a passerby, but he walked past me, {{2}} (try) to catch his train.",
+                "Finally, an old man, {{3}} (realize) I was a tourist, stopped to help. He pointed to the yellow line, {{4}} (smile) kindly. I followed his instructions and found the right platform. {{5}} (help) by a stranger, I felt much more welcome in this giant city. It was a small act of kindness, {{6}} (comment) made my day much better."
+            ],
+            answers: ["Looking", "Confused", "trying", "realizing", "smiling", "Helped", "which"],
+            explanations: [
+                "<strong>Looking:</strong> Active Participle (While I was looking).",
+                "<strong>Confused:</strong> Passive Participle (Because I was confused).",
+                "<strong>Trying:</strong> Active Participle describing the passerby.",
+                "<strong>Realizing:</strong> Active Participle (He realized...).",
+                "<strong>Smiling:</strong> Simultaneous action (He pointed AND smiled).",
+                "<strong>Helped:</strong> Passive Participle (Because I was helped).",
+                "<strong>Which:</strong> Sentential Relative commenting on the whole event."
+            ]
+        },
+        {
+            title: "Level 2: The Eruption of Vesuvius",
+            words: ["locate", "bury", "preserve", "freeze", "offer", "destroy"],
+            content: [
+                "Pompeii, an ancient Roman city {{0}} (locate) near Naples, is famous for its tragic history. In 79 AD, Mount Vesuvius erupted, {{1}} (bury) the entire city under volcanic ash. The citizens, caught by surprise, had no time to escape. The ash covered everything instantly, {{2}} (preserve) the city exactly as it was at that moment.",
+                "Today, Pompeii is a vast archaeological site. Walking through the streets, you can see houses, shops, and even food on the tables, {{3}} (freeze) in time. It is a ghostly experience. The disaster killed thousands, {{4}} (destroy) a vibrant civilization in hours. However, this tragedy has given us a unique gift, {{5}} (offer) a perfect window into the past."
+            ],
+            answers: ["located", "burying", "preserving", "frozen", "destroying", "offering"],
+            explanations: [
+                "<strong>Located:</strong> Passive/State (Which is located).",
+                "<strong>Burying:</strong> Result V-ing (The eruption caused the burying).",
+                "<strong>Preserving:</strong> Result V-ing (The ash preserved it).",
+                "<strong>Frozen:</strong> Passive Participle (Which are frozen).",
+                "<strong>Destroying:</strong> Result V-ing.",
+                "<strong>Offering:</strong> Active Participle (The tragedy offers...)."
+            ]
+        },
+        {
+            title: "Level 3: The Genius of Da Vinci",
+            words: ["paint", "know", "leave", "include", "design", "combine"],
+            content: [
+                "Leonardo da Vinci, {{0}} (appositive: a painter) and inventor, is considered the prime example of a 'Renaissance Man'. {{1}} (know) primarily for the Mona Lisa, he was also a brilliant scientist. He filled dozens of notebooks with sketches, {{2}} (leave) behind thousands of pages of ideas.",
+                "His journals, {{3}} (include) drawings of flying machines and human anatomy, show a mind years ahead of its time. He studied birds, {{4}} (design) wings based on their structure. {{5}} (combine) art and science, he saw no difference between the two fields. His work influences us even today, {{6}} (comment) is remarkable for a man who lived 500 years ago."
+            ],
+            answers: ["a painter", "Known", "leaving", "including", "designing", "Combining", "which"],
+            explanations: [
+                "<strong>A painter:</strong> Appositive (Renaming Leonardo).",
+                "<strong>Known:</strong> Passive Participle (He is known).",
+                "<strong>Leaving:</strong> Result V-ing (He filled notebooks, which left...).",
+                "<strong>Including:</strong> Active Participle (Which include).",
+                "<strong>Designing:</strong> Active Participle (He studied birds AND designed...).",
+                "<strong>Combining:</strong> Active Participle (Reason/Manner).",
+                "<strong>Which:</strong> Sentential Relative commenting on his influence."
+            ]
+        },
+        {
+            title: "Level 4: The Plastic Crisis",
+            words: ["produce", "end", "break", "harm", "enter", "threaten", "demand"],
+            content: [
+                "Plastic pollution is one of the biggest threats to our planet. Millions of tons of plastic are {{0}} (produce) every year, most of it used only once. Eventually, this waste finds its way to the ocean, {{1}} (end) up in massive floating garbage patches. Once in the water, the plastic degrades, {{2}} (break) down into microplastics.",
+                "Fish eat these tiny particles, {{3}} (mistake) them for food. This is dangerous because the toxins {{4}} (enter) the food chain, eventually reaching humans. With the problem {{5}} (get) worse every day, governments are finally acting. Many countries have banned single-use bags, {{6}} (comment) is a good start, but not enough. We need a global treaty, {{7}} (demand) a total change in how we package goods."
+            ],
+            answers: ["produced", "ending", "breaking", "mistaking", "enter", "getting", "which", "demanding"],
+            explanations: [
+                "<strong>Produced:</strong> Passive Voice (Are produced).",
+                "<strong>Ending:</strong> Result V-ing.",
+                "<strong>Breaking:</strong> Result V-ing.",
+                "<strong>Mistaking:</strong> Active Participle (Fish mistake them).",
+                "<strong>Enter:</strong> Active Verb (Fact).",
+                "<strong>Getting:</strong> 'With' Phrase (With + Noun + V-ing).",
+                "<strong>Which:</strong> Sentential Relative commenting on the ban.",
+                "<strong>Demanding:</strong> Reduced Relative (A treaty which demands)."
+            ]
+        },
+        {
+            title: "Level 5: The Future of Work",
+            words: ["advance", "automate", "leave", "create", "require", "adapt", "face"],
+            content: [
+                "We are standing on the brink of a technological revolution. With Artificial Intelligence {{0}} (advance) at an exponential rate, the job market is transforming. Routine tasks are being {{1}} (automate), {{2}} (leave) many workers uncertain about their future. Algorithms, {{3}} (train) on massive datasets, can now diagnose diseases and write code better than humans.",
+                "This shift, {{4}} (call) the 'Fourth Industrial Revolution', brings both risks and opportunities. On one hand, old jobs will vanish. On the other hand, new roles will emerge, {{5}} (create) demand for creative and social skills. Workers, {{6}} (face) this new reality, must become lifelong learners. The ability to unlearn and relearn will be crucial, {{7}} (comment) means the education system must also change. {{8}} (adapt) to these changes is not optional; it is survival."
+            ],
+            answers: ["advancing", "automated", "leaving", "trained", "called", "creating", "facing", "which", "Adapting"],
+            explanations: [
+                "<strong>Advancing:</strong> 'With' Phrase (With AI advancing).",
+                "<strong>Automated:</strong> Passive Voice.",
+                "<strong>Leaving:</strong> Result V-ing.",
+                "<strong>Trained:</strong> Passive Participle (Which are trained).",
+                "<strong>Called:</strong> Passive Participle (Which is called).",
+                "<strong>Creating:</strong> Result V-ing.",
+                "<strong>Facing:</strong> Active Participle (Who are facing).",
+                "<strong>Which:</strong> Sentential Relative commenting on the need for skills.",
+                "<strong>Adapting:</strong> Gerund as Subject."
+            ]
+        }
+    ];
+
+    // ================= ENGINE =================
+    let qIndex = 0;
+    let score = 0;
+    let rIndex = 0;
+
+    function initQuiz() {
+        const q = quizData[qIndex];
+        const area = document.getElementById('quiz-area');
+        area.innerHTML = ''; 
+
+        const card = document.createElement('div');
+        card.className = 'q-card';
+        
+        let html = `<div class="q-text">${qIndex + 1}. ${q.q}</div>`;
+        
+        if (q.type === 'mcq') {
+            html += `<div class="options-grid">`;
+            q.o.forEach(opt => {
+                html += `<button class="opt-btn" onclick="checkMCQ('${opt.replace(/'/g,"\\'")}')">${opt}</button>`;
+            });
+            html += `</div>`;
+        } else {
+            let ph = q.type === 'rewrite' ? `Start with "${q.start}"...` : 'Type answer...';
+            html += `<div class="input-wrapper">
+                        <input type="text" class="text-input" id="inp-ans" placeholder="${ph}">
+                        <button class="nav-btn active" style="margin-top:10px; width:100%" onclick="checkInput()">Check</button>
+                     </div>`;
+        }
+        
+        html += `<div id="feedback" class="feedback-box"></div>`;
+        card.innerHTML = html;
+        area.appendChild(card);
+        
+        // Enter key support
+        const inp = document.getElementById('inp-ans');
+        if(inp) {
+            inp.focus();
+            inp.addEventListener("keypress", (e) => { 
+                if(e.key==="Enter") {
+                    // اگر فیدبک نمایش داده شده، برو بعدی. وگرنه جواب را چک کن.
+                    if(document.getElementById('feedback').style.display === 'block') {
+                        nextQ();
+                    } else {
+                        checkInput();
+                    }
+                }
+            });
+        }
+
+        document.getElementById('q-counter').innerText = `Question ${qIndex+1} of ${quizData.length}`;
+        document.getElementById('p-bar').style.width = `${((qIndex)/quizData.length)*100}%`;
+        document.getElementById('btn-prev').disabled = qIndex === 0;
+        document.getElementById('btn-next').innerText = qIndex === quizData.length-1 ? "Finish" : "Next";
+    }
+
+    function showFeed(isCorrect, userAns, correctAns, reason) {
+        const box = document.getElementById('feedback');
+        const q = quizData[qIndex];
+        
+        // 1. آماده‌سازی متن تمیز برای صدا (حذف پرانتزها و فاصله‌های اضافی)
+        let rawAudio = q.type === 'rewrite' ? correctAns : q.q.replace(/_+/g, correctAns);
+        // این رجکس تمام عبارات داخل پرانتز (...) را پاک می‌کند
+        let audioText = rawAudio.replace(/\s*\([^)]*\)/g, "").trim().replace(/'/g, "\\'");
+
+        if (isCorrect) {
+            score += 10;
+            box.className = 'feedback-box success';
+            // تغییر: حذف speak("Correct") و استفاده از متن تمیز شده
+            box.innerHTML = `✅ <strong>Correct!</strong> <button class="audio-btn" onclick="speak('${audioText}')">🔊</button><br>${reason}`;
+        } else {
+            box.className = 'feedback-box error';
+            // تغییر: حذف speak("Incorrect") و استفاده از متن تمیز شده
+            box.innerHTML = `❌ <strong>Incorrect.</strong><br>Answer: <strong>${correctAns}</strong> <button class="audio-btn" onclick="speak('${audioText}')">🔊</button><br><em>${reason}</em>`;
+        }
+        box.style.display = 'block';
+        document.getElementById('score').innerText = score;
+        
+        // Disable inputs
+        document.querySelectorAll('.opt-btn').forEach(b => {
+            b.disabled = true;
+            if(b.innerText === correctAns) b.classList.add('correct');
+            else if(b.innerText === userAns) b.classList.add('wrong');
+        });
+        const inp = document.getElementById('inp-ans');
+        // تغییر: به جای disabled از readOnly استفاده می‌کنیم تا فوکوس بماند و اینتر کار کند
+        if(inp) { inp.readOnly = true; inp.focus(); }
+    }
+
+    window.checkMCQ = (val) => {
+        const q = quizData[qIndex];
+        showFeed(val === q.a, val, q.a, q.r);
+    }
+
+    window.checkInput = () => {
+        const q = quizData[qIndex];
+        const val = document.getElementById('inp-ans').value.trim();
+        const normVal = val.toLowerCase().replace(/[.,!]/g, '');
+        const normAns = q.a.toLowerCase().replace(/[.,!]/g, '');
+        
+        showFeed(normVal === normAns, val, q.a, q.r);
+    }
+
+    window.nextQ = () => { if(qIndex < quizData.length-1) { qIndex++; initQuiz(); } }
+    window.prevQ = () => { if(qIndex > 0) { qIndex--; initQuiz(); } }
+
+    // ================= READING ENGINE =================
+    function initReading() {
+        const tabs = document.getElementById('r-tabs');
+        readings.forEach((r, i) => {
+            const btn = document.createElement('button');
+            btn.className = `r-tab ${i===0?'active':''}`;
+            btn.innerText = r.title.split(':')[0]; // Short title
+            btn.onclick = () => loadReading(i);
+            tabs.appendChild(btn);
+        });
+        loadReading(0);
+    }
+
+    function loadReading(idx) {
+        rIndex = idx;
+        const r = readings[idx];
+        document.querySelectorAll('.r-tab').forEach((t, i) => t.classList.toggle('active', i===idx));
+        
+        document.getElementById('word-pool').innerHTML = r.words.map(w => `<div class="pool-item">${w}</div>`).join('');
+        
+        let html = `<h3>${r.title}</h3>`;
+        r.content.forEach((para, pIndex) => {
+            let pText = para.replace(/{{(\d+)}}/g, (m, id) => {
+                return `<input type="text" class="gap-input" data-id="${id}" placeholder="?">`;
+            });
+            
+            // Audio button for paragraph
+            let cleanText = para.replace(/{{(\d+)}}/g, (m, id) => r.answers[id]).replace(/\s*\([^)]+\)/g, "");
+            
+            html += `<div style="margin-bottom:20px; position:relative;">
+                        <button class="audio-btn para-audio" onclick="speak('${cleanText.replace(/'/g,"\\'")}')" style="position:absolute; right:-40px; top:0; display:none">🔊</button>
+                        <p style="margin:0; text-align:justify">${pText}</p>
+                     </div>`;
+        });
+        document.getElementById('reading-text').innerHTML = html;
+        document.getElementById('r-feedback').innerHTML = '';
+    }
+
+    window.checkReading = () => {
+        const r = readings[rIndex];
+        const inputs = document.querySelectorAll('.gap-input');
+        let correctCount = 0;
+        let explainHtml = '<ul style="margin-top:20px; list-style:none; padding:0">';
+        
+        inputs.forEach(inp => {
+            const id = inp.dataset.id;
+            const val = inp.value.trim().toLowerCase();
+            const ans = r.answers[id].toLowerCase();
+            
+            if(val === ans) {
+                inp.classList.add('correct');
+                inp.classList.remove('wrong');
+                correctCount++;
+                explainHtml += `<li style="margin-bottom:10px; color:#166534">✅ <strong>${r.answers[id]}</strong>: ${r.explanations[id]}</li>`;
+            } else {
+                inp.classList.add('wrong');
+                inp.classList.remove('correct');
+                if(!inp.nextElementSibling?.classList.contains('correction-span')) {
+                    const sp = document.createElement('span');
+                    sp.className = 'correction-span';
+                    sp.innerText = r.answers[id];
+                    inp.after(sp);
+                }
+                explainHtml += `<li style="margin-bottom:10px; color:#991b1b">❌ <strong>Gap ${parseInt(id)+1}</strong>: ${r.explanations[id]}</li>`;
+            }
+        });
+        
+        explainHtml += '</ul>';
+        document.getElementById('r-feedback').innerHTML = `<div style="font-size:1.2rem; color:var(--primary)">Score: ${correctCount}/${r.answers.length}</div>` + explainHtml;
+        
+        document.querySelectorAll('.para-audio').forEach(b => {
+            b.style.display = 'inline-flex';
+            b.animate([{transform:'scale(0)'}, {transform:'scale(1)'}], {duration:300});
+        });
+    }
+
+    // Init
+    initQuiz();
+    initReading();
+
+</script>
+</body>
+</html>

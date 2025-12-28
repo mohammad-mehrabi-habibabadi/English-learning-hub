@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Task 2 Structures Masterfile</title>
+    <style>
+        /* --- Styles based on your 'Writing' theme (Orange/Rust) --- */
+        :root {
+            --primary: #c2410c; 
+            --primary-light: #ea580c;
+            --primary-pale: #fff7ed;
+            --secondary: #4338ca; /* Indigo for contrast */
+            --bg: #fafaf9;
+            --surface: #ffffff;
+            --text: #1c1917;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding-bottom: 80px;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 3rem 1rem 4rem 1rem;
+            text-align: center;
+            border-radius: 0 0 40px 40px;
+            box-shadow: var(--shadow);
+        }
+
+        h1 { margin: 0; font-size: 2.2rem; font-weight: 800; }
+        .subtitle { opacity: 0.95; margin-top: 10px; font-weight: 400; }
+
+        /* --- Navigation Tabs --- */
+        .nav-container {
+            display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+            margin-top: -30px; position: sticky; top: 10px; z-index: 100; padding: 0 10px;
+        }
+
+        .nav-btn {
+            background: var(--surface); border: none; padding: 10px 18px;
+            border-radius: 50px; font-weight: 700; color: #44403c;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); cursor: pointer;
+            transition: all 0.2s; font-size: 0.9rem; border: 2px solid transparent;
+        }
+        .nav-btn:hover { transform: translateY(-2px); }
+        .nav-btn.active { background: #292524; color: white; border-color: #292524; }
+
+        /* --- Content Container --- */
+        .container { max-width: 900px; margin: 20px auto; padding: 0 15px; display: none; }
+        .container.active { display: block; animation: fadeIn 0.4s; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Cards --- */
+        .card {
+            background: var(--surface); border-radius: var(--radius);
+            padding: 25px; margin-bottom: 25px; box-shadow: var(--shadow);
+            border-left: 6px solid var(--primary);
+        }
+        
+        h2 { margin-top: 0; color: var(--primary); font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        h3 { margin-top: 25px; color: #44403c; border-bottom: 2px solid #e7e5e4; padding-bottom: 8px; }
+        h4 { margin-bottom: 10px; color: var(--secondary); }
+
+        /* --- Structural Boxes --- */
+        .structure-box {
+            background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;
+            padding: 15px; margin: 15px 0; font-family: monospace; font-size: 0.95rem;
+            color: #334155; position: relative;
+        }
+        .structure-box::before {
+            content: 'TEMPLATE'; position: absolute; top: -10px; right: 10px;
+            background: #e2e8f0; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold;
+        }
+
+        .note-box {
+            background: #fffbeb; border-left: 4px solid #f59e0b;
+            padding: 12px; margin: 15px 0; font-size: 0.95rem; color: #92400e;
+        }
+
+        .example-box {
+            background: #f0fdf4; border-left: 4px solid #16a34a;
+            padding: 12px; margin: 15px 0; font-size: 0.95rem; color: #166534;
+        }
+
+        .list-group li { margin-bottom: 8px; }
+        
+        /* --- Apple vs Orange Visual --- */
+        .ao-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .ao-item { padding: 10px; border-radius: 8px; text-align: center; font-weight: bold; }
+        .ao-apple { background: #fee2e2; color: #991b1b; }
+        .ao-orange { background: #ffedd5; color: #9a3412; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>IELTS Task 2 Structures</h1>
+    <div class="subtitle">Complete Guide based on your Notes</div>
+</header>
+
+<div class="nav-container">
+    <a href="../index.html" class="nav-btn" style="text-decoration:none;">🏠</a>
+    <button class="nav-btn active" onclick="switchTab('basics')">1. Basics & Rules</button>
+    <button class="nav-btn" onclick="switchTab('opinion')">2. Opinion</button>
+    <button class="nav-btn" onclick="switchTab('discussion')">3. Discussion</button>
+    <button class="nav-btn" onclick="switchTab('expository')">4. Expository</button>
+    <button class="nav-btn" onclick="switchTab('mixed')">5. Mixed</button>
+</div>
+
+<!-- ================= 1. BASICS & RULES ================= -->
+<div id="basics" class="container active">
+    <div class="card">
+        <h2>📜 General Rules (Page 1)</h2>
+        
+        <h3>Introduction Rules</h3>
+        <ul class="list-group">
+            <li><strong>Fact in Question:</strong> If the prompt contains a fact, you must <strong>paraphrase</strong> it in the introduction.</li>
+            <li><strong>Viewpoint in Question:</strong> If the prompt starts with a viewpoint, start your intro with a <strong>Fact or History</strong> first, then paraphrase the viewpoint.</li>
+            <li><strong>Structure:</strong> <code>General Fact / History</code> + <code>Paraphrased Viewpoint</code> + <code>Thesis Statement</code></li>
+        </ul>
+
+        <h3>Tense & Grammar</h3>
+        <div class="note-box">
+            <strong>⚠️ Trend Questions:</strong> If the question describes a changing situation (trend), use the <strong>Present Continuous</strong> tense.
+            <br><em>Example: "The number of people working from home is increasing."</em>
+        </div>
+        <div class="note-box">
+            <strong>⚠️ Comparison with Past:</strong> To compare today with the past, use the <strong>Present Perfect</strong>.
+            <br><em>Example: "Technology has changed the way we communicate."</em>
+        </div>
+        <div class="note-box">
+            <strong>⚠️ General Statements:</strong> When making general statements, always use <strong>Plural Countable Nouns</strong> (not singular).
+            <br><em>Correct: "Cars cause pollution." (Not: "Car causes pollution")</em>
+        </div>
+
+        <h3>Cautious Language (Hedging)</h3>
+        <p>Never say things with 100% certainty. Use hedging words to sound academic:</p>
+        <div class="structure-box">
+            <strong>Use:</strong> would, often, could, is likely to, tends to, may, might.
+        </div>
+    </div>
+</div>
+
+<!-- ================= 2. OPINION ESSAY ================= -->
+<div id="opinion" class="container">
+    <div class="card">
+        <h2>🗣️ Opinion Essay Types</h2>
+        <p>There are two main approaches: <strong>Strong View</strong> (100% agree/disagree) or <strong>Middle View</strong> (Balanced).</p>
+        <div class="note-box">
+            <strong>Note:</strong> You can take a Strong view for almost all questions. If you take a Middle view when a Strong view is possible, you might lose marks for clarity unless done perfectly.
+        </div>
+
+        <h3>Question Identifiers</h3>
+        <ul>
+            <li>Is this a positive or negative development?</li>
+            <li>To what extent do you agree or disagree?</li>
+            <li>What is your opinion?</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>🏗️ Introduction Structure (Strong)</h2>
+        
+        <h4>Type 1: Simple</h4>
+        <div class="structure-box">
+            1. Paraphrase the Fact from the question.<br>
+            2. Thesis: "I strongly believe that this is a <strong>positive/negative</strong> trend."<br>
+            OR "I strongly believe that this is <strong>harmful/detrimental</strong> for..."
+        </div>
+
+        <h4>Type 2: With History (Better)</h4>
+        <div class="structure-box">
+            1. <strong>History/Fact:</strong> "While in the past [Past Situation], today [Current Situation]."<br>
+            2. <strong>Stance:</strong> "I strongly agree/disagree with the idea that..."<br>
+            3. <strong>Outline:</strong> Paraphrase the prompt requirement.
+        </div>
+
+        <div class="note-box">
+            <strong>If no fact exists to paraphrase:</strong><br>
+            "It is often said that / It has been suggested that [Paraphrase Viewpoint]. I strongly agree/disagree with this point of view."
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>📝 Body Paragraphs (Strong View)</h2>
+        <p>Go straight to the point. Support your side fully.</p>
+        
+        <div class="structure-box">
+            <strong>Body 1:</strong> Direct Reason 1 -> Explain (Why? So what?) -> Example -> Micro-conclusion (Overall...).<br>
+            <strong>Body 2:</strong> Direct Reason 2 -> Explain -> Example.<br>
+            <strong>Body 3 (Refutation):</strong> "Some may argue that [Opposing View]. However, [Refute/Reject it immediately]."
+        </div>
+
+        <div class="note-box">
+            <strong>⚠️ "The Best" Trap:</strong> If the question uses absolutes like "The best" or "The only", you MUST take a <strong>Strong</strong> stance. Reject the idea that it is "the best" because:
+            <br>- It is not applicable to all people.
+            <br>- It is not effective in all situations.
+            <br>- Other methods exist.
+        </div>
+    </div>
+
+    <div class="card" style="border-left-color: var(--secondary);">
+        <h2>⚖️ Middle View Strategy</h2>
+        <p>Use this when the question has a "Too many / Too much" element (e.g., "Too many choices") or a double-barrelled statement (A is true because of B).</p>
+        
+        <div class="structure-box">
+            <strong>Introduction:</strong> Fact + "I think although [Less important side], [More important side]."<br>
+            <strong>Body 1:</strong> "On the one hand..." (The side you agree with LESS).<br>
+            <strong>Body 2:</strong> "On the other hand..." (The side you agree with MORE).<br>
+            <strong>Conclusion:</strong> "In conclusion, I believe even though [Side A] is important because [Reason], [Side B] is essential since [Reason]."
+        </div>
+        <p><em>*Note: A Middle view is not 50/50. It leans towards one side.</em></p>
+    </div>
+</div>
+
+<!-- ================= 3. DISCUSSION ESSAY ================= -->
+<div id="discussion" class="container">
+    <div class="card">
+        <h2>💬 Discussion Types</h2>
+        <p><strong>Type A:</strong> "Discuss both views and give your own opinion."<br>
+        <strong>Type B:</strong> "Do the advantages outweigh the disadvantages?"</p>
+    </div>
+
+    <div class="card">
+        <h2>Type A: Discuss Both Views</h2>
+        <p>There are 3 logic scenarios (The Apple/Orange Analogy):</p>
+        <div class="ao-grid">
+            <div class="ao-apple">Group 1: Apples are good.</div>
+            <div class="ao-orange">Group 2: Apples are bad.</div>
+        </div>
+        <div class="ao-grid">
+            <div class="ao-apple">Group 1: Apples are good.</div>
+            <div class="ao-orange">Group 2: Oranges are good.</div>
+        </div>
+        <div class="ao-grid">
+            <div class="ao-apple">Group 1: Apples are good.</div>
+            <div class="ao-orange">Group 2: Apples are bad AND Oranges are good.</div>
+        </div>
+
+        <h3>Structure (Strong Approach)</h3>
+        <div class="structure-box">
+            <strong>Introduction:</strong> "Some people <strong>(myself included / including me)</strong> argue that [Side A], whereas others believe that [Side B]."<br>
+            <strong>Body 1 (Agreement):</strong> Discuss the side you agree with. Give 2 reasons.<br>
+            <strong>Body 2 (Disagreement + Refutation):</strong> "Some people argue that [Side B]... However, [Refute it]."
+        </div>
+        
+        <div class="note-box">
+            <strong>Refutation Strategy:</strong>
+            <br>- "This benefit can be achieved via other means."
+            <br>- "This is not a priority right now."
+            <br>- "This logic is flawed because..."
+        </div>
+        
+        <h3>Structure (Middle Approach)</h3>
+        <div class="structure-box">
+            <strong>Body 1:</strong> 2 arguments for Side A.<br>
+            <strong>Body 2:</strong> 2 arguments for Side B.<br>
+            <strong>Conclusion:</strong> Summarize both and state your balanced view.
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Type B: Advantages & Disadvantages</h2>
+        
+        <h4>1. Yes/No Question ("Do the advantages outweigh...?")</h4>
+        <p>You MUST take a position. Are there more Pros or Cons?</p>
+        <div class="structure-box">
+            <strong>Strong Strategy:</strong><br>
+            <strong>Body 1 (Major Side):</strong> 2 Strong Advantages.<br>
+            <strong>Body 2 (Minor Side + Refutation):</strong> "However, some minor disadvantages exist... [Minimize them]."<br>
+            <strong>Conclusion:</strong> "Despite the minor drawbacks of X, it is my strong belief that the benefits are a net positive."
+        </div>
+
+        <h4>2. Wh- Question ("What are the advantages...?")</h4>
+        <p>No opinion needed. Just list them.</p>
+        <div class="structure-box">
+            <strong>Body 1:</strong> 2 Advantages.<br>
+            <strong>Body 2:</strong> 2 Disadvantages.<br>
+            <strong>Conclusion:</strong> Summarize all 4 points.
+        </div>
+    </div>
+</div>
+
+<!-- ================= 4. EXPOSITORY (ISSUES) ================= -->
+<div id="expository" class="container">
+    <div class="card">
+        <h2>🌍 Issues & Problems</h2>
+        <p>This essay type has a <strong>Topic Statement</strong> (a problem/issue) but NO viewpoint given. You must analyze it.</p>
+        
+        <h3>Common Requirements</h3>
+        <ul class="list-group">
+            <li><strong>Causes:</strong> "Why is this the case?" / "What reasons are behind this?"</li>
+            <li><strong>Consequences:</strong> "What problems does this cause?"</li>
+            <li><strong>Solutions:</strong> "What can be done?"</li>
+        </ul>
+
+        <h3>Introduction Template</h3>
+        <div class="structure-box">
+            1. <strong>History/Context:</strong> "While in the past..., these days..."<br>
+            2. <strong>Paraphrase Topic:</strong> Restate the problem.<br>
+            3. <strong>Outline:</strong> "This essay will outline some possible reasons for this, as well as the social issues it may lead to / suggesting some solutions."
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>⛓️ Analysis Mechanism (Body)</h2>
+        <p>Do not use "Good/Bad" logic. Use "Cause/Effect/Solution" logic.</p>
+
+        <h4>Linking Words for Causes</h4>
+        <p><em>Because, The reason for this is that, Thanks to, Due to, Owing to.</em></p>
+        
+        <h4>Linking Words for Effects</h4>
+        <p><em>As a result of, Therefore, Result in, Consequently, Lead to.</em></p>
+
+        <h4>Language for Solutions</h4>
+        <div class="note-box">
+            <strong>⚠️ Be Tentative:</strong> Solutions are potential, not guaranteed. Use "Could be", "Would be", "A possible solution".
+        </div>
+        <div class="structure-box">
+            "A possible solution to [Problem] could be..."<br>
+            "One way to solve the problem of [X] would be..."<br>
+            "This would alleviate/mitigate the issue by..."
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Structure: Cause & Solution</h2>
+        <div class="structure-box">
+            <strong>Body 1 (Causes):</strong> Cause 1 -> Explanation -> Cause 2 -> Explanation.<br>
+            <strong>Body 2 (Solutions):</strong> Solution 1 -> How it works -> Solution 2.<br>
+            <strong>Conclusion:</strong> Summarize causes and solutions. Use "However" to transition from problem to solution.
+        </div>
+        <div class="example-box">
+            "In conclusion, [Cause 1] and [Cause 2] have led to [Problem]. However, these problems can be dealt with by [Solution 1] and [Solution 2]."
+        </div>
+    </div>
+</div>
+
+<!-- ================= 5. MIXED / TWO-PART ================= -->
+<div id="mixed" class="container">
+    <div class="card">
+        <h2>🔀 Mixed / Two-Part Questions</h2>
+        <p>This combines an <strong>Opinion</strong> question with an <strong>Expository</strong> element (Causes/Effects/Solutions/Items).</p>
+        
+        <div class="note-box">
+            <strong>⚠️ Golden Rule:</strong> The order of your Body Paragraphs MUST match the order of the questions in the prompt. Do not change the order.
+        </div>
+
+        <h3>Example Prompt</h3>
+        <p><em>"How realistic is the expectation of job satisfaction? (Opinion) What factors contribute to it? (Items)"</em></p>
+
+        <h3>Structure</h3>
+        <div class="structure-box">
+            <strong>Introduction:</strong> Answer the first question directly. Answer the second question vaguely (e.g., "There are several factors...").<br>
+            <strong>Body 1:</strong> Answer Question 1 (Opinion).<br>
+            <strong>Body 2:</strong> Answer Question 2 (Items/Factors).<br>
+            <strong>Conclusion:</strong> Summarize both answers.
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Developing "Items"</h2>
+        <p>When asked for "Factors" or "Reasons" (Items), use this pattern:</p>
+        <div class="structure-box">
+            <strong>First item:</strong> "The most significant factor is [X] because..."<br>
+            <strong>Second item:</strong> "Another key element is [Y] since..."<br>
+            <strong>Linking phrases:</strong> Besides, Apart from that, Furthermore (Do not use "Beside").
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Special Case: "Effects"</h2>
+        <p>If the question asks "How has technology affected relationships?", only discuss the <strong>change</strong> (Past vs Now). Do not say if it is good or bad yet (unless asked).</p>
+        <div class="example-box">
+            "Previously, people met in person. Now, they interact online." (This is a change).<br>
+            "It is easier now." (This is an opinion/benefit - Avoid this in the 'Effects' paragraph).
+        </div>
+    </div>
+</div>
+
+<script>
+    function switchTab(id) {
+        document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        
+        const btns = document.querySelectorAll('.nav-btn');
+        btns.forEach(btn => {
+            if(btn.getAttribute('onclick').includes(id)) {
+                btn.classList.add('active');
+            }
+        });
+        window.scrollTo(0,0);
+    }
+</script>
+
+</body>
+</html>

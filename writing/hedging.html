@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Hedging (Writing)</title>
+    <style>
+        /* --- General Styles --- */
+        :root {
+            --primary: #d97706; /* نارنجی تیره برای رایتینگ */
+            --primary-light: #f59e0b;
+            --primary-pale: #fffbeb;
+            --bg: #fff7ed;
+            --surface: #ffffff;
+            --text: #1f2937;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding-bottom: 80px;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 3rem 1rem 4rem 1rem;
+            text-align: center;
+            border-radius: 0 0 40px 40px;
+            box-shadow: var(--shadow);
+        }
+
+        h1 { margin: 0; font-size: 2.2rem; }
+        .subtitle { opacity: 0.95; margin-top: 10px; font-weight: 400; }
+
+        /* --- Navigation --- */
+        .nav-container {
+            display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+            margin-top: -30px; position: sticky; top: 10px; z-index: 100; padding: 0 10px;
+        }
+
+        .nav-btn {
+            background: var(--surface); border: none; padding: 12px 24px;
+            border-radius: 50px; font-weight: 700; color: #4b5563;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); cursor: pointer;
+            text-decoration: none; display: flex; align-items: center; gap: 8px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .nav-btn:hover { transform: translateY(-3px); }
+        .nav-btn.active { background: var(--text); color: white; }
+
+        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; display: none; }
+        .container.active { display: block; animation: fadeIn 0.4s; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Content Cards --- */
+        .card {
+            background: var(--surface); border-radius: var(--radius);
+            padding: 25px; margin-bottom: 25px; box-shadow: var(--shadow);
+            border-left: 6px solid var(--primary);
+        }
+
+        h2 { margin-top: 0; color: var(--primary); display: flex; align-items: center; gap: 10px; font-size: 1.4rem; }
+        h3 { margin-top: 20px; color: #4b5563; border-bottom: 2px solid #f3f4f6; padding-bottom: 5px; }
+
+        .concept-box {
+            background: var(--primary-pale); padding: 15px; border-radius: 8px;
+            margin: 10px 0; border: 1px solid #fcd34d;
+        }
+
+        .comparison-table {
+            width: 100%; border-collapse: collapse; margin-top: 15px; background: white;
+            border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .comparison-table th { background: #fee2e2; color: #991b1b; padding: 12px; text-align: left; width: 45%; }
+        .comparison-table th.safe { background: #dcfce7; color: #166534; }
+        .comparison-table td { padding: 12px; border-bottom: 1px solid #f3f4f6; font-size: 0.95rem; }
+        .comparison-table tr:last-child td { border-bottom: none; }
+
+        .highlight { background: #fef3c7; padding: 2px 4px; border-radius: 4px; font-weight: bold; }
+
+        /* --- Audio Button --- */
+        .audio-btn {
+            background: var(--primary-pale); color: var(--primary); border: 1px solid var(--primary);
+            width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
+            font-size: 0.9rem; display: inline-flex; align-items: center; justify-content: center;
+            transition: all 0.2s; margin-left: 8px; vertical-align: middle;
+        }
+        .audio-btn:hover { background: var(--primary); color: white; }
+
+        /* --- Exercise Styles --- */
+        .exercise-box {
+            background: white; border: 1px solid #e5e7eb; border-radius: 12px;
+            padding: 20px; margin-bottom: 20px; position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        
+        .bad-sentence {
+            font-size: 1.1rem; color: #991b1b; font-weight: bold; margin-bottom: 15px;
+            background: #fef2f2; padding: 10px; border-radius: 8px; border-left: 4px solid #ef4444;
+        }
+        
+        .input-area {
+            width: 100%; padding: 15px; border: 2px solid #e5e7eb; border-radius: 8px;
+            font-family: inherit; font-size: 1rem; margin-bottom: 10px; resize: vertical;
+            transition: border-color 0.2s;
+        }
+        .input-area:focus { outline: none; border-color: var(--primary); }
+
+        .check-btn {
+            background: var(--primary); color: white; border: none; padding: 10px 20px;
+            border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-flex;
+            align-items: center; gap: 5px;
+        }
+        .check-btn:hover { background: #b45309; }
+
+        .feedback-area {
+            margin-top: 15px; padding: 15px; border-radius: 8px; display: none;
+            animation: fadeIn 0.3s;
+        }
+        .feedback-area.visible { display: block; }
+        
+        .model-answer {
+            background: #ecfdf5; border: 1px solid #6ee7b7; color: #064e3b;
+        }
+        .hint-text { font-size: 0.9rem; color: #6b7280; margin-top: 5px; font-style: italic; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Academic Hedging</h1>
+    <div class="subtitle">The Art of Cautious Language (Band 7.0+)</div>
+</header>
+
+<div class="nav-container">
+    <a href="../index.html" class="nav-btn" style="text-decoration:none;"><span>🏠</span> Home</a>
+    <button class="nav-btn active" onclick="switchTab('learn')"><span>📖</span> Learn</button>
+    <button class="nav-btn" onclick="switchTab('practice')"><span>✍️</span> Rewriting</button>
+</div>
+
+<div id="learn" class="container active">
+
+    <div class="card">
+        <h2>🛡️ Why Hedge?</h2>
+        <p>In academic writing (IELTS Task 2), nothing is 100% certain. If you say <em>"Video games cause violence"</em>, it is a false statement because not everyone becomes violent. </p>
+        <p>Instead, we use <strong>Hedging</strong> (Cautious Language) to make our arguments scientific and bulletproof.</p>
+        
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>❌ Too Strong (Band 5-6)</th>
+                    <th class="safe">✅ Academic (Band 7+)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Technology <strong>destroys</strong> social skills.</td>
+                    <td>Technology <strong>can negatively impact</strong> social skills.<button class="audio-btn" onclick="speak('Technology can negatively impact social skills.')">🔊</button></td>
+                </tr>
+                <tr>
+                    <td>Everyone <strong>prefers</strong> remote work.</td>
+                    <td><strong>Many employees tend to prefer</strong> remote work.<button class="audio-btn" onclick="speak('Many employees tend to prefer remote work.')">🔊</button></td>
+                </tr>
+                <tr>
+                    <td>Smoking <strong>causes</strong> cancer.</td>
+                    <td>Smoking is <strong>a primary risk factor for</strong> cancer.<button class="audio-btn" onclick="speak('Smoking is a primary risk factor for cancer.')">🔊</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>🛠️ The Toolkit</h2>
+
+        <h3>1. Modal Verbs (The most common)</h3>
+        <div class="concept-box">
+            <strong>Could / Might / May / Can</strong>
+            <p>Use these instead of "is" or "will".</p>
+            <ul>
+                <li>"This solution <strong>could</strong> be effective." <button class="audio-btn" onclick="speak('This solution could be effective.')">🔊</button></li>
+                <li>"Problems <strong>might</strong> arise." <button class="audio-btn" onclick="speak('Problems might arise.')">🔊</button></li>
+            </ul>
+        </div>
+
+        <h3>2. Tentative Verbs</h3>
+        <div class="concept-box">
+            <strong>Suggest / Appear / Seem / Tend to</strong>
+            <p>Use these to show interpretation or trends.</p>
+            <ul>
+                <li>"The evidence <strong>suggests</strong> that..." <button class="audio-btn" onclick="speak('The evidence suggests that.')">🔊</button></li>
+                <li>"Children <strong>tend to</strong> learn faster." <button class="audio-btn" onclick="speak('Children tend to learn faster.')">🔊</button></li>
+                <li>"It <strong>appears</strong> to be difficult." <button class="audio-btn" onclick="speak('It appears to be difficult.')">🔊</button></li>
+            </ul>
+        </div>
+
+        <h3>3. Adverbs of Probability</h3>
+        <div class="concept-box">
+            <strong>Likely / Possibly / Probably / Frequently</strong>
+            <ul>
+                <li>"It is <strong>highly likely</strong> that costs will increase." <button class="audio-btn" onclick="speak('It is highly likely that costs will increase.')">🔊</button></li>
+                <li>"This <strong>frequently</strong> results in failure." <button class="audio-btn" onclick="speak('This frequently results in failure.')">🔊</button></li>
+            </ul>
+        </div>
+
+        <h3>4. Limiting Quantifiers</h3>
+        <div class="concept-box">
+            <strong>The majority of / A significant number of / Some / In many cases</strong>
+            <p>Never say "All" or "Everyone". Be specific.</p>
+            <ul>
+                <li>"<strong>In many cases</strong>, diet plays a key role." <button class="audio-btn" onclick="speak('In many cases, diet plays a key role.')">🔊</button></li>
+                <li>"<strong>A vast number of</strong> people agree." <button class="audio-btn" onclick="speak('A vast number of people agree.')">🔊</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card" style="border-left-color: #ef4444;">
+        <h2 style="color:#991b1b">⚠️ Golden Rule</h2>
+        <p><strong>Don't overdo it!</strong></p>
+        <div style="background:#fee2e2; padding:10px; border-radius:8px; color:#991b1b;">
+            ❌ "It <strong>might possibly</strong> be <strong>likely</strong> that it <strong>could</strong> rain." (Too weak!)
+            <br>
+            ✅ "It is <strong>likely</strong> to rain." (Perfect)
+        </div>
+        <p style="margin-top:10px">One or two hedging words per sentence is enough.</p>
+    </div>
+
+</div>
+
+<div id="practice" class="container">
+    <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--primary);">
+        <h3 style="margin-top:0">✍️ Rewrite Challenge</h3>
+        <p>The sentences below are too strong (Generalizations). Rewrite them using <strong>Hedging</strong> language. <br>Then click "Check" to see a Band 9 model answer.</p>
+    </div>
+
+    <div class="exercise-box">
+        <div style="font-size:0.9rem; color:#6b7280; margin-bottom:5px;">Exercise 1: Overgeneralization</div>
+        <div class="bad-sentence">"Teenagers are lazy and addicted to phones."</div>
+        
+        <textarea class="input-area" id="ans1" rows="2" placeholder="Rewrite this sentence..."></textarea>
+        <button class="check-btn" onclick="checkAnswer(1, ['tend to', 'can be', 'often', 'many', 'some', 'might'])">Check Answer</button>
+        
+        <div id="feed1" class="feedback-area model-answer">
+            <strong>🌟 Model Answer:</strong><br>
+            "<strong>Many</strong> teenagers <strong>tend to</strong> be less active and <strong>can be</strong> heavily reliant on their phones."
+            <button class="audio-btn" onclick="speak('Many teenagers tend to be less active and can be heavily reliant on their phones.')">🔊</button>
+            <div class="hint-text">Key changes: Added 'Many' (Quantifier) and 'tend to' (Tentative verb).</div>
+        </div>
+    </div>
+
+    <div class="exercise-box">
+        <div style="font-size:0.9rem; color:#6b7280; margin-bottom:5px;">Exercise 2: Strong Causation</div>
+        <div class="bad-sentence">"Bad weather causes traffic accidents."</div>
+        
+        <textarea class="input-area" id="ans2" rows="2" placeholder="Rewrite using 'contribute' or 'likely'..."></textarea>
+        <button class="check-btn" onclick="checkAnswer(2, ['may', 'can', 'contribute', 'lead to', 'likely', 'factor'])">Check Answer</button>
+        
+        <div id="feed2" class="feedback-area model-answer">
+            <strong>🌟 Model Answer:</strong><br>
+            "Adverse weather conditions <strong>can contribute to</strong> an increase in traffic accidents."
+            <button class="audio-btn" onclick="speak('Adverse weather conditions can contribute to an increase in traffic accidents.')">🔊</button>
+            <div class="hint-text">Used 'can contribute to' instead of 'causes'.</div>
+        </div>
+    </div>
+
+    <div class="exercise-box">
+        <div style="font-size:0.9rem; color:#6b7280; margin-bottom:5px;">Exercise 3: Absolute Statement</div>
+        <div class="bad-sentence">"Working from home is the best solution for employees."</div>
+        
+        <textarea class="input-area" id="ans3" rows="2" placeholder="Soften this statement..."></textarea>
+        <button class="check-btn" onclick="checkAnswer(3, ['seem', 'appear', 'arguably', 'one of', 'most', 'often'])">Check Answer</button>
+        
+        <div id="feed3" class="feedback-area model-answer">
+            <strong>🌟 Model Answer:</strong><br>
+            "Working from home <strong>appears to be one of the most effective</strong> solutions for <strong>many</strong> employees."
+            <button class="audio-btn" onclick="speak('Working from home appears to be one of the most effective solutions for many employees.')">🔊</button>
+            <div class="hint-text">Used 'appears to be' and 'one of the most' (avoiding 'the best').</div>
+        </div>
+    </div>
+
+     <div class="exercise-box">
+        <div style="font-size:0.9rem; color:#6b7280; margin-bottom:5px;">Exercise 4: Scientific Fact (Tricky)</div>
+        <div class="bad-sentence">"A lack of sleep destroys your memory."</div>
+        
+        <textarea class="input-area" id="ans4" rows="2" placeholder="Use 'suggests' or 'linked to'..."></textarea>
+        <button class="check-btn" onclick="checkAnswer(4, ['suggest', 'link', 'impact', 'negative', 'impair', 'may'])">Check Answer</button>
+        
+        <div id="feed4" class="feedback-area model-answer">
+            <strong>🌟 Model Answer:</strong><br>
+            "Research <strong>suggests</strong> that a lack of sleep <strong>may significantly impair</strong> memory function."
+            <button class="audio-btn" onclick="speak('Research suggests that a lack of sleep may significantly impair memory function.')">🔊</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // --- Audio Logic ---
+    let voices = [];
+    function loadVoices() { voices = window.speechSynthesis.getVoices(); }
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+    loadVoices();
+
+    function speak(text) {
+        window.speechSynthesis.cancel();
+        if (voices.length === 0) voices = window.speechSynthesis.getVoices();
+        
+        const msg = new SpeechSynthesisUtterance(text);
+        const preferredVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Samantha"));
+        if (preferredVoice) msg.voice = preferredVoice;
+        
+        msg.rate = 0.9;
+        window.speechSynthesis.speak(msg);
+    }
+
+    // --- Tab Switching ---
+    function switchTab(id) {
+        document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        
+        const btns = document.querySelectorAll('.nav-btn');
+        btns.forEach(btn => {
+            if(btn.getAttribute('onclick').includes(id)) btn.classList.add('active');
+        });
+    }
+
+    // --- Grading Logic ---
+    function checkAnswer(id, keywords) {
+        const inputVal = document.getElementById('ans' + id).value.toLowerCase();
+        const feedback = document.getElementById('feed' + id);
+        
+        // چک کردن اینکه آیا کاربر چیزی نوشته است؟
+        if (inputVal.length < 5) {
+            alert("Please type your answer first!");
+            return;
+        }
+
+        // چک کردن استفاده از کلمات کلیدی (Hedging words)
+        let usedHedge = false;
+        keywords.forEach(word => {
+            if (inputVal.includes(word)) usedHedge = true;
+        });
+
+        feedback.classList.add('visible');
+        
+        // اگر کاربر از کلمات مناسب استفاده کرده بود، تشویقش کن
+        if (usedHedge) {
+            feedback.style.borderColor = "#059669"; // سبز
+            feedback.innerHTML = `<div style="color:#059669; margin-bottom:10px;">✅ Good job! You used cautious language. Compare with the model:</div>` + feedback.innerHTML;
+        } else {
+            feedback.style.borderColor = "#f59e0b"; // نارنجی
+            // بازگرداندن محتوای اصلی اگر قبلاً پیامی اضافه شده باشد (برای جلوگیری از تکرار)
+            // در اینجا ساده نگه میداریم، فقط نمایش میدهیم.
+        }
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writer's Voice & Stance (Masterclass)</title>
+    <style>
+        /* --- General Styles --- */
+        :root {
+            --primary: #c2410c; /* Orange/Rust for Writing */
+            --primary-light: #ea580c;
+            --primary-pale: #fff7ed;
+            --advanced: #7c2d12; /* Darker for Advanced sections */
+            --bg: #fafaf9;
+            --surface: #ffffff;
+            --text: #1c1917;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding-bottom: 80px;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 3rem 1rem 4rem 1rem;
+            text-align: center;
+            border-radius: 0 0 40px 40px;
+            box-shadow: var(--shadow);
+        }
+
+        h1 { margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
+        .subtitle { opacity: 0.95; margin-top: 10px; font-weight: 400; font-size: 1.1rem; }
+
+        /* --- Navigation --- */
+        .nav-container {
+            display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+            margin-top: -30px; position: sticky; top: 10px; z-index: 100; padding: 0 10px;
+        }
+
+        .nav-btn {
+            background: var(--surface); border: none; padding: 12px 24px;
+            border-radius: 50px; font-weight: 700; color: #44403c;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); cursor: pointer;
+            text-decoration: none; display: flex; align-items: center; gap: 8px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .nav-btn:hover { transform: translateY(-3px); }
+        .nav-btn.active { background: #292524; color: white; }
+
+        .container { max-width: 900px; margin: 20px auto; padding: 0 15px; display: none; }
+        .container.active { display: block; animation: fadeIn 0.4s; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Cards --- */
+        .card {
+            background: var(--surface); border-radius: var(--radius);
+            padding: 30px; margin-bottom: 30px; box-shadow: var(--shadow);
+            border-left: 6px solid var(--primary);
+            position: relative; overflow: hidden;
+        }
+        
+        /* Advanced Card Style */
+        .card.advanced {
+            border-left-color: var(--advanced);
+            background: #fffbfc;
+        }
+        .card.advanced::before {
+            content: 'ADVANCED (BAND 8.0+)';
+            position: absolute; top: 0; right: 0;
+            background: var(--advanced); color: white;
+            font-size: 0.7rem; font-weight: bold; padding: 5px 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        h2 { margin-top: 0; color: var(--primary); display: flex; align-items: center; gap: 10px; font-size: 1.5rem; }
+        .card.advanced h2 { color: var(--advanced); }
+        
+        h3 { margin-top: 25px; color: #44403c; border-bottom: 2px solid #e7e5e4; padding-bottom: 8px; font-size: 1.2rem; }
+
+        /* --- Example Boxes --- */
+        .example-box {
+            background: var(--primary-pale); padding: 20px; border-radius: 10px;
+            margin: 15px 0; border: 1px solid #fed7aa; position: relative;
+        }
+        .example-box.bad { background: #fff1f2; border-color: #fecaca; }
+        
+        .label {
+            font-size: 0.75rem; text-transform: uppercase; font-weight: bold;
+            display: inline-block; margin-bottom: 5px; padding: 2px 6px; border-radius: 4px;
+        }
+        .label.good { background: #dcfce7; color: #166534; }
+        .label.bad { background: #fee2e2; color: #991b1b; }
+        
+        .ex-sentence { font-size: 1.05rem; font-weight: 500; color: #1c1917; display: block; margin-bottom: 5px; }
+        .ex-note { font-size: 0.9rem; color: #57534e; font-style: italic; }
+
+        /* --- Audio Button --- */
+        .audio-btn {
+            background: white; color: var(--primary); border: 1px solid var(--primary);
+            width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+            font-size: 1rem; display: inline-flex; align-items: center; justify-content: center;
+            transition: all 0.2s; margin-left: 10px; vertical-align: middle;
+        }
+        .audio-btn:hover { background: var(--primary); color: white; transform: scale(1.1); }
+        .card.advanced .audio-btn { color: var(--advanced); border-color: var(--advanced); }
+        .card.advanced .audio-btn:hover { background: var(--advanced); color: white; }
+
+        /* --- Exercise Styles --- */
+        .exercise-box {
+            background: white; border: 1px solid #e7e5e4; border-radius: 12px;
+            padding: 25px; margin-bottom: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        
+        .input-area {
+            width: 100%; padding: 15px; border: 2px solid #e7e5e4; border-radius: 8px;
+            font-family: inherit; font-size: 1rem; margin-bottom: 15px; resize: vertical;
+            transition: border-color 0.2s;
+        }
+        .input-area:focus { outline: none; border-color: var(--primary); }
+
+        .check-btn {
+            background: var(--primary); color: white; border: none; padding: 12px 24px;
+            border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-flex;
+            align-items: center; gap: 8px;
+        }
+        .check-btn:hover { background: #9a3412; }
+
+        .feedback-area {
+            margin-top: 20px; padding: 20px; border-radius: 8px; display: none;
+            background: #ecfdf5; border: 1px solid #6ee7b7; color: #064e3b;
+            animation: slideDown 0.3s;
+        }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Vocabulary List --- */
+        .vocab-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;
+        }
+        .vocab-item {
+            background: white; padding: 10px; border-radius: 8px; border: 1px solid #e7e5e4;
+            font-weight: bold; text-align: center; color: #44403c;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Writer's Voice & Stance</h1>
+    <div class="subtitle">From Basic Opinion to Advanced Argumentation</div>
+</header>
+
+<div class="nav-container">
+    <a href="../index.html" class="nav-btn" style="text-decoration:none;"><span>🏠</span> Home</a>
+    <button class="nav-btn active" onclick="switchTab('learn')"><span>🧠</span> Core Concepts</button>
+    <button class="nav-btn" onclick="switchTab('advanced')"><span>🚀</span> Advanced (Band 8+)</button>
+    <button class="nav-btn" onclick="switchTab('practice')"><span>✍️</span> Practice Lab</button>
+</div>
+
+<div id="learn" class="container active">
+
+    <div class="card">
+        <h2>📢 What is "Stance"?</h2>
+        <p>In IELTS Task 2, your "stance" is your position or opinion. A common mistake is only stating your opinion in the conclusion. A high-scoring essay has a <strong>"clear position throughout the response"</strong>.</p>
+        
+        <div class="example-box bad">
+            <span class="label bad">Weak Voice (Band 5)</span>
+            <span class="ex-sentence">"Pollution is increasing. Cars cause smoke. This is a problem."</span>
+            <div class="ex-note">Fact-heavy, robotic, no emotion or judgment.</div>
+        </div>
+
+        <div class="example-box">
+            <span class="label good">Strong Voice (Band 7)</span>
+            <span class="ex-sentence">"<strong>Unfortunately</strong>, pollution is rising <strong>rapidly</strong>. Cars emit <strong>harmful</strong> fumes, which is a <strong>serious</strong> issue."</span>
+            <button class="audio-btn" onclick="speak('Unfortunately, pollution is rising rapidly. Cars emit harmful fumes, which is a serious issue.')">🔊</button>
+            <div class="ex-note">Words like 'Unfortunately' and 'harmful' show you care about the topic.</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>1. Evaluative Adjectives</h2>
+        <p>Instead of saying something is "good" or "bad", use precise adjectives to show <em>how</em> you evaluate it.</p>
+        
+        <h3>🔹 Positive Evaluation</h3>
+        <div class="vocab-grid">
+            <div class="vocab-item">Effective</div>
+            <div class="vocab-item">Vital / Crucial</div>
+            <div class="vocab-item">Beneficial</div>
+            <div class="vocab-item">Valuable</div>
+        </div>
+        <div class="example-box">
+            <span class="ex-sentence">"Regular exercise is <strong>vital</strong> for maintaining mental health."</span>
+            <button class="audio-btn" onclick="speak('Regular exercise is vital for maintaining mental health.')">🔊</button>
+        </div>
+
+        <h3>🔹 Negative Evaluation</h3>
+        <div class="vocab-grid">
+            <div class="vocab-item">Detrimental</div>
+            <div class="vocab-item">Ineffective</div>
+            <div class="vocab-item">Unacceptable</div>
+            <div class="vocab-item">Flawed</div>
+        </div>
+        <div class="example-box">
+            <span class="ex-sentence">"This policy has proven to be <strong>ineffective</strong> in the long run."</span>
+            <button class="audio-btn" onclick="speak('This policy has proven to be ineffective in the long run.')">🔊</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>2. Attitude Adverbs</h2>
+        <p>Start your sentences with these adverbs to signal your feeling before you even state the fact.</p>
+        
+        <div class="example-box">
+            <strong>Surprisingly,</strong> (Shows something unexpected)
+            <br>
+            <span class="ex-sentence">"<strong>Surprisingly</strong>, many people prefer working from home despite the isolation."</span>
+            <button class="audio-btn" onclick="speak('Surprisingly, many people prefer working from home despite the isolation.')">🔊</button>
+        </div>
+
+        <div class="example-box">
+            <strong>Inevitably,</strong> (Shows something cannot be avoided)
+            <br>
+            <span class="ex-sentence">"<strong>Inevitably</strong>, the cost of living will continue to rise."</span>
+            <button class="audio-btn" onclick="speak('Inevitably, the cost of living will continue to rise.')">🔊</button>
+        </div>
+
+        <div class="example-box">
+            <strong>Crucially,</strong> (Shows the most important point)
+            <br>
+            <span class="ex-sentence">"<strong>Crucially</strong>, the government must invest in renewable energy."</span>
+            <button class="audio-btn" onclick="speak('Crucially, the government must invest in renewable energy.')">🔊</button>
+        </div>
+    </div>
+
+</div>
+
+<div id="advanced" class="container">
+
+    <div class="card advanced">
+        <h2>🚀 The Art of Concession</h2>
+        <p>Band 8+ writers don't just ignore the other side. They acknowledge it (Concession) and then destroy it (Refutation). This shows complex critical thinking.</p>
+        
+        <h3>Structure: "While X is true, Y is more important."</h3>
+        
+        <div class="example-box">
+            <span class="label good">Example 1: Technology</span>
+            <span class="ex-sentence">"<strong>Admittedly</strong>, automation boosts efficiency. <strong>However</strong>, the social cost of job losses cannot be ignored."</span>
+            <button class="audio-btn" onclick="speak('Admittedly, automation boosts efficiency. However, the social cost of job losses cannot be ignored.')">🔊</button>
+            <div class="ex-note">Admittedly = I accept this point is true.</div>
+        </div>
+
+        <div class="example-box">
+            <span class="label good">Example 2: Education</span>
+            <span class="ex-sentence">"<strong>While it is true that</strong> university is expensive, the long-term career benefits <strong>far outweigh</strong> the costs."</span>
+            <button class="audio-btn" onclick="speak('While it is true that university is expensive, the long-term career benefits far outweigh the costs.')">🔊</button>
+            <div class="ex-note">"Far outweigh" is a very strong stance marker.</div>
+        </div>
+    </div>
+
+    <div class="card advanced">
+        <h2>🚀 Distancing Language</h2>
+        <p>Sometimes you want to mention an opinion that is <strong>not yours</strong>. You must "distance" yourself from it so the reader knows you don't agree.</p>
+        
+        <h3>Common Phrases:</h3>
+        <ul>
+            <li>"<strong>Proponents of</strong> this view <strong>claim</strong> that..." (Others claim, not me)</li>
+            <li>"It is <strong>often argued</strong> that..." (General opinion)</li>
+            <li>"Skeptics <strong>maintain</strong> that..."</li>
+        </ul>
+
+        <div class="example-box">
+            <span class="ex-sentence">"<strong>Critics often assert that</strong> space exploration is a waste of money. <strong>However</strong>, I believe it drives innovation."</span>
+            <button class="audio-btn" onclick="speak('Critics often assert that space exploration is a waste of money. However, I believe it drives innovation.')">🔊</button>
+            <div class="ex-note">Using 'assert' instead of 'say' makes it sound more academic.</div>
+        </div>
+    </div>
+
+    <div class="card advanced">
+        <h2>🚀 Evaluative Nouns</h2>
+        <p>Instead of saying "This argument is wrong," use nouns that carry judgement. This is extremely high-level style.</p>
+        
+        <div class="vocab-grid">
+            <div class="vocab-item">Shortcoming</div>
+            <div class="vocab-item">Misconception</div>
+            <div class="vocab-item">Drawback</div>
+            <div class="vocab-item">Merit</div>
+        </div>
+
+        <div class="example-box">
+            <span class="label good">Critiquing an argument</span>
+            <span class="ex-sentence">"The main <strong>shortcoming</strong> of this argument is that it ignores economic reality."</span>
+            <button class="audio-btn" onclick="speak('The main shortcoming of this argument is that it ignores economic reality.')">🔊</button>
+        </div>
+
+        <div class="example-box">
+            <span class="label good">Correcting a belief</span>
+            <span class="ex-sentence">"It is a common <strong>misconception</strong> that all plastic is recyclable."</span>
+            <button class="audio-btn" onclick="speak('It is a common misconception that all plastic is recyclable.')">🔊</button>
+        </div>
+    </div>
+
+</div>
+
+<div id="practice" class="container">
+
+    <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--primary);">
+        <h3 style="margin-top:0">✍️ Rewrite to Improve Stance</h3>
+        <p>Transform the "flat" sentences into "voiced" arguments using the suggested tools.</p>
+    </div>
+
+    <div class="exercise-box">
+        <div style="margin-bottom:10px;">
+            <span class="label bad">Flat Sentence</span>
+            <span class="ex-sentence" style="font-size:1rem; color:#666">"The internet has a lot of fake news."</span>
+            <br>
+            <strong>Mission:</strong> Use an adverb (e.g., Disturbingly) + stronger adjective.
+        </div>
+        <textarea class="input-area" id="ans1" rows="2" placeholder="e.g. Disturbingly, the internet is full of..."></textarea>
+        <button class="check-btn" onclick="checkAnswer(1, ['disturbingly', 'alarmingly', 'worryingly', 'misleading', 'false'])">Analyze My Answer</button>
+        
+        <div id="feed1" class="feedback-area">
+            <strong>🌟 Band 8.0 Model:</strong><br>
+            "<strong>Disturbingly</strong>, the internet is plagued by <strong>misleading</strong> information."
+            <button class="audio-btn" onclick="speak('Disturbingly, the internet is plagued by misleading information.')">🔊</button>
+        </div>
+    </div>
+
+    <div class="exercise-box">
+        <div style="margin-bottom:10px;">
+            <span class="label bad">Flat Sentence</span>
+            <span class="ex-sentence" style="font-size:1rem; color:#666">"Some people say taxes are too high, but I disagree."</span>
+            <br>
+            <strong>Mission:</strong> Use concession (While/Admittedly) + Refutation.
+        </div>
+        <textarea class="input-area" id="ans2" rows="2" placeholder="Start with: While some argue..."></textarea>
+        <button class="check-btn" onclick="checkAnswer(2, ['while', 'although', 'admittedly', 'however', 'argue', 'claim'])">Analyze My Answer</button>
+        
+        <div id="feed2" class="feedback-area">
+            <strong>🌟 Band 8.0 Model:</strong><br>
+            "<strong>While</strong> some argue that taxes are excessive, I <strong>maintain</strong> that they are <strong>essential</strong> for public services."
+            <button class="audio-btn" onclick="speak('While some argue that taxes are excessive, I maintain that they are essential for public services.')">🔊</button>
+        </div>
+    </div>
+
+    <div class="exercise-box">
+        <div style="margin-bottom:10px;">
+            <span class="label bad">Flat Sentence</span>
+            <span class="ex-sentence" style="font-size:1rem; color:#666">"This solution is wrong."</span>
+            <br>
+            <strong>Mission:</strong> Use an evaluative noun (drawback/flaw).
+        </div>
+        <textarea class="input-area" id="ans3" rows="2" placeholder="The main..."></textarea>
+        <button class="check-btn" onclick="checkAnswer(3, ['flaw', 'drawback', 'shortcoming', 'failure'])">Analyze My Answer</button>
+        
+        <div id="feed3" class="feedback-area">
+            <strong>🌟 Band 8.0 Model:</strong><br>
+            "The fundamental <strong>flaw</strong> in this solution is its high cost."
+            <button class="audio-btn" onclick="speak('The fundamental flaw in this solution is its high cost.')">🔊</button>
+        </div>
+    </div>
+
+    <div class="exercise-box" style="border-top: 4px solid var(--advanced);">
+        <h3>🕵️ Tone Detective</h3>
+        <p>Which sentence sounds more academic and persuasive?</p>
+
+        <div style="margin-bottom:20px;">
+            <p><strong>Pair 1:</strong></p>
+            <button class="nav-btn" style="width:100%; text-align:left; margin-bottom:5px;" onclick="checkQuiz(this, false)">A) I think free healthcare is good because it helps poor people.</button>
+            <button class="nav-btn" style="width:100%; text-align:left;" onclick="checkQuiz(this, true)">B) Free healthcare plays a <strong>vital</strong> role in reducing social inequality.</button>
+        </div>
+
+        <div>
+            <p><strong>Pair 2:</strong></p>
+            <button class="nav-btn" style="width:100%; text-align:left; margin-bottom:5px;" onclick="checkQuiz(this, true)">A) <strong>Admittedly</strong>, tourism brings money, but it also harms local culture.</button>
+            <button class="nav-btn" style="width:100%; text-align:left;" onclick="checkQuiz(this, false)">B) Tourism brings money but destroys culture.</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // --- Audio Logic ---
+    let voices = [];
+    function loadVoices() { voices = window.speechSynthesis.getVoices(); }
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+    loadVoices();
+
+    function speak(text) {
+        window.speechSynthesis.cancel();
+        if (voices.length === 0) voices = window.speechSynthesis.getVoices();
+        
+        const msg = new SpeechSynthesisUtterance(text);
+        const preferredVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Samantha"));
+        if (preferredVoice) msg.voice = preferredVoice;
+        
+        msg.rate = 0.9;
+        window.speechSynthesis.speak(msg);
+    }
+
+    // --- Tab Switching ---
+    function switchTab(id) {
+        document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        
+        const btns = document.querySelectorAll('.nav-btn');
+        btns.forEach(btn => {
+            if(btn.getAttribute('onclick').includes(id)) btn.classList.add('active');
+        });
+        window.scrollTo(0,0);
+    }
+
+    // --- Rewrite Check ---
+    function checkAnswer(id, keywords) {
+        const inputVal = document.getElementById('ans' + id).value.toLowerCase();
+        const feedback = document.getElementById('feed' + id);
+        
+        if (inputVal.length < 5) {
+            alert("Please write your answer first!");
+            return;
+        }
+
+        let isCorrect = keywords.some(word => inputVal.includes(word));
+        feedback.style.display = 'block';
+
+        if (isCorrect) {
+            feedback.style.background = '#dcfce7';
+            feedback.style.color = '#166534';
+            feedback.innerHTML = "✅ <strong>Excellent!</strong> You used the target structure.<br>" + feedback.innerHTML.split('<br>')[1] || feedback.innerHTML;
+        } else {
+            feedback.style.background = '#fff7ed';
+            feedback.style.color = '#c2410c';
+            feedback.innerHTML = "⚠️ <strong>Tip:</strong> Try to use the words suggested in the prompt.<br>" + feedback.innerHTML.split('<br>')[1] || feedback.innerHTML;
+        }
+    }
+
+    // --- Quiz Check ---
+    function checkQuiz(btn, isCorrect) {
+        if (isCorrect) {
+            btn.style.background = '#dcfce7';
+            btn.style.border = '1px solid #166534';
+            btn.innerHTML += " ✅";
+            speak("Correct");
+        } else {
+            btn.style.background = '#fee2e2';
+            btn.style.border = '1px solid #ef4444';
+            btn.innerHTML += " ❌";
+            speak("Try again");
+        }
+    }
+
+</script>
+
+</body>
+</html>
